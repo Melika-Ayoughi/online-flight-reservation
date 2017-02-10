@@ -31,7 +31,29 @@ public class Flight {
         return seatClasses;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public String getArrrivalTime() {
+        return arrrivalTime;
+    }
+
+    public String getAirplaneModel() {
+        return airplaneModel;
+    }
+
+    public String getFlightNumber() {
+
+        return flightNumber;
+    }
+
     public String getDestCode() {
+
         return destCode;
     }
 
