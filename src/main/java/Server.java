@@ -58,12 +58,14 @@ public class Server {
 
 
         outHelperServer.println("AV " + srcCode + " " + destCode + " " + date);
+
+        flightList.clear();
         getFlightList();
         getPrice();
 
+        // FlightList is ready
 
         // *************************************************************************************************************
-
 
         ArrayList<ArrayList<Boolean> > enoughSizeSeatClass = new ArrayList<ArrayList<Boolean> >();
         ArrayList<Boolean> enoughSizeFlight = new ArrayList<Boolean>();
@@ -90,9 +92,13 @@ public class Server {
             enoughSizeFlight.add(tmp);
         }
 
+        // *************************************************************************************************************
+
         Boolean firstTime = true;
 
-        for(int i=0; i<flightList.size() && enoughSizeFlight.get(i); i+=1) {
+        for(int i=0; i<flightList.size(); i+=1) {
+            if(!enoughSizeFlight.get(i))
+                continue;
             if(!firstTime) {
                 outClient.println("***");
             }
@@ -101,7 +107,9 @@ public class Server {
             outClient.println("Flight: " + flightList.get(i).getAirlineCode() + " " + flightList.get(i).getFlightNumber() + " Departure: "
                                          + flightList.get(i).getDepartureTime() + " Arrival: " + flightList.get(i).getArrrivalTime()
                                          + " Airplane: " + flightList.get(i).getAirplaneModel());
-            for (int j = 0; j < flightList.get(i).getSeatClasses().size() && enoughSizeSeatClass.get(i).get(j); j += 1) {
+            for (int j = 0; j < flightList.get(i).getSeatClasses().size(); j += 1) {
+                if(!enoughSizeSeatClass.get(i).get(j))
+                    continue;
                 int totalPrice = flightList.get(i).getSeatClasses().get(j).getAdultPrice()*Integer.parseInt(adultCount) +
                                  flightList.get(i).getSeatClasses().get(j).getChildPrice()*Integer.parseInt(childCount) +
                                  flightList.get(i).getSeatClasses().get(j).getInfantPrice()*Integer.parseInt(infantCount);
