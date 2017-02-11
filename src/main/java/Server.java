@@ -212,8 +212,74 @@ public class Server {
 
     }
 
-    private static void handleReserve(){
+    private static void handleReserve(String request) throws IOException {
+        String srcCode="";
+        String destCode="";
+        String date="";
+        String airlineCode ="";
+        String flightNumber = "";
+        String seatClassName = "";
+        String adultCount="";
+        String childCount="";
+        String infantCount="";
 
+        StringTokenizer st = new StringTokenizer(request," ");
+        Reservation reservation = new Reservation();
+
+        try {
+            // ignore reserve
+            st.nextToken();
+            srcCode = st.nextToken();
+            destCode = st.nextToken();
+            date = st.nextToken();
+            airlineCode = st.nextToken();
+            flightNumber = st.nextToken();
+            seatClassName = st.nextToken();
+            adultCount = st.nextToken();
+            childCount = st.nextToken();
+            infantCount = st.nextToken();
+            reservation = new Reservation(srcCode,destCode,date,airlineCode,flightNumber,seatClassName,adultCount,childCount,infantCount);
+        }
+        catch (Exception ex){
+            System.out.println("Reserve Command Not Correct!");
+            ex.printStackTrace();
+        }
+
+        int passengerCount = Integer.parseInt(adultCount) + Integer.parseInt(childCount) + Integer.parseInt(infantCount);
+
+        String firstName = "";
+        String surName = "";
+        String nationalId = "";
+
+        ArrayList<Passenger> passengersList = new ArrayList<Passenger>();
+
+        for(int i=0; i<passengerCount; i+=1) {
+            try {
+                String passengerReq = inClient.readLine();
+                StringTokenizer st2 = new StringTokenizer(passengerReq," ");
+                firstName = st2.nextToken();
+                surName = st2.nextToken();
+                nationalId = st2.nextToken();
+                passengersList.add(new Passenger(firstName, surName, nationalId));
+            }
+            catch (Exception ex) {
+                System.out.println("Passenger Info Not Correct!");
+                ex.printStackTrace();
+            }
+        }
+        reservation.setPassengerList(passengersList);
+
+        outHelperServer.println("RES "+reservation.toString());
+        for(int i=0; i<reservation.getPassengerList().size(); i++){
+            outHelperServer.println(reservation.getPassengerList().get(i).toString());
+        }
+
+        String response = inHelperServer.readLine();
+        StringTokenizer st3 = new StringTokenizer(response, " ");
+
+        reservation.setToken(st3.nextToken());
+        outClient.println(reservation.getToken() + " " + reservation.getTotalPrice(st3.nextToken(),st3.nextToken(),st3.nextToken()));
+        System.out.println(response);
     }
 
     private static void handleFinalize(){
@@ -231,7 +297,7 @@ public class Server {
                 handleSearch(request);
             }
             else if(request.startsWith("reserve")){
-                handleReserve();
+                handleReserve(request);
             }
             else if(request.startsWith("finalize")){
                 handleFinalize();
