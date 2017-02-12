@@ -19,6 +19,7 @@ public class Server {
     private static PrintWriter outClient;
 
     private static List<Flight> flightList = new ArrayList<Flight>();
+    private static List<Reservation>  reservationList = new ArrayList<Reservation>();
 
     private static void connectToHelperServer(String HelperIP, int HelperPort) throws IOException {
         helperServerSocket = new Socket(HelperIP, HelperPort);
@@ -57,10 +58,12 @@ public class Server {
         }
 
 
+        System.out.println("AV " + srcCode + " " + destCode + " " + date);
         outHelperServer.println("AV " + srcCode + " " + destCode + " " + date);
 
-        flightList.clear();
-        getFlightList();
+
+        ArrayList<Flight> resultFlight = getFlightList();
+
         getPrice();
 
         // FlightList is ready
@@ -71,11 +74,11 @@ public class Server {
         ArrayList<Boolean> enoughSizeFlight = new ArrayList<Boolean>();
         int sumCount = Integer.parseInt(adultCount)+Integer.parseInt(childCount)+Integer.parseInt(infantCount);
 
-        for(int i=0; i<flightList.size(); i+=1) {
+        for(int i=0; i<resultFlight.size(); i+=1) {
             ArrayList<Boolean> line = new ArrayList<Boolean>();
             Boolean tmp = false;
-            for(int j=0; j<flightList.get(i).getSeatClasses().size(); j+=1) {
-                char sizeLeft = flightList.get(i).getSeatClasses().get(j).getLeftNumber();
+            for(int j=0; j<resultFlight.get(i).getSeatClasses().size(); j+=1) {
+                char sizeLeft = resultFlight.get(i).getSeatClasses().get(j).getLeftNumber();
                 if(sumCount > 9 || sizeLeft=='C')
                     line.add(false);
                 else if(sizeLeft=='A') {
@@ -96,7 +99,7 @@ public class Server {
 
         Boolean firstTime = true;
 
-        for(int i=0; i<flightList.size(); i+=1) {
+        for(int i=0; i<resultFlight.size(); i+=1) {
             if(!enoughSizeFlight.get(i))
                 continue;
             if(!firstTime) {
@@ -104,16 +107,17 @@ public class Server {
             }
 
             firstTime = false;
-            outClient.println("Flight: " + flightList.get(i).getAirlineCode() + " " + flightList.get(i).getFlightNumber() + " Departure: "
-                                         + flightList.get(i).getDepartureTime() + " Arrival: " + flightList.get(i).getArrrivalTime()
-                                         + " Airplane: " + flightList.get(i).getAirplaneModel());
-            for (int j = 0; j < flightList.get(i).getSeatClasses().size(); j += 1) {
+            outClient.println("Flight: " + resultFlight.get(i).getAirlineCode() + " " + resultFlight.get(i).getFlightNumber() + " Departure: "
+                                         + resultFlight.get(i).getDepartureTime().substring(0,2) + ":" + resultFlight.get(i).getDepartureTime().substring(2,4)
+                                         + " Arrival: " + resultFlight.get(i).getArrrivalTime().substring(0,2) + ":" + resultFlight.get(i).getArrrivalTime().substring(2,4)
+                                         + " Airplane: " + resultFlight.get(i).getAirplaneModel());
+            for (int j = 0; j < resultFlight.get(i).getSeatClasses().size(); j += 1) {
                 if(!enoughSizeSeatClass.get(i).get(j))
                     continue;
-                int totalPrice = flightList.get(i).getSeatClasses().get(j).getAdultPrice()*Integer.parseInt(adultCount) +
-                                 flightList.get(i).getSeatClasses().get(j).getChildPrice()*Integer.parseInt(childCount) +
-                                 flightList.get(i).getSeatClasses().get(j).getInfantPrice()*Integer.parseInt(infantCount);
-                outClient.println("Class: " + flightList.get(i).getSeatClasses().get(j).getName() + " Price: " + totalPrice);
+                int totalPrice = resultFlight.get(i).getSeatClasses().get(j).getAdultPrice()*Integer.parseInt(adultCount) +
+                                 resultFlight.get(i).getSeatClasses().get(j).getChildPrice()*Integer.parseInt(childCount) +
+                                 resultFlight.get(i).getSeatClasses().get(j).getInfantPrice()*Integer.parseInt(infantCount);
+                outClient.println("Class: " + resultFlight.get(i).getSeatClasses().get(j).getName() + " Price: " + totalPrice);
             }
         }
 
@@ -121,11 +125,17 @@ public class Server {
 
     }
 
-    private static void getFlightList() throws IOException {
+    private static ArrayList<Flight> getFlightList() throws IOException {
+
+        ArrayList<Flight> resultFlights = new ArrayList<Flight>();
         ArrayList<String> response = new ArrayList<String>();
 
-        while(true){
+        while(true) {
             response.add(inHelperServer.readLine());
+            if(!inHelperServer.ready()) {
+                response.clear();
+                break;
+            }
             response.add(inHelperServer.readLine());
             if(!inHelperServer.ready())
                 break;
@@ -184,8 +194,17 @@ public class Server {
                 }
             }
 
+            for (Flight flight : flightList) {
+                if(flight.getFlightNumber().equals(flightNo) && flight.getSrcCode().equals(srcCode) &&
+                   flight.getDestCode().equals(destCode) && flight.getDate().equals(date))
+                    flightList.remove(flight);
+            }
+
             flightList.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, seatClasses));
+            resultFlights.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, seatClasses));
         }
+
+        return resultFlights;
     }
 
     private static void getPrice() throws IOException {
@@ -193,6 +212,7 @@ public class Server {
 
         for(int i=0; i<flightList.size(); i++){
             for(int j=0; j<flightList.get(i).getSeatClasses().size(); j++){
+
                 System.out.println("PRICE "+ flightList.get(i).getSrcCode() + " "
                         + flightList.get(i).getDestCode() + " " + flightList.get(i).getAirlineCode() + " "
                         + flightList.get(i).getSeatClasses().get(j).getName());
@@ -269,20 +289,85 @@ public class Server {
         }
         reservation.setPassengerList(passengersList);
 
+        System.out.println("RES "+reservation.toString());
         outHelperServer.println("RES "+reservation.toString());
         for(int i=0; i<reservation.getPassengerList().size(); i++){
+            System.out.println(reservation.getPassengerList().get(i).toString());
             outHelperServer.println(reservation.getPassengerList().get(i).toString());
         }
 
-        String response = inHelperServer.readLine();
-        StringTokenizer st3 = new StringTokenizer(response, " ");
+        try {
+            String response = inHelperServer.readLine();
+            while(response == null)
+                response = inHelperServer.readLine();
 
-        reservation.setToken(st3.nextToken());
-        outClient.println(reservation.getToken() + " " + reservation.getTotalPrice(st3.nextToken(),st3.nextToken(),st3.nextToken()));
-        System.out.println(response);
+//            System.out.println("response: "+response);
+            StringTokenizer st3 = new StringTokenizer(response, " ");
+
+            reservation.setToken(st3.nextToken());
+            outClient.println(reservation.getToken() + " " + reservation.getTotalPrice(st3.nextToken(),st3.nextToken(),st3.nextToken()));
+            reservationList.add(reservation);
+//            System.out.println(response);
+        }
+        catch (Exception ex){
+            System.out.println("error in string tokenizer");
+            ex.printStackTrace();
+        }
+
     }
 
-    private static void handleFinalize(){
+    private static void handleFinalize(String request) throws IOException {
+        StringTokenizer st = new StringTokenizer(request, " ");
+
+        //ignore fanalize
+        st.nextToken();
+        String token = st.nextToken();
+
+        Reservation reservation = new Reservation();
+
+        // find the corresponding reservation for this token
+        for (Reservation res : reservationList) {
+            if (res.getToken().equals(token)) {
+                reservation = res;
+                break;
+            }
+        }
+
+        outHelperServer.println("FIN " + token);
+        String referenceCode = inHelperServer.readLine();
+        reservation.setReferenceCode(referenceCode);
+        ArrayList<String> ticketNumbersList = new ArrayList<String>();
+
+        for(int i=0; i< reservation.getPassengerList().size(); i++){
+            ticketNumbersList.add(inHelperServer.readLine());
+        }
+
+        reservation.setTicketNumbersList(ticketNumbersList);
+
+
+        outHelperServer.println("AV " + reservation.getSrcCode() + " " + reservation.getDestCode() + " " + reservation.getDate());
+        ArrayList<Flight> resultFlight = getFlightList();
+
+        String depTime ="";
+        String arrTime ="";
+        String airplaneModel ="";
+
+        for (Flight flight : resultFlight) {
+            if(flight.getFlightNumber().equals(reservation.getFlightNumber()) && flight.getSrcCode().equals(reservation.getSrcCode()) &&
+                    flight.getDestCode().equals(reservation.getDestCode()) && flight.getDate().equals(reservation.getDate())){
+                depTime = flight.getDepartureTime();
+                arrTime = flight.getArrrivalTime();
+                airplaneModel = flight.getAirplaneModel();
+                break;
+            }
+
+        }
+
+
+        ArrayList<String> tickets = reservation.getTickets();
+        for(int i=0; i< reservation.getPassengerList().size(); i++){
+            outClient.println(tickets.get(i) + " " + depTime + " " + arrTime + " " + airplaneModel);
+        }
 
     }
 
@@ -300,7 +385,7 @@ public class Server {
                 handleReserve(request);
             }
             else if(request.startsWith("finalize")){
-                handleFinalize();
+                handleFinalize(request);
             }
             else if(request.startsWith("quit")) {
                 break;

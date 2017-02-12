@@ -5,6 +5,7 @@ import java.util.List;
  * Created by Ali_Iman on 2/11/17.
  */
 public class Reservation {
+
     private String srcCode;
     private String destCode;
     private String date;
@@ -18,6 +19,16 @@ public class Reservation {
     private List<Passenger> passengerList = new ArrayList<Passenger>();
 
     private String token;
+    private String referenceCode;
+    private List<String> ticketNumbersList = new ArrayList<String>();
+
+    public void setReferenceCode(String referenceCode) {
+        this.referenceCode = referenceCode;
+    }
+
+    public void setTicketNumbersList(List<String> ticketNumbersList) {
+        this.ticketNumbersList = ticketNumbersList;
+    }
 
     public Reservation() {
 
@@ -37,8 +48,35 @@ public class Reservation {
                 + childCount + " " + infantCount;
     }
 
+    public ArrayList<String> getTickets(){
+        ArrayList<String> tickets = new ArrayList<String>();
+        for(int i=0; i<ticketNumbersList.size(); i++){
+            tickets.add(passengerList.get(i).getFirstname() + " " + passengerList.get(i).getSurname() + " "
+            + referenceCode + " " + ticketNumbersList.get(i) + " " + srcCode + " "
+            + destCode + " " + airlineCode + " " + flightNumber + " " + seatClassName + " " );
+        }
+        return tickets;
+    }
+
     public String getToken() {
         return token;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getSrcCode() {
+
+        return srcCode;
+    }
+
+    public String getDestCode() {
+        return destCode;
+    }
+
+    public String getFlightNumber() {
+        return flightNumber;
     }
 
     public int getTotalPrice(String adultPrice, String childPrice, String infantPrice){
