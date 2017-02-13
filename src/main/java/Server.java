@@ -12,7 +12,9 @@ import java.util.StringTokenizer;
 
 public class Server {
 
-    private static Socket helperServerSocket;
+    // ******************************************************************************************************
+    //  public because of "Test"
+    public static Socket helperServerSocket;
     private static BufferedReader inHelperServer;
     private static PrintWriter outHelperServer;
 
@@ -24,12 +26,23 @@ public class Server {
     private static List<Flight> flightList = new ArrayList<Flight>();
     private static List<Reservation>  reservationList = new ArrayList<Reservation>();
 
+    // ******************************************************************************************************
+    //  created because of "Test"
+    public static ArrayList<Integer> testPrices = new ArrayList<Integer>();
 
 
-    private static void connectToHelperServer(String HelperIP, int HelperPort) throws IOException {
+    // ******************************************************************************************************
+    //  public because of "Test"
+    public static void connectToHelperServer(String HelperIP, int HelperPort) throws IOException {
         helperServerSocket = new Socket(HelperIP, HelperPort);
         inHelperServer = new BufferedReader(new InputStreamReader(helperServerSocket.getInputStream()));
         outHelperServer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(helperServerSocket.getOutputStream())), true);
+    }
+
+    // ******************************************************************************************************
+    //  public because of "Test"
+    public static void setOutClient(PrintWriter outClientParameter){
+        outClient = outClientParameter;
     }
 
 
@@ -41,9 +54,9 @@ public class Server {
         outClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
     }
 
-
-
-    private static void handleSearch(String request) throws IOException {
+    // ******************************************************************************************************
+    //  public because of "Test"
+    public static void handleSearch(String request) throws IOException {
 
         List<String> requestFields = Arrays.asList(request.split("\\s* \\s*"));
 
@@ -94,6 +107,7 @@ public class Server {
         // *************************************************************************************************************
 
         Boolean firstTime = true;
+        testPrices.clear();
 
         for(int i=0; i<resultFlights.size(); i+=1) {
             if(!enoughSizeFlight.get(i))
@@ -114,6 +128,7 @@ public class Server {
                                  resultFlights.get(i).getSeatClasses().get(j).getChildPrice()*Integer.parseInt(childCount) +
                                  resultFlights.get(i).getSeatClasses().get(j).getInfantPrice()*Integer.parseInt(infantCount);
                 outClient.println("Class: " + resultFlights.get(i).getSeatClasses().get(j).getName() + " Price: " + totalPrice);
+                testPrices.add(totalPrice);
             }
         }
 
@@ -415,8 +430,8 @@ public class Server {
 
     public static void main(String[] args) throws IOException {
 
-        connectToHelperServer("188.166.78.119", 8081);
-        listenToClient(9090);
+        connectToHelperServer(args[1], Integer.parseInt(args[2]));
+        listenToClient(Integer.parseInt(args[0]));
 
         while (true) {
 
