@@ -53,7 +53,7 @@ public class Reservation {
         for(int i=0; i<ticketNumbersList.size(); i++){
             tickets.add(passengerList.get(i).getFirstname() + " " + passengerList.get(i).getSurname() + " "
             + referenceCode + " " + ticketNumbersList.get(i) + " " + srcCode + " "
-            + destCode + " " + airlineCode + " " + flightNumber + " " + seatClassName + " " );
+            + destCode + " " + airlineCode + " " + flightNumber + " " + seatClassName);
         }
         return tickets;
     }

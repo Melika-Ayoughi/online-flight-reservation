@@ -10,7 +10,7 @@ public class Flight {
     private String srcCode;
     private String destCode;
     private String departureTime;
-    private String arrrivalTime;
+    private String arrivalTime;
     private String airplaneModel;
 
     private ArrayList<SeatClass> seatClasses;
@@ -22,7 +22,7 @@ public class Flight {
         this.srcCode = srcCode;
         this.destCode = destCode;
         this.departureTime = departureTime;
-        this.arrrivalTime = arrrivalTime;
+        this.arrivalTime = arrrivalTime;
         this.airplaneModel = airplaneModel;
         this.seatClasses = seatClasses;
     }
@@ -39,8 +39,8 @@ public class Flight {
         return departureTime;
     }
 
-    public String getArrrivalTime() {
-        return arrrivalTime;
+    public String getArrivalTime() {
+        return arrivalTime;
     }
 
     public String getAirplaneModel() {

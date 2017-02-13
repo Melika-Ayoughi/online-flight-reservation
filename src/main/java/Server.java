@@ -2,17 +2,20 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 
 /**
  * Created by Ali_Iman on 2/10/17.
  */
+
 public class Server {
 
     private static Socket helperServerSocket;
     private static BufferedReader inHelperServer;
     private static PrintWriter outHelperServer;
+
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static BufferedReader inClient;
@@ -21,11 +24,15 @@ public class Server {
     private static List<Flight> flightList = new ArrayList<Flight>();
     private static List<Reservation>  reservationList = new ArrayList<Reservation>();
 
+
+
     private static void connectToHelperServer(String HelperIP, int HelperPort) throws IOException {
         helperServerSocket = new Socket(HelperIP, HelperPort);
         inHelperServer = new BufferedReader(new InputStreamReader(helperServerSocket.getInputStream()));
         outHelperServer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(helperServerSocket.getOutputStream())), true);
     }
+
+
 
     private static void listenToClient(int Port) throws IOException {
         serverSocket = new ServerSocket(Port);
@@ -34,39 +41,28 @@ public class Server {
         outClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
     }
 
+
+
     private static void handleSearch(String request) throws IOException {
-        String srcCode="";
-        String destCode="";
-        String date="";
-        String adultCount="";
-        String childCount="";
-        String infantCount="";
 
-        StringTokenizer st = new StringTokenizer(request," ");
-        try {
-            st.nextToken();
-            srcCode = st.nextToken();
-            destCode = st.nextToken();
-            date = st.nextToken();
-            adultCount = st.nextToken();
-            childCount = st.nextToken();
-            infantCount = st.nextToken();
-        }
-        catch (Exception ex){
-            System.out.println("Search Command Not Correct!");
-            ex.printStackTrace();
+        List<String> requestFields = Arrays.asList(request.split("\\s* \\s*"));
+
+        if(requestFields.size() != 7) {
+            outClient.println("inclient - format error - search format is wrong.");
+            return;
         }
 
+        String srcCode=requestFields.get(1);
+        String destCode=requestFields.get(2);
+        String date=requestFields.get(3);
+        String adultCount=requestFields.get(4);
+        String childCount=requestFields.get(5);
+        String infantCount=requestFields.get(6);
 
-        System.out.println("AV " + srcCode + " " + destCode + " " + date);
-        outHelperServer.println("AV " + srcCode + " " + destCode + " " + date);
+        String avRequest = "AV " + srcCode + " " + destCode + " " + date;
 
-
-        ArrayList<Flight> resultFlight = getFlightList();
-
-        getPrice();
-
-        // FlightList is ready
+        ArrayList<Flight> resultFlights = getFlightList(avRequest);
+        getPrice(resultFlights);
 
         // *************************************************************************************************************
 
@@ -74,12 +70,12 @@ public class Server {
         ArrayList<Boolean> enoughSizeFlight = new ArrayList<Boolean>();
         int sumCount = Integer.parseInt(adultCount)+Integer.parseInt(childCount)+Integer.parseInt(infantCount);
 
-        for(int i=0; i<resultFlight.size(); i+=1) {
+        for(int i=0; i<resultFlights.size(); i+=1) {
             ArrayList<Boolean> line = new ArrayList<Boolean>();
             Boolean tmp = false;
-            for(int j=0; j<resultFlight.get(i).getSeatClasses().size(); j+=1) {
-                char sizeLeft = resultFlight.get(i).getSeatClasses().get(j).getLeftNumber();
-                if(sumCount > 9 || sizeLeft=='C')
+            for(int j=0; j<resultFlights.get(i).getSeatClasses().size(); j+=1) {
+                char sizeLeft = resultFlights.get(i).getSeatClasses().get(j).getLeftNumber();
+                if(sumCount > 9 || (sizeLeft=='C' && sumCount!=0))
                     line.add(false);
                 else if(sizeLeft=='A') {
                     line.add(true);
@@ -99,7 +95,7 @@ public class Server {
 
         Boolean firstTime = true;
 
-        for(int i=0; i<resultFlight.size(); i+=1) {
+        for(int i=0; i<resultFlights.size(); i+=1) {
             if(!enoughSizeFlight.get(i))
                 continue;
             if(!firstTime) {
@@ -107,91 +103,96 @@ public class Server {
             }
 
             firstTime = false;
-            outClient.println("Flight: " + resultFlight.get(i).getAirlineCode() + " " + resultFlight.get(i).getFlightNumber() + " Departure: "
-                                         + resultFlight.get(i).getDepartureTime().substring(0,2) + ":" + resultFlight.get(i).getDepartureTime().substring(2,4)
-                                         + " Arrival: " + resultFlight.get(i).getArrrivalTime().substring(0,2) + ":" + resultFlight.get(i).getArrrivalTime().substring(2,4)
-                                         + " Airplane: " + resultFlight.get(i).getAirplaneModel());
-            for (int j = 0; j < resultFlight.get(i).getSeatClasses().size(); j += 1) {
+            outClient.println("Flight: " + resultFlights.get(i).getAirlineCode() + " " + resultFlights.get(i).getFlightNumber() + " Departure: "
+                                         + resultFlights.get(i).getDepartureTime().substring(0,2) + ":" + resultFlights.get(i).getDepartureTime().substring(2,4)
+                                         + " Arrival: " + resultFlights.get(i).getArrivalTime().substring(0,2) + ":" + resultFlights.get(i).getArrivalTime().substring(2,4)
+                                         + " Airplane: " + resultFlights.get(i).getAirplaneModel());
+            for (int j = 0; j < resultFlights.get(i).getSeatClasses().size(); j += 1) {
                 if(!enoughSizeSeatClass.get(i).get(j))
                     continue;
-                int totalPrice = resultFlight.get(i).getSeatClasses().get(j).getAdultPrice()*Integer.parseInt(adultCount) +
-                                 resultFlight.get(i).getSeatClasses().get(j).getChildPrice()*Integer.parseInt(childCount) +
-                                 resultFlight.get(i).getSeatClasses().get(j).getInfantPrice()*Integer.parseInt(infantCount);
-                outClient.println("Class: " + resultFlight.get(i).getSeatClasses().get(j).getName() + " Price: " + totalPrice);
+                int totalPrice = resultFlights.get(i).getSeatClasses().get(j).getAdultPrice()*Integer.parseInt(adultCount) +
+                                 resultFlights.get(i).getSeatClasses().get(j).getChildPrice()*Integer.parseInt(childCount) +
+                                 resultFlights.get(i).getSeatClasses().get(j).getInfantPrice()*Integer.parseInt(infantCount);
+                outClient.println("Class: " + resultFlights.get(i).getSeatClasses().get(j).getName() + " Price: " + totalPrice);
             }
         }
+
+        if(firstTime)
+            outClient.println("");
 
         // *************************************************************************************************************
 
     }
 
-    private static ArrayList<Flight> getFlightList() throws IOException {
+
+
+    private static ArrayList<Flight> getFlightList(String avRequest) throws IOException {
 
         ArrayList<Flight> resultFlights = new ArrayList<Flight>();
         ArrayList<String> response = new ArrayList<String>();
 
-        while(true) {
-            response.add(inHelperServer.readLine());
-            if(!inHelperServer.ready()) {
-                response.clear();
-                break;
+        outHelperServer.println(avRequest);
+
+        try {
+            while (true) {
+                response.add(inHelperServer.readLine());
+                if (!inHelperServer.ready()) {
+                    response.clear();
+                    break;
+                }
+                response.add(inHelperServer.readLine());
+                if (!inHelperServer.ready())
+                    break;
             }
-            response.add(inHelperServer.readLine());
-            if(!inHelperServer.ready())
-                break;
+        }
+        catch (Exception ex) {
+            outClient.println("inHelperServer - socket - Error in reading AV response!");
         }
 
-        String firstLine = "";
-        String secondLine = "";
-        String airlineCode ="";
-        String flightNo ="";
-        String date = "";
-        String srcCode = "";
-        String destCode ="";
-        String depTime ="";
-        String arrTime = "";
-        String planeModel ="";
+        String firstLine;
+        String secondLine;
+
+        String airlineCode;
+        String flightNo;
+        String date;
+        String srcCode;
+        String destCode;
+        String depTime;
+        String arrTime;
+        String planeModel;
 
 
         for(int i=0; i<response.size(); i+=2){
+
             firstLine = response.get(i);
             secondLine = response.get(i+1);
+            List<String> firstLineFields = Arrays.asList(firstLine.split("\\s* \\s*"));
 
-            StringTokenizer st2 = new StringTokenizer(firstLine," ");
-
-            try {
-                airlineCode = st2.nextToken();
-                flightNo = st2.nextToken();
-                date = st2.nextToken();
-                srcCode = st2.nextToken();
-                destCode = st2.nextToken();
-                depTime = st2.nextToken();
-                arrTime = st2.nextToken();
-                planeModel = st2.nextToken();
-            }
-            catch (Exception ex){
-                System.out.println("Flight List Response Not Correct From Helper Server!");
-                ex.printStackTrace();
+            if(firstLineFields.size() != 8) {
+                System.out.println("inHelperServer - format error - AV response from helper server format is wrong - flight!!!");
+                outClient.println("inHelperServer - format error - AV response from helper server format is wrong - flight!!!");
             }
 
-
+            airlineCode = firstLineFields.get(0);
+            flightNo = firstLineFields.get(1);
+            date = firstLineFields.get(2);
+            srcCode = firstLineFields.get(3);
+            destCode = firstLineFields.get(4);
+            depTime = firstLineFields.get(5);
+            arrTime = firstLineFields.get(6);
+            planeModel = firstLineFields.get(7);
 
             ArrayList<SeatClass> seatClasses = new ArrayList<SeatClass>();
             char SeatClassName, SeatClassLeftNumber;
 
-            StringTokenizer st3 = new StringTokenizer(secondLine," ");
+            List<String> secondLineFields = Arrays.asList(secondLine.split("\\s* \\s*"));
             char[] chars;
 
-            while(st3.hasMoreTokens()) {
-                try {
-                    chars = st3.nextToken().toCharArray();
-                    SeatClassName = chars[0];
-                    SeatClassLeftNumber = chars[1];
-                    seatClasses.add(new SeatClass(SeatClassName, SeatClassLeftNumber));
-                } catch (Exception ex) {
-                    System.out.println("Flight List Response Not Correct From Helper Server!");
-                    ex.printStackTrace();
-                }
+            for(int j=0; j<secondLineFields.size(); j++) {
+                chars = secondLineFields.get(j).toCharArray();
+                SeatClassName = chars[0];
+                SeatClassLeftNumber = chars[1];
+                seatClasses.add(new SeatClass(SeatClassName, SeatClassLeftNumber));
             }
 
             for (Flight flight : flightList) {
@@ -200,128 +201,158 @@ public class Server {
                     flightList.remove(flight);
             }
 
-            flightList.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, seatClasses));
-            resultFlights.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, seatClasses));
+            Flight flight = new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, seatClasses);
+            flightList.add(flight);
+            resultFlights.add(flight);
         }
 
         return resultFlights;
     }
 
-    private static void getPrice() throws IOException {
-        String prices ="";
+    private static void getPrice(ArrayList<Flight> resultFlights) throws IOException {
+        String prices;
 
-        for(int i=0; i<flightList.size(); i++){
-            for(int j=0; j<flightList.get(i).getSeatClasses().size(); j++){
+        for(int i=0; i<resultFlights.size(); i++)  {
+            for(int j=0; j<resultFlights.get(i).getSeatClasses().size(); j++){
 
-                System.out.println("PRICE "+ flightList.get(i).getSrcCode() + " "
-                        + flightList.get(i).getDestCode() + " " + flightList.get(i).getAirlineCode() + " "
-                        + flightList.get(i).getSeatClasses().get(j).getName());
+                System.out.println("PRICE "+ resultFlights.get(i).getSrcCode() + " "
+                        + resultFlights.get(i).getDestCode() + " " + resultFlights.get(i).getAirlineCode() + " "
+                        + resultFlights.get(i).getSeatClasses().get(j).getName());
 
-                outHelperServer.println("PRICE "+ flightList.get(i).getSrcCode() + " "
-                        + flightList.get(i).getDestCode() + " " + flightList.get(i).getAirlineCode() + " "
-                        + flightList.get(i).getSeatClasses().get(j).getName());
+                outHelperServer.println("PRICE "+ resultFlights.get(i).getSrcCode() + " "
+                        + resultFlights.get(i).getDestCode() + " " + resultFlights.get(i).getAirlineCode() + " "
+                        + resultFlights.get(i).getSeatClasses().get(j).getName());
 
-                prices = inHelperServer.readLine();
-                StringTokenizer st = new StringTokenizer(prices," ");
-                flightList.get(i).getSeatClasses().get(j).setAdultPrice(Integer.parseInt(st.nextToken()));
-                flightList.get(i).getSeatClasses().get(j).setChildPrice(Integer.parseInt(st.nextToken()));
-                flightList.get(i).getSeatClasses().get(j).setInfantPrice(Integer.parseInt(st.nextToken()));
+                try {
+                    prices = inHelperServer.readLine();
+
+                    List<String> pricesFields = Arrays.asList(prices.split("\\s* \\s*"));
+
+                    if(pricesFields.size() != 3) {
+                        System.out.println("inHelperServer - format error - PRICE response from helper server format is wrong!!!");
+                        outClient.println("inHelperServer - format error - PRICE response from helper server format is wrong!!!");
+                    }
+
+                    resultFlights.get(i).getSeatClasses().get(j).setAdultPrice(Integer.parseInt(pricesFields.get(0)));
+                    resultFlights.get(i).getSeatClasses().get(j).setChildPrice(Integer.parseInt(pricesFields.get(1)));
+                    resultFlights.get(i).getSeatClasses().get(j).setInfantPrice(Integer.parseInt(pricesFields.get(2)));
+                }
+                catch (Exception ex) {
+                    System.out.println("inHelperServer - socket - Error in reading Price response!");
+                    outClient.println("inHelperServer - socket - Error in reading Price response!");
+                    ex.printStackTrace();
+                }
             }
         }
-
 
     }
 
     private static void handleReserve(String request) throws IOException {
-        String srcCode="";
-        String destCode="";
-        String date="";
-        String airlineCode ="";
-        String flightNumber = "";
-        String seatClassName = "";
-        String adultCount="";
-        String childCount="";
-        String infantCount="";
 
-        StringTokenizer st = new StringTokenizer(request," ");
-        Reservation reservation = new Reservation();
+        String srcCode;
+        String destCode;
+        String date;
+        String airlineCode;
+        String flightNumber;
+        String seatClassName;
+        String adultCount;
+        String childCount;
+        String infantCount;
 
-        try {
-            // ignore reserve
-            st.nextToken();
-            srcCode = st.nextToken();
-            destCode = st.nextToken();
-            date = st.nextToken();
-            airlineCode = st.nextToken();
-            flightNumber = st.nextToken();
-            seatClassName = st.nextToken();
-            adultCount = st.nextToken();
-            childCount = st.nextToken();
-            infantCount = st.nextToken();
-            reservation = new Reservation(srcCode,destCode,date,airlineCode,flightNumber,seatClassName,adultCount,childCount,infantCount);
+        List<String> requestFields = Arrays.asList(request.split("\\s* \\s*"));
+
+        if(requestFields.size() != 10) {
+            outClient.println("inclient - format error - reserve format is wrong.");
+            return;
         }
-        catch (Exception ex){
-            System.out.println("Reserve Command Not Correct!");
-            ex.printStackTrace();
-        }
+
+        srcCode = requestFields.get(1);
+        destCode = requestFields.get(2);
+        date = requestFields.get(3);
+        airlineCode = requestFields.get(4);
+        flightNumber = requestFields.get(5);
+        seatClassName = requestFields.get(6);
+        adultCount = requestFields.get(7);
+        childCount = requestFields.get(8);
+        infantCount = requestFields.get(9);
+
+        Reservation reservation = new Reservation(srcCode,destCode,date,airlineCode,flightNumber,seatClassName,adultCount,childCount,infantCount);
 
         int passengerCount = Integer.parseInt(adultCount) + Integer.parseInt(childCount) + Integer.parseInt(infantCount);
 
-        String firstName = "";
-        String surName = "";
-        String nationalId = "";
+        String firstName;
+        String surName;
+        String nationalId;
 
         ArrayList<Passenger> passengersList = new ArrayList<Passenger>();
 
         for(int i=0; i<passengerCount; i+=1) {
             try {
                 String passengerReq = inClient.readLine();
-                StringTokenizer st2 = new StringTokenizer(passengerReq," ");
-                firstName = st2.nextToken();
-                surName = st2.nextToken();
-                nationalId = st2.nextToken();
+                List<String> passengerFields = Arrays.asList(passengerReq.split("\\s* \\s*"));
+
+                if(passengerFields.size() != 3) {
+                    outClient.println("inclient - format error - passenger format in reserve request is wrong.");
+                    return;
+                }
+                firstName = passengerFields.get(0);
+                surName = passengerFields.get(1);
+                nationalId = passengerFields.get(2);
                 passengersList.add(new Passenger(firstName, surName, nationalId));
             }
             catch (Exception ex) {
-                System.out.println("Passenger Info Not Correct!");
+                System.out.println("inClinet - socket - error reading passenger info from inClient");
                 ex.printStackTrace();
             }
         }
+
         reservation.setPassengerList(passengersList);
 
         System.out.println("RES "+reservation.toString());
         outHelperServer.println("RES "+reservation.toString());
+
         for(int i=0; i<reservation.getPassengerList().size(); i++){
             System.out.println(reservation.getPassengerList().get(i).toString());
             outHelperServer.println(reservation.getPassengerList().get(i).toString());
         }
 
         try {
-            String response = inHelperServer.readLine();
-            while(response == null)
-                response = inHelperServer.readLine();
+            String RESResponse = inHelperServer.readLine();
+            if(RESResponse==null) {
+                outClient.println("inHelperServer - probably connection lost  - RES Response is null!");
+                return;
+            }
 
-//            System.out.println("response: "+response);
-            StringTokenizer st3 = new StringTokenizer(response, " ");
+            List<String> RESResponseFields = Arrays.asList(RESResponse.split("\\s* \\s*"));
 
-            reservation.setToken(st3.nextToken());
-            outClient.println(reservation.getToken() + " " + reservation.getTotalPrice(st3.nextToken(),st3.nextToken(),st3.nextToken()));
+            if(RESResponseFields.size() != 4) {
+                outClient.println("inHelperServer - format error - RES result format is wrong!!!");
+                return;
+            }
+
+            reservation.setToken(RESResponseFields.get(0));
+            int totalPrice = reservation.getTotalPrice(RESResponseFields.get(1),RESResponseFields.get(2),RESResponseFields.get(3));
+
+            outClient.println(reservation.getToken() + " " + totalPrice);
             reservationList.add(reservation);
-//            System.out.println(response);
         }
+
         catch (Exception ex){
-            System.out.println("error in string tokenizer");
+            System.out.println("inHelperServer - socket - error in reading RES response from server");
             ex.printStackTrace();
         }
 
     }
 
     private static void handleFinalize(String request) throws IOException {
-        StringTokenizer st = new StringTokenizer(request, " ");
 
-        //ignore fanalize
-        st.nextToken();
-        String token = st.nextToken();
+        List<String> finalizeFields = Arrays.asList(request.split("\\s* \\s*"));
+
+        if(finalizeFields.size() != 2) {
+            outClient.println("inclient - format error - finalize format is wrong.");
+            return;
+        }
+        String token = finalizeFields.get(1);
 
         Reservation reservation = new Reservation();
 
@@ -333,8 +364,21 @@ public class Server {
             }
         }
 
+        if(reservation.getToken() == null) {
+            outClient.println("inclient - logic error - there is no corresponding reservation with this Token");
+            return;
+        }
+
         outHelperServer.println("FIN " + token);
-        String referenceCode = inHelperServer.readLine();
+        String referenceCode = "";
+
+        try{
+            referenceCode = inHelperServer.readLine();
+        }
+        catch (Exception ex) {
+            outClient.println("inHelperServer - socket - error reading reference code from helper server");
+        }
+
         reservation.setReferenceCode(referenceCode);
         ArrayList<String> ticketNumbersList = new ArrayList<String>();
 
@@ -344,9 +388,8 @@ public class Server {
 
         reservation.setTicketNumbersList(ticketNumbersList);
 
-
-        outHelperServer.println("AV " + reservation.getSrcCode() + " " + reservation.getDestCode() + " " + reservation.getDate());
-        ArrayList<Flight> resultFlight = getFlightList();
+        String avRequest = "AV " + reservation.getSrcCode() + " " + reservation.getDestCode() + " " + reservation.getDate();
+        ArrayList<Flight> resultFlight = getFlightList(avRequest);
 
         String depTime ="";
         String arrTime ="";
@@ -356,15 +399,14 @@ public class Server {
             if(flight.getFlightNumber().equals(reservation.getFlightNumber()) && flight.getSrcCode().equals(reservation.getSrcCode()) &&
                     flight.getDestCode().equals(reservation.getDestCode()) && flight.getDate().equals(reservation.getDate())){
                 depTime = flight.getDepartureTime();
-                arrTime = flight.getArrrivalTime();
+                arrTime = flight.getArrivalTime();
                 airplaneModel = flight.getAirplaneModel();
                 break;
             }
 
         }
-
-
         ArrayList<String> tickets = reservation.getTickets();
+
         for(int i=0; i< reservation.getPassengerList().size(); i++){
             outClient.println(tickets.get(i) + " " + depTime + " " + arrTime + " " + airplaneModel);
         }
@@ -377,7 +419,16 @@ public class Server {
         listenToClient(9090);
 
         while (true) {
-            String request = inClient.readLine();
+
+            String request = "";
+
+            try {
+                request = inClient.readLine();
+            }
+            catch (Exception ex) {
+                outClient.println("inClient - socket - error reading request from inClient");
+            }
+
             if(request.startsWith("search")){
                 handleSearch(request);
             }
@@ -395,7 +446,7 @@ public class Server {
             }
         }
 
-        helperServerSocket.close();
         clientSocket.close();
+        helperServerSocket.close();
     }
 }
