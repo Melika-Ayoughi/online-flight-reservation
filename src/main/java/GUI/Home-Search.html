@@ -4,20 +4,26 @@
         <meta charset="utf-8">
         <title>جستجوی بلیت</title>
         <link rel="stylesheet" type="text/css" href="Home-Search.css">
+        <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <meta name="description" content="ticket booking">
         <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
         <meta name="author" content="Melika Ayoughi, Ali Iman">
     </head>
     <body>
-        <div class="pair-buttons" id="one-or-two-way">
-            <button class="clicked-buttons" id="one-way">رفت</button>
-            <button class="clicked-buttons" id="two-way">رفت و برگشت</button>
+        <div class="heading">
+            <div class="brand-logo">
+                <img src="Images/LogoWhite.png">اکبر تیکت &reg
+            </div>
+            <div class="username">
+                <i class="fa fa-user fa-fw"></i> نام کاربر
+            </div>
+            <br>
+            <hr>
         </div>
-        <div>
-            <label class="switch">
-                <input type="checkbox">
-                <div class="slider"></div>
-            </label>
+        <br>
+        <div class="pair-buttons" id="one-or-two-way">
+            <button class="clicked-buttons" id="one-way">یک طرفه</button>
+            <button class="clicked-buttons" id="two-way">رفت و برگشت</button>
         </div>
         <div class="salams">
             <form action="/action_page.php" method="post">
@@ -36,7 +42,6 @@
                 <input type="submit" value="جستجو">
             </form>
         </div>
-        <!-- &reg -->
         <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
     </body>
 </html>

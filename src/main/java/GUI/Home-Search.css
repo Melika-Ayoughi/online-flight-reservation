@@ -1,8 +1,38 @@
-/* ---------------------------------------------------- types --------------------------------------------------- */
-
 html * {
-    direction: rtl;
+    direction: rtl !important;
+    font-family: Vazir;
 }
+
+/* ---------------------------------------------------- fonts --------------------------------------------------- */
+
+@font-face {
+    font-family: Vazir;
+    src: url('Fonts/vazir-font-v7/Vazir.eot');
+    src: url('Fonts/vazir-font-v7/Vazir.eot?#iefix') format('embedded-opentype'),
+    url('Fonts/vazir-font-v7/Vazir.woff') format('woff'),
+    url('Fonts/vazir-font-v7/Vazir.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot');
+    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+    url('Fonts/vazir-font-v7/Vazir-Bold.woff') format('woff'),
+    url('Fonts/vazir-font-v7/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Vazir;
+    src: url('Fonts/vazir-font-v7/Vazir-Light.eot');
+    src: url('Fonts/vazir-font-v7/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+    url('Fonts/vazir-font-v7/Vazir-Light.woff') format('woff'),
+    url('Fonts/vazir-font-v7/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+/* ---------------------------------------------------- types --------------------------------------------------- */
 
 body {
     background-color: #7477B6;
@@ -27,24 +57,29 @@ footer {
     color: white;
 }
 
-/* --------------------------------------------------- classes -------------------------------------------------- */
+hr {
+    margin: 30px;
+}
 
+/* --------------------------------------------------- classes -------------------------------------------------- */
 
 .pair-buttons {
     border-radius: 10px;
     background-color: #FFFFFF;
     color: black;
-    width: 315px;
+    width: 310px;
     height: 42px;
-
+    padding: 2px;
     /*cursor: pointer;*/
 }
 
-/*#3D4067*/
+.clicked-buttons {
+    /*height: 200px ;*/
+    border: 0px;
+}
 
 .btn-group button:not(:last-child) {
     border-right: none; /* Prevent double borders */
-
 
 }
 
@@ -58,6 +93,33 @@ footer {
 /* Add a background color on hover */
 .btn-group button:hover {
     background-color: #3e8e41;
+}
+
+.heading {
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    color: #FFFFFF;
+}
+
+.brand-logo {
+    float: right;
+    vertical-align: middle;
+}
+
+.brand-logo img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.brand-logo * {
+    display: inline-block;
+}
+
+.username {
+    float: left;
 }
 
 /* ---------------------------------------------------- ID's ---------------------------------------------------- */
