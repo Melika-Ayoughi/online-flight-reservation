@@ -40,7 +40,7 @@ public class Server {
     }
 
     // ******************************************************************************************************
-    //  public because of "Test"
+    //  created because of "Test"
     public static void setOutClient(PrintWriter outClientParameter){
         outClient = outClientParameter;
     }
@@ -53,6 +53,8 @@ public class Server {
         inClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         outClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream())), true);
     }
+
+
 
     // ******************************************************************************************************
     //  public because of "Test"

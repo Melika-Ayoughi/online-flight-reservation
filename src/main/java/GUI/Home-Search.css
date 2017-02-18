@@ -1,0 +1,83 @@
+/* ---------------------------------------------------- types --------------------------------------------------- */
+
+html * {
+    direction: rtl;
+}
+
+body {
+    background-color: #7477B6;
+    background-image: url("Images/Background.png");
+    background-size: 75% 133.33333333%;
+    background-repeat: no-repeat;
+    background-position-x: -200px;
+    background-position-y: 200px;
+    height: 100vh;
+}
+
+header {
+    color: white;
+    text-align: center;
+}
+
+footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+/* --------------------------------------------------- classes -------------------------------------------------- */
+
+
+.pair-buttons {
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    color: black;
+    width: 315px;
+    height: 42px;
+
+    /*cursor: pointer;*/
+}
+
+/*#3D4067*/
+
+.btn-group button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+
+
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+    background-color: #3e8e41;
+}
+
+/* ---------------------------------------------------- ID's ---------------------------------------------------- */
+
+#one-way {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: 45%;
+    height: 100%;
+    background-color: #FFFFFF;
+    color: black;
+    float: right;
+}
+
+#two-way {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 55%;
+    height: 100%;
+    background-color: #3D4067;
+    color: #FFFFFF;
+    float: left;
+}
