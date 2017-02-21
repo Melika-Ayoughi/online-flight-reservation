@@ -37,7 +37,7 @@ html * {
 body {
     background-color: #7477B6;
     background-image: url("Images/Background.png");
-    background-size: 75% 133.33333333%;
+    background-size: 966.67px 966.67px;
     background-repeat: no-repeat;
     background-position-x: -200px;
     background-position-y: 200px;
@@ -50,6 +50,7 @@ header {
 }
 
 footer {
+    font-size: small;
     position: absolute;
     bottom: 10px;
     width: 100%;
@@ -57,52 +58,30 @@ footer {
     color: white;
 }
 
-hr {
-    margin: 30px;
-}
+/*hr {*/
+    /*margin-top: 30px;*/
+/*}*/
 
 /* --------------------------------------------------- classes -------------------------------------------------- */
 
-.pair-buttons {
-    border-radius: 10px;
-    background-color: #FFFFFF;
-    color: black;
-    width: 310px;
-    height: 42px;
-    padding: 2px;
-    /*cursor: pointer;*/
-}
-
-.clicked-buttons {
-    /*height: 200px ;*/
-    border: 0px;
-}
-
-.btn-group button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
-
-}
-
-/* Clear floats (clearfix hack) */
-.btn-group:after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-/* Add a background color on hover */
-.btn-group button:hover {
-    background-color: #3e8e41;
-}
-
 .heading {
-    width: 80%;
+    vertical-align: middle;
+    width: 65%;
+    height: 45px;
     margin: auto;
     padding: 10px;
     color: #FFFFFF;
 }
 
+.username {
+    font-size: large;
+    float: left;
+    vertical-align: middle;
+}
+
 .brand-logo {
+    /*padding-bottom: 10px;*/
+    font-size: x-large;
     float: right;
     vertical-align: middle;
 }
@@ -114,19 +93,97 @@ hr {
     margin-left: 10px;
 }
 
-.brand-logo * {
-    display: inline-block;
+.line {
+    margin: auto;
+    width: 75%;
+    /*padding-top: 10px;*/
+    color: #FFFFFF;
 }
 
-.username {
+.pair-buttons {
+    margin-top: 64px;
+    margin-right: 21%;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    color: black;
+    width: 309px;
+    height: 42px;
+    padding: 1px;
+    /*cursor: pointer;*/
+}
+
+.clicked-buttons {
+    font-size: medium;
+    border: 0px;
+}
+
+.clicked-buttons button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+
+}
+
+/* Clear floats (clearfix hack) */
+.clicked-buttons:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.clicked-buttons:hover {
+    background-color: #3e8e41;
+}
+
+.search-form {
+    color: #FFFFFF;
+    margin-right: 21%;
+    margin-top: 15px;
+    border-radius: 8px;
+    height: 320px;
+    width: 310px;
+    background-color: #3D4067;
+    padding-top: 15px;
+
+    font-size: small;
+}
+
+.line-one {
+    margin-top: 0px;
+    height: 32px;
+    margin-bottom: 15px;
+}
+
+.airport {
+    font-size: x-large;
+    line-height: 32px;
+    width: 190px;
+    height: 32px;
     float: left;
+    margin-left: 20px;
+}
+
+.search-button input {
+    border: 0px;
+    width: 100%;
+    color: #FFFFFF;
+    font-size: larger;
+    text-align: center;
+    height: 44px;
+    background-color: #E99488;
+}
+
+.airplane-logo {
+    font-size: large;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: inline-block;
 }
 
 /* ---------------------------------------------------- ID's ---------------------------------------------------- */
 
 #one-way {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     width: 45%;
     height: 100%;
     background-color: #FFFFFF;
@@ -135,8 +192,8 @@ hr {
 }
 
 #two-way {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     width: 55%;
     height: 100%;
     background-color: #3D4067;
