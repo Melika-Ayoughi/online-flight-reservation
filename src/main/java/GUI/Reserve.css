@@ -400,7 +400,7 @@ nav ul ul li {
 /* ---------------------------------------------------- buttons ---------------------------------------------------- */
 .button-row{
     /*width: 100%;*/
-    direction: ltr !important;
+    /*direction: ltr !important;*/
     display: flex;
     margin-top: 1%;
     /*margin-bottom: 1%;*/
@@ -408,6 +408,7 @@ nav ul ul li {
 .bottom-page-btn {
     padding: 4%;
     width: 100%;
+    margin-top: 3%;
     /*height: 100%;*/
     color: white;
     text-align: center;
@@ -423,8 +424,11 @@ nav ul ul li {
     font-size: small;
     height: 95%;
     background-color: #E99488;
+    width: 75%;
+    float: left;
     /*display: inline-block;*/
 }
+
 #pay-button {
     font-size: small;
     height: 95%;
