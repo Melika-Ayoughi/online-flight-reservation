@@ -46,6 +46,8 @@ header {
     color: #3D4067;
     position:fixed;
     /*top: 0px;*/
+    background: inherit;
+    z-index: 10;
     background-color: white;
 }
 
@@ -73,6 +75,8 @@ footer {
 .container {
     margin: auto;
     top: 20%;
+    z-index:5;
+    overflow:auto;
 }
 
 .brand-logo {
