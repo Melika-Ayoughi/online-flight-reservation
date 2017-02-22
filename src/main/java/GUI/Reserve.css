@@ -126,7 +126,7 @@ footer {
 .gray-back {
     background-color: #EEEEEE;
     width: 80%;
-    height: 70vh;
+    height: 90vh;
     /*bottom: 2%;*/
     margin: auto;
     padding: 3%;
@@ -150,7 +150,8 @@ footer {
     align-content: center;
     vertical-align: middle;
     horiz-align: center;
-    width: 95%;
+    width: inherit;
+    height: 20%;
     margin: 1% auto;
     padding: 1%;
     color: #3D4067;
@@ -278,4 +279,33 @@ footer {
 
 .username-dropdown:hover .dropbtn {
     color: #686CA7;
+}
+
+/* ---------------------------------------------------- buttons ---------------------------------------------------- */
+
+.button-row{
+    width: 80%;
+}
+
+.buttom-page-btn {
+    padding: 2%;
+    /*width: 100px;*/
+    /*height: 30px;*/
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    border:none;
+}
+
+.buttom-page-btn:hover{
+    box-shadow: 5px 5px 5px #888888;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+#reject-button {
+    background-color: #f29488;
+}
+
+#pay-button {
+    background-color: #3b3f66;
 }
