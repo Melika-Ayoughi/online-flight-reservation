@@ -37,26 +37,44 @@
                 <button class="clicked-buttons" id="one-way">یک طرفه</button>
                 <button class="clicked-buttons" id="two-way">رفت و برگشت</button>
             </div>
-            <div class="search-form">
+            <form class="search-form">
                 <div class="form-line">
                     <div class="airplane-logo">
                         <i class="fa fa-plane fa-size"></i>
                     </div>
                     <span>مبدا</span>
-                    <select class="airport" id="from">
-                        <option value="from-tehran-mehrabad">تهران - فرودگاه مهراباد</option>
-                        <option value="from-tehran-emam">تهران - فرودگاه امام</option>
-                    </select>
+                    <div class="airport" id="from">
+                        <nav>
+                            <ul>
+                                <li><a href="#">تهران - فرودگاه مهراباد</a>
+                                    <ul>
+                                        <li><a href="#">تهران - فرودگاه امام</a></li>
+                                        <li><a href="#">مشهد - فرودگاه امام</a></li>
+                                        <li><a href="#">اصفهان - فرودگاه امام</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
                 <div class="form-line">
                     <div class="airplane-logo">
                         <i class="fa fa-plane fa-rotate-90 fa-size"></i>
                     </div>
                     <span>مقصد</span>
-                    <select class="airport" id="to">
-                        <option value="to-tehran-mehrabad">تهران - فرودگاه مهراباد</option>
-                        <option value="to-tehran-emam">تهران - فرودگاه امام</option>
-                    </select>
+                    <div class="airport" id="to">
+                        <nav>
+                            <ul>
+                                <li><a href="#">تهران - فرودگاه مهراباد</a>
+                                    <ul>
+                                        <li><a href="#">تهران - فرودگاه امام</a></li>
+                                        <li><a href="#">مشهد - فرودگاه امام</a></li>
+                                        <li><a href="#">اصفهان - فرودگاه امام</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
                 <div class="form-line">
                     <div class="airplane-logo">
@@ -137,7 +155,7 @@
                 <div class = "search-button">
                     <input type="submit" value="جستجو">
                 </div>
-            </div>
+            </form>
         </div>
         <div class="day-logo">
             <div class="slide-show">

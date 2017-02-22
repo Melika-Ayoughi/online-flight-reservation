@@ -154,17 +154,6 @@ footer {
     margin-bottom: 15px;
 }
 
-.airport {
-    border-radius: 8px;
-    border: 0px;
-    font-size: small;
-    /*line-height: 32px;*/
-    width: 190px;
-    height: 32px;
-    float: left;
-    margin-left: 20px;
-}
-
 .date {
     border-radius: 5px;
     border: 0px;
@@ -260,6 +249,18 @@ footer {
     width: auto;
 }
 
+.airport {
+    color: black;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    border: 0px;
+    font-size: small;
+    width: 190px;
+    height: 32px;
+    float: left;
+    margin-left: 20px;
+}
+
 /* ------------------------------------------------- Drop Down -------------------------------------------------- */
 
 nav ul {
@@ -269,12 +270,30 @@ nav ul {
     position: relative;
 }
 
-nav ul li {
+.airport nav ul li{
+    vertical-align: middle;
+    display:inline-block;
+    width: 100%;
+}
+
+.airport nav ul li a {
+    padding-right: 20px;
+}
+
+.username nav ul li {
     display:inline-block;
     background-color: #7477B6;
 }
 
-nav a {
+.airport nav a {
+    font-size: small;
+    display:block;
+    color: black;
+    line-height: 32px;
+    text-decoration:none;
+}
+
+.username nav a {
     display:block;
     color:#FFFFFF;
     line-height: 45px;
@@ -285,23 +304,52 @@ nav a {
     font-size: medium;
 }
 
-nav a:hover {
+.airport nav a:hover {
+    background-color: #EEEEEE;
+    color: black;
+}
+
+.airport nav a:active {
+    background-color: #D3D3D3;
+    color: black;
+}
+
+.username nav a:hover {
     /*background-color: #51559D;*/
     background-color: inherit;
     color: #CACDFB;
 }
 
-nav ul ul {
+.airport nav ul ul {
+    display: none;
+    position: absolute;
+    top: 32px;
+}
+
+.username nav ul ul {
     display: none;
     position: absolute;
     top: 45px; /* the height of the main nav */
 }
 
-nav ul li:hover > ul {
+.airport nav ul li:hover > ul {
+    display: inherit;
+}
+
+.username nav ul li:hover > ul {
     display:inherit;
 }
 
-nav ul ul li {
+.airport nav ul ul li {
+    font-size: small;
+    width: 190px;
+    float: none;
+    display: list-item;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
+.username nav ul ul li {
     font-size: small;
     text-align: center;
     width:120px;
