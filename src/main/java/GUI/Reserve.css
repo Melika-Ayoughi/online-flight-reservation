@@ -1,0 +1,259 @@
+html * {
+    direction: rtl !important;
+    font-family: Vazir;
+}
+/* ---------------------------------------------------- fonts --------------------------------------------------- */
+@font-face {
+    font-family: Vazir;
+    src: url('Fonts/vazir-font-v7/Vazir.eot');
+    src: url('Fonts/vazir-font-v7/Vazir.eot?#iefix') format('embedded-opentype'),
+    url('Fonts/vazir-font-v7/Vazir.woff') format('woff'),
+    url('Fonts/vazir-font-v7/Vazir.ttf') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot');
+    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+    url('Fonts/vazir-font-v7/Vazir-Bold.woff') format('woff'),
+    url('Fonts/vazir-font-v7/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('Fonts/vazir-font-v7/Vazir-Light.eot');
+    src: url('Fonts/vazir-font-v7/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+    url('Fonts/vazir-font-v7/Vazir-Light.woff') format('woff'),
+    url('Fonts/vazir-font-v7/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+/* ---------------------------------------------------- types --------------------------------------------------- */
+body {
+    background-color: white;
+    /*height: 100vh;*/
+}
+header {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    color: #3D4067;
+    position:fixed;
+    /*top: 0px;*/
+    background: inherit;
+    z-index: 10;
+    background-color: white;
+}
+footer {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+    text-align: center;
+    color: black;
+}
+/* --------------------------------------------------- classes -------------------------------------------------- */
+.heading {
+    background-color: #686CA7;
+    color: white;
+    text-align: center;
+    padding: 2%;
+    margin: auto;
+    width: 100%;
+    margin-top: 80px;
+    /*top: 500px;*/
+}
+.container {
+    margin: auto;
+    top: 20%;
+    z-index:5;
+    overflow:auto;
+}
+.brand-logo {
+    float: right;
+    vertical-align: middle;
+    font-size: large;
+}
+.brand-logo img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.brand-logo * {
+    display: inline-block;
+}
+.username {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    /*padding: 2%;*/
+}
+.toolbar {
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+    color: black;
+}
+.time {
+    color: red;
+    display: inline-block;
+}
+.timing {
+    float: left;
+}
+.backtosearch {
+    display: inline-block;
+}
+.gray-back {
+    background-color: #EEEEEE;
+    width: 80%;
+    height: 90vh;
+    /*bottom: 2%;*/
+    margin: auto;
+    padding: 3%;
+    border-radius: 5px;
+}
+.row {
+    background-color: white;
+    align-content: center;
+    vertical-align: middle;
+    horiz-align: center;
+    width: 95%;
+    margin: 1% auto;
+    padding: 1%;
+    color: #696969;
+    border-radius: 5px;
+}
+.gray-row {
+    background-color: #EEEEEE;
+    align-content: center;
+    vertical-align: middle;
+    horiz-align: center;
+    width: inherit;
+    height: 20%;
+    margin: 1% auto;
+    padding: 1%;
+    color: #3D4067;
+}
+.place-middle {
+    text-align: center;
+    vertical-align: middle;
+    margin: 1% auto;
+}
+.gender-type {
+    border-radius: 5px;
+    border: none;
+    font-size: small;
+    padding: 5%;
+}
+.passenger-info {
+    width: inherit;
+    /*width: 100%;*/
+    padding: 5%;
+    font-size: small;
+    border-radius: 5px;
+    border: none;
+    /*margin: 1%;*/
+    margin-outside: 1%;
+    display: inline-block;
+}
+/* ---------------------------------------------------- ID's ---------------------------------------------------- */
+/*#passenger-rows {*/
+/*!*background-color: #696969;*!*/
+/*!*align-content: center;*!*/
+/*!*vertical-align: middle;*!*/
+/*!*horiz-align: center;*!*/
+/*width: 95%;*/
+/*margin: 1% auto;*/
+/*padding: 1%;*/
+/*color: #3D4067;*/
+/*!*height: 100px;*!*/
+/*!*border-radius: 5px;*!*/
+/*}*/
+#infant {
+    font-size: small;
+}
+/* -------------------------------------------------- combined -------------------------------------------------- */
+#search{
+    display: inline;
+    color: #3D4067;
+}
+#choose{
+    display: inline;
+    color: #3D4067;
+}
+#reserve{
+    display: inline;
+    color: white;
+}
+#ticket{
+    display: inline;
+    color: #3D4067;
+}
+@media only screen and (max-width: 600px) {
+    .hidden-mobile{
+        display: none;
+    }
+}
+/* ----------------------------------------------- username-dropdown ----------------------------------------------- */
+.dropbtn {
+    background-color: white;
+    color: #3D4067;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+.username-dropdown {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: #3D4067;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #EEEEEE}
+.dropdown-content a:active {background-color: #D3D3D3}
+.username-dropdown:hover .dropdown-content {
+    display: block;
+    border-radius: 5px;
+}
+.username-dropdown:hover .dropbtn {
+    color: #686CA7;
+}
+/* ---------------------------------------------------- buttons ---------------------------------------------------- */
+.button-row{
+    width: 80%;
+}
+.buttom-page-btn {
+    padding: 2%;
+    /*width: 100px;*/
+    /*height: 30px;*/
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    border:none;
+}
+.buttom-page-btn:hover{
+    box-shadow: 5px 5px 5px #888888;
+    transition: box-shadow 0.3s ease-in-out;
+}
+#reject-button {
+    background-color: #f29488;
+}
+#pay-button {
+    background-color: #3b3f66;
+}
