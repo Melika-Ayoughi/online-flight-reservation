@@ -2,9 +2,7 @@ html * {
     direction: rtl !important;
     font-family: Vazir;
 }
-
 /* ---------------------------------------------------- fonts --------------------------------------------------- */
-
 @font-face {
     font-family: Vazir;
     src: url('Fonts/vazir-font-v7/Vazir.eot');
@@ -13,7 +11,6 @@ html * {
     url('Fonts/vazir-font-v7/Vazir.ttf') format('truetype');
     font-weight: normal;
 }
-
 @font-face {
     font-family: Vazir;
     src: url('Fonts/vazir-font-v7/Vazir-Bold.eot');
@@ -22,7 +19,6 @@ html * {
     url('Fonts/vazir-font-v7/Vazir-Bold.ttf') format('truetype');
     font-weight: bold;
 }
-
 @font-face {
     font-family: Vazir;
     src: url('Fonts/vazir-font-v7/Vazir-Light.eot');
@@ -34,11 +30,18 @@ html * {
 
 /* ---------------------------------------------------- types --------------------------------------------------- */
 
+select {
+    width: 100%;
+    border-radius: 8px;
+    border: 0px;
+    font-size: small;
+    margin: 0px;
+}
+
 body {
     background-color: white;
     /*height: 100vh;*/
 }
-
 header {
     width: 100%;
     margin: auto;
@@ -50,17 +53,16 @@ header {
     z-index: 10;
     background-color: white;
 }
-
 footer {
-    position: absolute;
-    bottom: 2%;
-    width: 100%;
+    /*position: absolute;*/
+    /*bottom: 2%;*/
+    /*width: 100%;*/
+    margin: 2%;
+    font-size: small;
     text-align: center;
     color: black;
 }
-
 /* --------------------------------------------------- classes -------------------------------------------------- */
-
 .heading {
     background-color: #686CA7;
     color: white;
@@ -71,165 +73,272 @@ footer {
     margin-top: 80px;
     /*top: 500px;*/
 }
-
 .container {
     margin: auto;
     top: 20%;
     z-index:5;
     overflow:auto;
 }
-
 .brand-logo {
     float: right;
     vertical-align: middle;
     font-size: large;
 }
-
 .brand-logo img {
     height: 40px;
     width: auto;
     vertical-align: middle;
     margin-left: 10px;
 }
-
 .brand-logo * {
     display: inline-block;
 }
-
 .username {
     float: left;
     font-size: medium;
     vertical-align: middle;
     /*padding: 2%;*/
 }
-
 .toolbar {
     width: 95%;
     margin: auto;
     padding: 10px;
     color: black;
 }
-
 .time {
     color: red;
     display: inline-block;
 }
-
 .timing {
     float: left;
 }
-
 .backtosearch {
     display: inline-block;
 }
-
 .gray-back {
     background-color: #EEEEEE;
     width: 80%;
-    height: 90vh;
+    /*height: 100vh;*/
     /*bottom: 2%;*/
     margin: auto;
     padding: 3%;
     border-radius: 5px;
 }
-
 .row {
     background-color: white;
     align-content: center;
     vertical-align: middle;
     horiz-align: center;
-    width: 95%;
+    width: 100%;
     margin: 1% auto;
     padding: 1%;
     color: #696969;
     border-radius: 5px;
 }
-
 .gray-row {
     background-color: #EEEEEE;
     align-content: center;
     vertical-align: middle;
     horiz-align: center;
-    width: inherit;
-    height: 20%;
-    margin: 1% auto;
-    padding: 1%;
+    width: 100%;
+    /*height: 20%;*/
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /*padding: 1%;*/
     color: #3D4067;
+    display: inline-block;
 }
-
 .place-middle {
     text-align: center;
     vertical-align: middle;
-    margin: 1% auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
-
 .gender-type {
     border-radius: 5px;
     border: none;
     font-size: small;
     padding: 5%;
 }
-
 .passenger-info {
-    width: inherit;
+    width: 100%;
     /*width: 100%;*/
-    padding: 5%;
+    padding: 4%;
     font-size: small;
-    border-radius: 5px;
+    border-radius: 3px;
     border: none;
     /*margin: 1%;*/
     margin-outside: 1%;
     display: inline-block;
 }
 
-/* ---------------------------------------------------- ID's ---------------------------------------------------- */
-
-/*#passenger-rows {*/
-    /*!*background-color: #696969;*!*/
-    /*!*align-content: center;*!*/
-    /*!*vertical-align: middle;*!*/
-    /*!*horiz-align: center;*!*/
-    /*width: 95%;*/
-    /*margin: 1% auto;*/
-    /*padding: 1%;*/
-    /*color: #3D4067;*/
-    /*!*height: 100px;*!*/
-    /*!*border-radius: 5px;*!*/
-/*}*/
-
-#infant {
-    font-size: small;
+.passenger-info-list{
+    text-align: center;
 }
 
-/* -------------------------------------------------- combined -------------------------------------------------- */
+.hidden-mobile {
+    float: right;
+    font-size: large;
+}
 
+#infant-8 {
+    font-size: small;
+    padding-right: 2.5%;
+}
+
+#infant-9 {
+    font-size: small;
+    padding-right: 2.5%;
+}
+
+#infant-10 {
+    font-size: small;
+    padding-right: 2.5%;
+}
+
+/* ---------------------------------------------------- paycheck-info ---------------------------------------------------- */
+
+#transfer-paycheck-info {
+    font-size: small;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#first-line {
+    background-color: #EEEEEE;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-color: gray;
+}
+
+#third-line {
+    background-color: #EEEEEE;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-color: gray;
+}
+
+#last-line {
+    background-color: #9AE09D;
+}
+
+#paycheck-header {
+    color: gray;
+    align-content: center;
+    vertical-align: center;
+    horiz-align: center;
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: inline-block;
+}
+
+.paycheck-line {
+    color: black;
+    align-content: center;
+    /*text-align: center;*/
+    horiz-align: center;
+    width: 100%;
+    /*margin: 2%;*/
+    padding-top: 1%;
+    padding-bottom: 1%;
+    display: inline-block;
+}
+/* ---------------------------------------------------- ID's ---------------------------------------------------- */
+/*#passenger-rows {*/
+/*!*background-color: #696969;*!*/
+/*!*align-content: center;*!*/
+/*!*vertical-align: middle;*!*/
+/*!*horiz-align: center;*!*/
+/*width: 95%;*/
+/*margin: 1% auto;*/
+/*padding: 1%;*/
+/*color: #3D4067;*/
+/*!*height: 100px;*!*/
+/*!*border-radius: 5px;*!*/
+/*}*/
+
+/* -------------------------------------------------- combined -------------------------------------------------- */
 #search{
     display: inline;
     color: #3D4067;
 }
-
 #choose{
     display: inline;
     color: #3D4067;
 }
-
 #reserve{
     display: inline;
     color: white;
 }
-
 #ticket{
     display: inline;
     color: #3D4067;
 }
-
-
 @media only screen and (max-width: 600px) {
-
     .hidden-mobile{
         display: none;
     }
+}
 
+/* ----------------------------------------------- gender-dropdown ----------------------------------------------- */
+
+nav ul {
+    color: grey;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+
+nav ul li{
+    vertical-align: middle;
+    display:inline-block;
+    width: 100%;
+}
+
+nav a {
+    font-size: small;
+    display:block;
+    color: grey;
+    text-decoration:none;
+    line-height: 24px;
+}
+
+nav a:hover {
+    background-color: #EEEEEE;
+    color: grey;
+}
+
+nav a:active {
+    background-color: #D3D3D3;
+    color: grey;
+}
+
+nav ul ul {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 24px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li {
+    font-size: small;
+    text-align: center;
+    float: none;
+    display: list-item;
+    position: relative;
+    background-color: #FFFFFF;
 }
 
 /* ----------------------------------------------- username-dropdown ----------------------------------------------- */
@@ -242,7 +351,6 @@ footer {
     cursor: pointer;
     border: none;
 }
-
 .username-dropdown {
     float: left;
     font-size: medium;
@@ -250,7 +358,6 @@ footer {
     position: relative;
     display: inline-block;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -260,52 +367,50 @@ footer {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
-
 .dropdown-content a {
     color: #3D4067;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
-
 .dropdown-content a:hover {background-color: #EEEEEE}
-
 .dropdown-content a:active {background-color: #D3D3D3}
-
 .username-dropdown:hover .dropdown-content {
     display: block;
     border-radius: 5px;
 }
-
 .username-dropdown:hover .dropbtn {
     color: #686CA7;
 }
-
 /* ---------------------------------------------------- buttons ---------------------------------------------------- */
-
 .button-row{
-    width: 80%;
+    /*width: 100%;*/
+    direction: ltr !important;
+    display: flex;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
-
-.buttom-page-btn {
-    padding: 2%;
-    /*width: 100px;*/
-    /*height: 30px;*/
+.bottom-page-btn {
+    padding: 4%;
+    width: 100%;
+    /*height: 100%;*/
     color: white;
     text-align: center;
     border-radius: 5px;
     border:none;
 }
-
-.buttom-page-btn:hover{
+.bottom-page-btn:hover{
     box-shadow: 5px 5px 5px #888888;
     transition: box-shadow 0.3s ease-in-out;
 }
 
 #reject-button {
+    height: 95%;
     background-color: #f29488;
+    /*display: inline-block;*/
 }
-
 #pay-button {
+    height: 95%;
     background-color: #3b3f66;
+    /*display: inline-block;*/
 }
