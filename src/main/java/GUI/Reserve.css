@@ -36,22 +36,22 @@ html * {
 
 body {
     background-color: white;
-    height: 100vh;
+    /*height: 100vh;*/
 }
 
 header {
-    width: 80%;
+    width: 100%;
     margin: auto;
     padding: 10px;
     color: #3D4067;
-    /*position:fixed;*/
+    position:fixed;
     /*top: 0px;*/
     background-color: white;
 }
 
 footer {
-    position: relative;
-    bottom: 5%;
+    position: absolute;
+    bottom: 2%;
     width: 100%;
     text-align: center;
     color: black;
@@ -65,6 +65,9 @@ footer {
     text-align: center;
     padding: 2%;
     margin: auto;
+    width: 100%;
+    margin-top: 80px;
+    /*top: 500px;*/
 }
 
 .container {
@@ -75,7 +78,7 @@ footer {
 .brand-logo {
     float: right;
     vertical-align: middle;
-    font-size: x-large;
+    font-size: large;
 }
 
 .brand-logo img {
@@ -92,11 +95,12 @@ footer {
 .username {
     float: left;
     font-size: medium;
-    padding: 1%;
+    vertical-align: middle;
+    /*padding: 2%;*/
 }
 
 .toolbar {
-    width: 80%;
+    width: 95%;
     margin: auto;
     padding: 10px;
     color: black;
@@ -115,11 +119,13 @@ footer {
     display: inline-block;
 }
 
-.grayback {
+.gray-back {
     background-color: #EEEEEE;
     width: 80%;
+    height: 70vh;
+    /*bottom: 2%;*/
     margin: auto;
-    padding: 10px;
+    padding: 3%;
     border-radius: 5px;
 }
 
@@ -129,27 +135,66 @@ footer {
     vertical-align: middle;
     horiz-align: center;
     width: 95%;
-    margin: 10px auto;
+    margin: 1% auto;
     padding: 1%;
     color: #696969;
     border-radius: 5px;
 }
 
+.gray-row {
+    background-color: #EEEEEE;
+    align-content: center;
+    vertical-align: middle;
+    horiz-align: center;
+    width: 95%;
+    margin: 1% auto;
+    padding: 1%;
+    color: #3D4067;
+}
+
 .place-middle {
     text-align: center;
     vertical-align: middle;
-    margin: 10px auto;
+    margin: 1% auto;
 }
 
 .gender-type {
-    border-radius: 8px;
-    border: 0px;
+    border-radius: 5px;
+    border: none;
     font-size: small;
+    padding: 5%;
+}
+
+.passenger-info {
+    width: inherit;
+    /*width: 100%;*/
+    padding: 5%;
+    font-size: small;
+    border-radius: 5px;
+    border: none;
+    /*margin: 1%;*/
+    margin-outside: 1%;
+    display: inline-block;
 }
 
 /* ---------------------------------------------------- ID's ---------------------------------------------------- */
 
+/*#passenger-rows {*/
+    /*!*background-color: #696969;*!*/
+    /*!*align-content: center;*!*/
+    /*!*vertical-align: middle;*!*/
+    /*!*horiz-align: center;*!*/
+    /*width: 95%;*/
+    /*margin: 1% auto;*/
+    /*padding: 1%;*/
+    /*color: #3D4067;*/
+    /*!*height: 100px;*!*/
+    /*!*border-radius: 5px;*!*/
+/*}*/
 
+#infant {
+    font-size: small;
+}
 
 /* -------------------------------------------------- combined -------------------------------------------------- */
 
@@ -179,7 +224,54 @@ footer {
     .hidden-mobile{
         display: none;
     }
-    /*body {*/
-        /*background-color: lightblue;*/
-    /*}*/
+
+}
+
+/* ----------------------------------------------- username-dropdown ----------------------------------------------- */
+
+.dropbtn {
+    background-color: white;
+    color: #3D4067;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+.username-dropdown {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: #3D4067;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #EEEEEE}
+
+.dropdown-content a:active {background-color: #D3D3D3}
+
+.username-dropdown:hover .dropdown-content {
+    display: block;
+    border-radius: 5px;
+}
+
+.username-dropdown:hover .dropbtn {
+    color: #686CA7;
 }

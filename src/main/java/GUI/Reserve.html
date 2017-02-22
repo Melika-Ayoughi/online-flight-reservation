@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+    <!-- Bootstrap -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!-- Bootstrap -->
+    <script src="http://code.jquery.com/jquery.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -29,11 +26,20 @@
 <body>
     <header>
         <div class="brand-logo">
-            <img src="Images/LogoBlack.png" alt=""> &reg; اکبر تیکت
+            <img src="Images/LogoBlack.png" alt="">اکبر تیکت
+            &reg;
         </div>
-        <div class="username">
-            <i class="fa fa-user fa-fw"></i> نام کاربر
+        <!--<div class="username">-->
+            <!--<i class="fa fa-user fa-fw"></i> نام کاربر-->
+        <!--</div>-->
+        <div class="username-dropdown">
+            <button class="dropbtn"><i class="fa fa-user fa-fw"></i>نام کاربر</button>
+            <div class="dropdown-content">
+                <a href="#">بلیت های من</a>
+                <a href="#">خروج</a>
+            </div>
         </div>
+
         <br> <br> <br>
     </header>
 
@@ -55,17 +61,17 @@
             </div>
         </div>
 
-        <div class="grayback">
+        <div class="gray-back">
                        مشخصات پرواز انتخابی شما
-            <div class="row">
-                <div class="col-xs-12 col-md-4">
+            <div class="row" id="flight-info">
+                <div class="col-xs-12 col-md-4 pull-right">
                     <div class="place-middle"> ایران ایر ۱۷۴۰</div>
-                    <div class="place-middle"><i class="fa fa-calendar-o" aria-hidden="true"> دوشنبه ۱۷ اسفند</i></div>
+                    <div class="place-middle"><i class="fa fa-calendar-o" aria-hidden="true"></i> دوشنبه ۱۷ اسفند</div>
                 </div>
-                <div class="col-xs-12 col-md-4"><div class="place-middle"> تهران ۱۷:۴۰ >> مشهد ۱۸:۵۰ </div></div>
-                <div class="col-xs-12 col-md-4">
-                    <div class="place-middle"><i class="fa fa-suitcase" aria-hidden="true"> کلاس اقتصادی</i></div>
-                    <div class="place-middle"><i class="fa fa-plane" aria-hidden="true"> بوئینگ MD83 </i></div>
+                <div class="col-xs-12 col-md-4 pull-right"><div class="place-middle"> تهران ۱۷:۴۰ >> مشهد ۱۸:۵۰ </div></div>
+                <div class="col-xs-12 col-md-4 pull-right">
+                    <div class="place-middle"><i class="fa fa-suitcase" aria-hidden="true"></i> کلاس اقتصادی</div>
+                    <div class="place-middle"><i class="fa fa-plane" aria-hidden="true"></i> بوئینگ MD83</div>
                 </div>
             </div>
             صورتحساب سفر
@@ -73,34 +79,332 @@
 
             </div>
             اطلاعات
-            <div class="row">
-                <div class="col-xs-4 col-md-2">
-                    <div class="place-middle"><i class="fa fa-user fa-male"> ۱- بزرگسال: </i></div>
-                </div>
-                <div class="col-xs-4 col-md-2">
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
                     <div class="place-middle">
-                        <select class="gender-type">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
+                        ۱- بزرگسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
                             <option value="1"> آقای </option>
                             <option value="2"> خانم </option>
                         </select>
                     </div>
                 </div>
-
-                <div class="col-xs-4 col-md-2">
-
+                <div class="col-sm-4 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
                 </div>
-                <div class="col-xs-6 col-md-3">
-
+                <div class="col-sm-4 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
                 </div>
-                <div class="col-xs-6 col-md-3">
-
+                <div class="col-sm-4 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
                 </div>
             </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
+                        ۲- بزرگسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
+                        ۳- خردسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
+                        ۴- خردسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
+                        ۵- خردسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
+                        ۶- خردسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
+                        ۷- خردسال:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child" id="infant"></i></span>
+                        ۸- نوزاد:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child" id="infant"></i></span>
+                        ۹- نوزاد:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
+            <div class="gray-row">
+                <div class="col-sm-6 col-md-2 pull-right">
+                    <div class="place-middle">
+                        <span class="hidden-mobile"><i class="fa fa-user fa-child" id="infant"></i></span>
+                        ۱۰- نوزاد:
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-1 pull-right">
+                    <div class="place-middle">
+                        <select class="passenger-info">
+                            <option value="1"> آقای </option>
+                            <option value="2"> خانم </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 pull-right">
+                    <div class="place-middle">
+                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-
     </div>
-    <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
 
+    <!--<div>-->
+        <!--<footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>-->
+    <!--</div>-->
 </body>
 </html>
