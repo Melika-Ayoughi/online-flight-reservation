@@ -70,7 +70,7 @@ footer {
     padding: 2%;
     margin: auto;
     width: 100%;
-    margin-top: 80px;
+    margin-top: 90px;
     /*top: 500px;*/
 }
 .container {
@@ -101,7 +101,9 @@ footer {
 }
 .toolbar {
     width: 95%;
-    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /*margin: auto;*/
     padding: 10px;
     color: black;
 }
@@ -194,6 +196,19 @@ footer {
 #infant-10 {
     font-size: small;
     padding-right: 2.5%;
+}
+
+.gray-font {
+    color: gray;
+    margin-bottom: 2%;
+}
+
+#information {
+    margin-top: 2%;
+}
+
+#paycheck {
+    margin-top: 2%;
 }
 
 /* ---------------------------------------------------- paycheck-info ---------------------------------------------------- */
@@ -388,7 +403,7 @@ nav ul ul li {
     direction: ltr !important;
     display: flex;
     margin-top: 1%;
-    margin-bottom: 1%;
+    /*margin-bottom: 1%;*/
 }
 .bottom-page-btn {
     padding: 4%;
@@ -405,12 +420,19 @@ nav ul ul li {
 }
 
 #reject-button {
+    font-size: small;
     height: 95%;
-    background-color: #f29488;
+    background-color: #E99488;
     /*display: inline-block;*/
 }
 #pay-button {
+    font-size: small;
     height: 95%;
-    background-color: #3b3f66;
+    background-color: #3D4067;
     /*display: inline-block;*/
+}
+
+.bottom-page-btn:active {
+    box-shadow: 5px 5px 5px #DDDDDD;
+    transition: box-shadow 0.3s ease-in-out;
 }

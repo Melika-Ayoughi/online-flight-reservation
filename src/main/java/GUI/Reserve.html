@@ -23,20 +23,24 @@
 </head>
 <body>
 <header>
-    <div class="brand-logo">
-        <img src="Images/LogoBlack.png" alt="">اکبر تیکت
-        &reg;
-    </div>
-    <!--<div class="username">-->
-    <!--<i class="fa fa-user fa-fw"></i> نام کاربر-->
-    <!--</div>-->
-    <div class="username-dropdown">
-        <button class="dropbtn"><i class="fa fa-user fa-fw"></i>نام کاربر</button>
-        <div class="dropdown-content">
-            <a href="#">بلیت های من</a>
-            <a href="#">خروج</a>
+    <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
+    <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
+        <div class="brand-logo">
+            <img src="Images/LogoBlack.png" alt="">اکبر تیکت
+            &reg;
         </div>
     </div>
+    <div class="hidden-xs col-sm-4 col-md-4 pull-right"></div>
+    <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
+        <div class="username-dropdown">
+            <button class="dropbtn"><i class="fa fa-user fa-fw"></i>نام کاربر</button>
+            <div class="dropdown-content">
+                <a href="#">بلیت های من</a>
+                <a href="#">خروج</a>
+            </div>
+        </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
     <br> <br> <br>
 </header>
 <div class="container">
@@ -56,7 +60,7 @@
         </div>
     </div>
     <div class="gray-back">
-        <div>
+        <div class="gray-font">
         مشخصات پرواز انتخابی شما
         </div>
         <div class="row" id="flight-info">
@@ -70,7 +74,7 @@
                 <div class="place-middle"><i class="fa fa-plane" aria-hidden="true"></i> بوئینگ MD83</div>
             </div>
         </div>
-        <div>
+        <div class="gray-font" id="paycheck">
         صورتحساب سفر
         </div>
         <div class="row" id="transfer-paycheck-info">
@@ -142,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="gray-font" id="information">
             اطلاعات
         </div>
 
@@ -508,17 +512,20 @@
                 </div>
             </div>
         </div>
-
         <div class="button-row">
-            <!--<div>agisgdivusub</div>-->
             <div class="col-xs-6 col-sm-6 col-md-4">
                 <div class="place-middle">
-                    <button class="bottom-page-btn" id="pay-button" type="button" onclick=""> پرداخت و ثبت نهایی  >  </button>
+                    <button class="bottom-page-btn" id="pay-button" type="button" onclick="">
+                        <span>پرداخت</span>
+                        <span class="hidden-xs hidden-sm"> و ثبت نهایی  ></span>
+                    </button>
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-2">
                 <div class="place-middle">
-                    <button class="bottom-page-btn" id="reject-button" type="button" onclick=""> انصراف </button>
+                    <button class="bottom-page-btn" id="reject-button" type="button" onclick="">
+                        <span>انصراف</span>
+                    </button>
                 </div>
             </div>
         </div>
