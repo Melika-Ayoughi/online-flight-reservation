@@ -282,7 +282,67 @@ footer {
         display: none;
     }
 }
+
+/* ----------------------------------------------- gender-dropdown ----------------------------------------------- */
+
+nav ul {
+    color: grey;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+
+nav ul li{
+    vertical-align: middle;
+    display:inline-block;
+    width: 100%;
+}
+
+nav a {
+    font-size: small;
+    display:block;
+    color: grey;
+    text-decoration:none;
+    line-height: 24px;
+}
+
+nav a:hover {
+    background-color: #EEEEEE;
+    color: grey;
+}
+
+nav a:active {
+    background-color: #D3D3D3;
+    color: grey;
+}
+
+nav ul ul {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 24px;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul li {
+    font-size: small;
+    text-align: center;
+    float: none;
+    display: list-item;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
 /* ----------------------------------------------- username-dropdown ----------------------------------------------- */
+
 .dropbtn {
     background-color: white;
     color: #3D4067;
