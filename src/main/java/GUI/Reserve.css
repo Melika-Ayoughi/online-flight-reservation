@@ -27,7 +27,17 @@ html * {
     url('Fonts/vazir-font-v7/Vazir-Light.ttf') format('truetype');
     font-weight: 300;
 }
+
 /* ---------------------------------------------------- types --------------------------------------------------- */
+
+select {
+    width: 100%;
+    border-radius: 8px;
+    border: 0px;
+    font-size: small;
+    margin: 0px;
+}
+
 body {
     background-color: white;
     /*height: 100vh;*/
@@ -44,9 +54,11 @@ header {
     background-color: white;
 }
 footer {
-    position: absolute;
-    bottom: 2%;
-    width: 100%;
+    /*position: absolute;*/
+    /*bottom: 2%;*/
+    /*width: 100%;*/
+    margin: 2%;
+    font-size: small;
     text-align: center;
     color: black;
 }
@@ -106,7 +118,7 @@ footer {
 .gray-back {
     background-color: #EEEEEE;
     width: 80%;
-    height: 90vh;
+    /*height: 100vh;*/
     /*bottom: 2%;*/
     margin: auto;
     padding: 3%;
@@ -117,7 +129,7 @@ footer {
     align-content: center;
     vertical-align: middle;
     horiz-align: center;
-    width: 95%;
+    width: 100%;
     margin: 1% auto;
     padding: 1%;
     color: #696969;
@@ -128,16 +140,19 @@ footer {
     align-content: center;
     vertical-align: middle;
     horiz-align: center;
-    width: inherit;
-    height: 20%;
-    margin: 1% auto;
-    padding: 1%;
+    width: 100%;
+    /*height: 20%;*/
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /*padding: 1%;*/
     color: #3D4067;
+    display: inline-block;
 }
 .place-middle {
     text-align: center;
     vertical-align: middle;
-    margin: 1% auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 .gender-type {
     border-radius: 5px;
@@ -146,14 +161,89 @@ footer {
     padding: 5%;
 }
 .passenger-info {
-    width: inherit;
+    width: 100%;
     /*width: 100%;*/
-    padding: 5%;
+    padding: 4%;
     font-size: small;
-    border-radius: 5px;
+    border-radius: 3px;
     border: none;
     /*margin: 1%;*/
     margin-outside: 1%;
+    display: inline-block;
+}
+
+.passenger-info-list{
+    text-align: center;
+}
+
+.hidden-mobile {
+    float: right;
+    font-size: large;
+}
+
+#infant-8 {
+    font-size: small;
+    padding-right: 2.5%;
+}
+
+#infant-9 {
+    font-size: small;
+    padding-right: 2.5%;
+}
+
+#infant-10 {
+    font-size: small;
+    padding-right: 2.5%;
+}
+
+/* ---------------------------------------------------- paycheck-info ---------------------------------------------------- */
+
+#transfer-paycheck-info {
+    font-size: small;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+#first-line {
+    background-color: #EEEEEE;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-color: gray;
+}
+
+#third-line {
+    background-color: #EEEEEE;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-color: gray;
+}
+
+#last-line {
+    background-color: #9AE09D;
+}
+
+#paycheck-header {
+    color: gray;
+    align-content: center;
+    vertical-align: center;
+    horiz-align: center;
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: inline-block;
+}
+
+.paycheck-line {
+    color: black;
+    align-content: center;
+    /*text-align: center;*/
+    horiz-align: center;
+    width: 100%;
+    /*margin: 2%;*/
+    padding-top: 1%;
+    padding-bottom: 1%;
     display: inline-block;
 }
 /* ---------------------------------------------------- ID's ---------------------------------------------------- */
@@ -169,9 +259,7 @@ footer {
 /*!*height: 100px;*!*/
 /*!*border-radius: 5px;*!*/
 /*}*/
-#infant {
-    font-size: small;
-}
+
 /* -------------------------------------------------- combined -------------------------------------------------- */
 #search{
     display: inline;
@@ -236,24 +324,33 @@ footer {
 }
 /* ---------------------------------------------------- buttons ---------------------------------------------------- */
 .button-row{
-    width: 80%;
+    /*width: 100%;*/
+    direction: ltr !important;
+    display: flex;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
-.buttom-page-btn {
-    padding: 2%;
-    /*width: 100px;*/
-    /*height: 30px;*/
+.bottom-page-btn {
+    padding: 4%;
+    width: 100%;
+    /*height: 100%;*/
     color: white;
     text-align: center;
     border-radius: 5px;
     border:none;
 }
-.buttom-page-btn:hover{
+.bottom-page-btn:hover{
     box-shadow: 5px 5px 5px #888888;
     transition: box-shadow 0.3s ease-in-out;
 }
+
 #reject-button {
+    height: 95%;
     background-color: #f29488;
+    /*display: inline-block;*/
 }
 #pay-button {
+    height: 95%;
     background-color: #3b3f66;
+    /*display: inline-block;*/
 }
