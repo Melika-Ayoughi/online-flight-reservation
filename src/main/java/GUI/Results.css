@@ -3,8 +3,8 @@ html * {
     font-family: Vazir;
 
     /*for slow-motion transitions*/
-    transition: box-shadow 0.2s;
-    -webkit-transition: box-shadow 0.2s;
+    transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
 }
 
 /* ---------------------------------------------------- types --------------------------------------------------- */
@@ -92,8 +92,46 @@ footer {
     /*height: 100vh;*/
     /*bottom: 2%;*/
     margin: auto;
-    padding: 3%;
+    padding: 2%;
     border-radius: 5px;
+}
+
+.white-section {
+    display: inline-block;
+    width: 76%;
+    background-color: white;
+    padding: 1%;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.place-middle {
+    text-align: center;
+    padding: 2%;
+}
+
+.font-small {
+    font-size: small;
+}
+
+.font-large {
+    font-size: large;
+}
+
+.lbl-color-black {
+    color: black;
+}
+
+.lbl-color-dark-gray {
+    color: #4c4b4b;
+}
+
+.lbl-color-light-gray {
+   color: #a0a0a0;
+}
+
+.row-distance {
+    margin-top: 2%;
 }
 
 /* -------------------------------------------------- IDs -------------------------------------------------- */
@@ -162,4 +200,26 @@ footer {
 }
 .username-dropdown:hover .dropbtn {
     color: #686CA7;
+}
+
+/* ---------------------------------------------------- buttons ---------------------------------------------------- */
+
+.price-btn {
+    display: inline-block;
+    color: #794741;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #f29488;
+    width: 23%;
+    padding: 3.05%;
+    border: none;
+}
+
+.price-btn:hover{
+    background-color: #ffa093;
+}
+
+.price-btn:active{
+    background-color: #e18a7f;
 }
