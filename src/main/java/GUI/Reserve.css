@@ -1,31 +1,10 @@
 html * {
     direction: rtl !important;
     font-family: Vazir;
-}
-/* ---------------------------------------------------- fonts --------------------------------------------------- */
-@font-face {
-    font-family: Vazir;
-    src: url('Fonts/vazir-font-v7/Vazir.eot');
-    src: url('Fonts/vazir-font-v7/Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Fonts/vazir-font-v7/Vazir.woff') format('woff'),
-    url('Fonts/vazir-font-v7/Vazir.ttf') format('truetype');
-    font-weight: normal;
-}
-@font-face {
-    font-family: Vazir;
-    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot');
-    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
-    url('Fonts/vazir-font-v7/Vazir-Bold.woff') format('woff'),
-    url('Fonts/vazir-font-v7/Vazir-Bold.ttf') format('truetype');
-    font-weight: bold;
-}
-@font-face {
-    font-family: Vazir;
-    src: url('Fonts/vazir-font-v7/Vazir-Light.eot');
-    src: url('Fonts/vazir-font-v7/Vazir-Light.eot?#iefix') format('embedded-opentype'),
-    url('Fonts/vazir-font-v7/Vazir-Light.woff') format('woff'),
-    url('Fonts/vazir-font-v7/Vazir-Light.ttf') format('truetype');
-    font-weight: 300;
+
+    /*for slow-motion transitions*/
+    transition: box-shadow 0.2s;
+    -webkit-transition: box-shadow 0.2s;
 }
 
 /* ---------------------------------------------------- types --------------------------------------------------- */
@@ -415,15 +394,20 @@ nav ul ul li {
     text-align: center;
     border-radius: 5px;
     border:none;
+    font-size: small;
+    height: 95%;
 }
 .bottom-page-btn:hover{
     box-shadow: 5px 5px 5px #888888;
-    transition: box-shadow 0.3s ease-in-out;
+    background-color: #616278;
+    /*transition: box-shadow 0.3s ease-in-out;*/
+}
+
+.bottom-page-btn:active{
+    box-shadow: 2px 2px 2px #888888;
 }
 
 #reject-button {
-    font-size: small;
-    height: 95%;
     background-color: #E99488;
     width: 75%;
     float: left;
@@ -431,13 +415,6 @@ nav ul ul li {
 }
 
 #pay-button {
-    font-size: small;
-    height: 95%;
     background-color: #3D4067;
     /*display: inline-block;*/
-}
-
-.bottom-page-btn:active {
-    box-shadow: 5px 5px 5px #DDDDDD;
-    transition: box-shadow 0.3s ease-in-out;
 }

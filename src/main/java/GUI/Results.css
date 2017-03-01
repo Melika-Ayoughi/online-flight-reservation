@@ -1,4 +1,3 @@
-
 html * {
     direction: rtl !important;
     font-family: Vazir;
@@ -9,9 +8,9 @@ html * {
 }
 
 /* ---------------------------------------------------- types --------------------------------------------------- */
-
 body {
     background-color: white;
+    /*height: 100vh;*/
 }
 header {
     width: 100%;
@@ -19,30 +18,21 @@ header {
     padding: 10px;
     color: #3D4067;
     position:fixed;
+    /*top: 0px;*/
     background: inherit;
     z-index: 10;
     background-color: white;
 }
 footer {
+    /*position: absolute;*/
+    /*bottom: 2%;*/
+    /*width: 100%;*/
     margin: 2%;
     font-size: small;
     text-align: center;
     color: black;
 }
-
-h4 {
-    float: right;
-}
-
-hr{
-    width: 95%;
-    border: none;
-    height: 1px;
-    background-color: #6D6D6D;
-}
-
 /* --------------------------------------------------- classes -------------------------------------------------- */
-
 .heading {
     background-color: #686CA7;
     color: white;
@@ -50,18 +40,9 @@ hr{
     padding: 2%;
     margin: auto;
     width: 100%;
-    margin-top: 80px;
+    margin-top: 90px;
     /*top: 500px;*/
 }
-
-.toolbar {
-    width: 95%;
-    /*margin: auto;*/
-    /*padding: 10px;*/
-    color: black;
-    display: inline-block;
-}
-
 .container {
     margin: auto;
     top: 20%;
@@ -82,138 +63,64 @@ hr{
 .brand-logo * {
     display: inline-block;
 }
-
+.username {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    /*padding: 2%;*/
+}
 .toolbar {
-    width: 95%;
-    margin: auto;
+    display: inline-block;
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /*margin: auto;*/
     padding: 10px;
     color: black;
 }
-
-.place-middle-label {
-    text-align: center;
-    /*vertical-align: middle;*/
-    font-size: small;
-    color: #6D6D6D;
+.number-of-flights{
+    float: left;
 }
 
-.place-middle-value {
-    text-align: center;
-    /*vertical-align: middle;*/
-    font-size: large;
-    color: black;
-}
-
-/*quar*/
-
-.line {
-    margin: auto;
-    width: 75%;
-    /*padding-top: 10px;*/
-    color: black;
-}
-
-.lbl {
-    float: right;
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-
-.gray-ticket-box {
-    background-color: #EEEEEE;
-    width: 95%;
-    margin: auto;
-    margin-top: 4%;
-    border-radius: 5px;
-    /*direction: rtl;*/
-}
-
-.ticket-rows {
-    padding: 1%;
+.backtosearch {
     display: inline-block;
 }
 
-.row-1-3 {
-    width: 33%;
+.gray-back {
+    background-color: #EEEEEE;
+    width: 80%;
+    /*height: 100vh;*/
+    /*bottom: 2%;*/
+    margin: auto;
+    padding: 3%;
+    border-radius: 5px;
 }
 
-.row-1-4 {
-    width: 24.5%;
-}
-
-.row-1-6 {
-    width: 16%;
-}
-
-.row-1-12 {
-    width: 8%;
-}
-
-.white-box {
-    background-color: white;
-    color: black;
-    border-radius: 3px;
-    /*margin: auto;*/
-    margin-right: 0.2%;
-    margin-bottom: 1%;
-    font-size: medium;
-    /*margin-left: 1%;*/
-    /*padding: 1%;*/
-}
-
-.black-font {
-    color: black;
-}
-
-/* -------------------------------------------------- IDs ----------------------------------------------------------- */
+/* -------------------------------------------------- IDs -------------------------------------------------- */
 #search{
     display: inline;
     color: #3D4067;
 }
-
 #choose{
     display: inline;
-    color: #3D4067;
+    color: white;
 }
-
 #reserve{
     display: inline;
     color: #3D4067;
 }
-
 #ticket{
     display: inline;
-    color: white;
+    color: #3D4067;
 }
 
-/* ----------------------------------------------- small size screens ----------------------------------------------- */
+/* -------------------------------------------------- small screens -------------------------------------------------- */
 
 @media only screen and (max-width: 600px) {
     .hidden-mobile{
         display: none;
     }
-
-    .row-1-4 {
-        width: 45%;
-    }
-
-    .row-1-12 {
-        width: 45%;
-    }
-
-    .row-1-6 {
-        width: 45%;
-    }
-
-    .row-1-3 {
-        width: 95%;
-    }
-
-    .ticket-rows {
-        margin: 2%;
-    }
 }
-
 
 /* ----------------------------------------------- username-dropdown ----------------------------------------------- */
 
@@ -255,29 +162,4 @@ hr{
 }
 .username-dropdown:hover .dropbtn {
     color: #686CA7;
-}
-
-/* ---------------------------------------------------- buttons ---------------------------------------------------- */
-
-#print-button {
-    float: left;
-    padding-right: 2.5%;
-    padding-left: 2.5%;
-    padding-top: 1%;
-    padding-bottom: 1%;
-    color: white;
-    text-align: center;
-    border-radius: 5px;
-    border:none;
-    background-color: #f29488;
-}
-
-#print-button:hover{
-    box-shadow: 5px 5px 5px #888888;
-    /*transition: box-shadow 0.3s ease-in-out;*/
-}
-
-#print-button:active{
-    box-shadow: 2px 2px 2px #888888;
-    /*transition: box-shadow 0.3s ease-in-out;*/
 }
