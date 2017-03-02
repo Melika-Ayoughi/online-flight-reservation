@@ -1,35 +1,10 @@
 html * {
     direction: rtl !important;
     font-family: Vazir;
-}
 
-/* ---------------------------------------------------- fonts --------------------------------------------------- */
-
-@font-face {
-    font-family: Vazir;
-    src: url('Fonts/vazir-font-v7/Vazir.eot');
-    src: url('Fonts/vazir-font-v7/Vazir.eot?#iefix') format('embedded-opentype'),
-    url('Fonts/vazir-font-v7/Vazir.woff') format('woff'),
-    url('Fonts/vazir-font-v7/Vazir.ttf') format('truetype');
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: Vazir;
-    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot');
-    src: url('Fonts/vazir-font-v7/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
-    url('Fonts/vazir-font-v7/Vazir-Bold.woff') format('woff'),
-    url('Fonts/vazir-font-v7/Vazir-Bold.ttf') format('truetype');
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: Vazir;
-    src: url('Fonts/vazir-font-v7/Vazir-Light.eot');
-    src: url('Fonts/vazir-font-v7/Vazir-Light.eot?#iefix') format('embedded-opentype'),
-    url('Fonts/vazir-font-v7/Vazir-Light.woff') format('woff'),
-    url('Fonts/vazir-font-v7/Vazir-Light.ttf') format('truetype');
-    font-weight: 300;
+    /*for slow-motion transitions*/
+    transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
 }
 
 /* ---------------------------------------------------- types --------------------------------------------------- */

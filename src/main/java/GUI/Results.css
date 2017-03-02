@@ -1,0 +1,225 @@
+html * {
+    direction: rtl !important;
+    font-family: Vazir;
+
+    /*for slow-motion transitions*/
+    transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+}
+
+/* ---------------------------------------------------- types --------------------------------------------------- */
+body {
+    background-color: white;
+    /*height: 100vh;*/
+}
+header {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    color: #3D4067;
+    position:fixed;
+    /*top: 0px;*/
+    background: inherit;
+    z-index: 10;
+    background-color: white;
+}
+footer {
+    /*position: absolute;*/
+    /*bottom: 2%;*/
+    /*width: 100%;*/
+    margin: 2%;
+    font-size: small;
+    text-align: center;
+    color: black;
+}
+/* --------------------------------------------------- classes -------------------------------------------------- */
+.heading {
+    background-color: #686CA7;
+    color: white;
+    text-align: center;
+    padding: 2%;
+    margin: auto;
+    width: 100%;
+    margin-top: 90px;
+    /*top: 500px;*/
+}
+.container {
+    margin: auto;
+    top: 20%;
+    z-index:5;
+    overflow:auto;
+}
+.brand-logo {
+    float: right;
+    vertical-align: middle;
+    font-size: large;
+}
+.brand-logo img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.brand-logo * {
+    display: inline-block;
+}
+.username {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    /*padding: 2%;*/
+}
+.toolbar {
+    display: inline-block;
+    width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    /*margin: auto;*/
+    padding: 10px;
+    color: black;
+}
+.number-of-flights{
+    float: left;
+}
+
+.backtosearch {
+    display: inline-block;
+}
+
+.gray-back {
+    background-color: #EEEEEE;
+    width: 80%;
+    /*height: 100vh;*/
+    /*bottom: 2%;*/
+    margin: auto;
+    padding: 2%;
+    border-radius: 5px;
+}
+
+.white-section {
+    display: inline-block;
+    width: 76%;
+    background-color: white;
+    padding: 1%;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.place-middle {
+    text-align: center;
+    padding: 2%;
+}
+
+.font-small {
+    font-size: small;
+}
+
+.font-large {
+    font-size: large;
+}
+
+.lbl-color-black {
+    color: black;
+}
+
+.lbl-color-dark-gray {
+    color: #4c4b4b;
+}
+
+.lbl-color-light-gray {
+   color: #a0a0a0;
+}
+
+.row-distance {
+    margin-top: 2%;
+}
+
+/* -------------------------------------------------- IDs -------------------------------------------------- */
+#search{
+    display: inline;
+    color: #3D4067;
+}
+#choose{
+    display: inline;
+    color: white;
+}
+#reserve{
+    display: inline;
+    color: #3D4067;
+}
+#ticket{
+    display: inline;
+    color: #3D4067;
+}
+
+/* -------------------------------------------------- small screens -------------------------------------------------- */
+
+@media only screen and (max-width: 600px) {
+    .hidden-mobile{
+        display: none;
+    }
+}
+
+/* ----------------------------------------------- username-dropdown ----------------------------------------------- */
+
+.dropbtn {
+    background-color: white;
+    color: #3D4067;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+.username-dropdown {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: #3D4067;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #EEEEEE}
+.dropdown-content a:active {background-color: #D3D3D3}
+.username-dropdown:hover .dropdown-content {
+    display: block;
+    border-radius: 5px;
+}
+.username-dropdown:hover .dropbtn {
+    color: #686CA7;
+}
+
+/* ---------------------------------------------------- buttons ---------------------------------------------------- */
+
+.price-btn {
+    display: inline-block;
+    color: #794741;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #f29488;
+    width: 23%;
+    padding: 3.05%;
+    border: none;
+}
+
+.price-btn:hover{
+    background-color: #ffa093;
+}
+
+.price-btn:active{
+    background-color: #e18a7f;
+}
