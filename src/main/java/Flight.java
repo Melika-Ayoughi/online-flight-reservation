@@ -13,9 +13,9 @@ public class Flight {
     private String arrivalTime;
     private String airplaneModel;
 
-    private ArrayList<SeatClass> seatClasses;
+    private ArrayList<MapSeatClassCapacity> mapSeatClassCapacities;
 
-    public Flight(String airlineCode, String flightNumber, String date, String srcCode, String destCode, String departureTime, String arrrivalTime, String airplaneModel, ArrayList<SeatClass> seatClasses) {
+    public Flight(String airlineCode, String flightNumber, String date, String srcCode, String destCode, String departureTime, String arrrivalTime, String airplaneModel, ArrayList<MapSeatClassCapacity> mapSeatClassCapacities) {
         this.airlineCode = airlineCode;
         this.flightNumber = flightNumber;
         this.date = date;
@@ -24,46 +24,34 @@ public class Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrrivalTime;
         this.airplaneModel = airplaneModel;
-        this.seatClasses = seatClasses;
+        this.mapSeatClassCapacities = mapSeatClassCapacities;
     }
 
-    public ArrayList<SeatClass> getSeatClasses() {
-        return seatClasses;
+    public ArrayList<MapSeatClassCapacity> getMapSeatClassCapacities() {
+        return mapSeatClassCapacities;
     }
-
     public String getDate() {
         return date;
     }
-
     public String getDepartureTime() {
         return departureTime;
     }
-
     public String getArrivalTime() {
         return arrivalTime;
     }
-
     public String getAirplaneModel() {
         return airplaneModel;
     }
-
     public String getFlightNumber() {
-
         return flightNumber;
     }
-
     public String getDestCode() {
-
         return destCode;
     }
-
     public String getSrcCode() {
-
         return srcCode;
     }
-
     public String getAirlineCode() {
-
         return airlineCode;
     }
 }

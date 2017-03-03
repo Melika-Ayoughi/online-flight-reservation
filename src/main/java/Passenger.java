@@ -6,27 +6,24 @@ public class Passenger {
     private String surname;
     private String nationalId;
 
-    @Override
-    public String toString() {
-        return firstname + " " + surname + " " + nationalId;
+    public Passenger(String firstname, String surname, String nationalId) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.nationalId = nationalId;
     }
 
     public String getFirstname() {
         return firstname;
     }
-
     public String getSurname() {
         return surname;
     }
-
     public String getNationalId() {
         return nationalId;
     }
 
-    public Passenger(String firstname, String surname, String nationalId) {
-
-        this.firstname = firstname;
-        this.surname = surname;
-        this.nationalId = nationalId;
+    @Override
+    public String toString() {
+        return firstname + " " + surname + " " + nationalId;
     }
 }

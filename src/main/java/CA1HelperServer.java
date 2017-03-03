@@ -11,6 +11,7 @@ public class CA1HelperServer extends OnlineFlightProvider {
         super(helperServerIP, helperServerPort);
     }
 
+
     public ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) {
         ArrayList<Flight> flights = new ArrayList<Flight>();
         ArrayList<String> avResponse = new ArrayList<String>();
@@ -18,7 +19,7 @@ public class CA1HelperServer extends OnlineFlightProvider {
 
         outHelperServer.println(avRequest);
         try {
-            while (true) {
+            while(true) {
                 avResponse.add(inHelperServer.readLine());
                 if (!inHelperServer.ready()) {
                     avResponse.clear();
@@ -53,31 +54,99 @@ public class CA1HelperServer extends OnlineFlightProvider {
             arrTime = firstLineFields.get(6);
             planeModel = firstLineFields.get(7);
 
-            ArrayList<SeatClass> seatClasses = new ArrayList<SeatClass>();
-            char SeatClassName, SeatClassLeftNumber;
+            ArrayList<MapSeatClassCapacity> mapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
+            Character seatClassName;
+            Integer seatClassCapacity;
             List<String> secondLineFields = Arrays.asList(secondLine.split("\\s* \\s*"));
             char[] chars;
 
             for(int j=0; j<secondLineFields.size(); j++) {
                 chars = secondLineFields.get(j).toCharArray();
-                SeatClassName = chars[0];
-                SeatClassLeftNumber = chars[1];
-                seatClasses.add(new SeatClass(SeatClassName, SeatClassLeftNumber));
+                seatClassName = chars[0];
+                seatClassCapacity = chars[1]=='C' ? 0 : chars[1]=='A' ? 9 : Character.getNumericValue(chars[1]);
+                mapSeatClassCapacities.add(new MapSeatClassCapacity(new SeatClass(seatClassName, srcCode, destCode, airlineCode), seatClassCapacity));
             }
-            flights.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, seatClasses));
+            flights.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, mapSeatClassCapacities));
         }
         return flights;
     }
 
-    public ArrayList<Integer> getPricesList(Flight flight) {
-        return new ArrayList<Integer>();
+
+    public PriceValueObject getPricesList(SeatClass seatClass) {
+        String prices;
+        String priceRequest = "PRICE "+ seatClass.getOriginCode() + " " + seatClass.getDestinationCode() + " " +
+                                        seatClass.getAirlineCode() + " " + seatClass.getName();
+        outHelperServer.println(priceRequest);
+        try {
+            prices = inHelperServer.readLine();
+        }
+        catch (IOException ex) {
+            System.out.println("inHelperServer - socket - Error in reading Price response!");
+            return getPricesList(seatClass);
+        }
+        List<String> pricesFields = Arrays.asList(prices.split("\\s* \\s*"));
+        if(pricesFields.size() != 3)
+            System.out.println("inHelperServer - format error - PRICE response from helper server format is wrong!!!");
+
+        Integer adultPrice = Integer.parseInt(pricesFields.get(0));
+        Integer childPrice = Integer.parseInt(pricesFields.get(1));
+        Integer infantPrice = Integer.parseInt(pricesFields.get(2));
+
+        return new PriceValueObject(adultPrice, childPrice, infantPrice);
     }
 
-    public ReserveValueObject reserve(Flight flight) {
-        return new ReserveValueObject("1", 1,2,3);
+
+    public ReserveValueObject doReservation(Reservation reservation) {
+        String resRequest = "RES " + reservation.getSrcCode() + " " + reservation.getDestCode() + " " +
+                                     reservation.getDate() + " " + reservation.getAirlineCode() + " " +
+                                     reservation.getFlightNumber() + " " + reservation.getSeatClassName() + " " +
+                                     reservation.getAdultCount() + " "  + reservation.getChildCount() + " " +
+                                     reservation.getInfantCount();
+        outHelperServer.println(resRequest);
+        for(int i=0; i<reservation.getPassengerList().size(); i++)
+            outHelperServer.println(reservation.getPassengerList().get(i).toString());
+
+        String resResponse;
+        try {
+            resResponse = inHelperServer.readLine();
+            if (resResponse == null) {
+                System.out.println("inHelperServer - probably connection lost  - RES Response is null!");
+                return null;
+            }
+        }
+        catch (IOException ex){
+            System.out.println("inHelperServer - socket - error in reading RES response from server");
+            return null;
+        }
+        List<String> resResponseFields = Arrays.asList(resResponse.split("\\s* \\s*"));
+        if(resResponseFields.size() != 4) {
+            System.out.println("inHelperServer - format error - RES result format is wrong!!!");
+            return null;
+        }
+
+        String token = resResponseFields.get(0);
+        Integer adultPrice = Integer.parseInt(resResponseFields.get(1));
+        Integer childPrice = Integer.parseInt(resResponseFields.get(2));
+        Integer infantPrice = Integer.parseInt(resResponseFields.get(3));
+
+        return new ReserveValueObject(token, adultPrice, childPrice, infantPrice);
     }
 
-    public FinalizeValueObject finalize(Flight flight) {
-        return new FinalizeValueObject("khar", new ArrayList<String>());
+
+    public FinalizeValueObject doFinalization(Reservation reservation) {
+        String finRequest = "FIN " + reservation.getToken();
+        outHelperServer.println(finRequest);
+
+        ArrayList<String> ticketNumbersList = new ArrayList<String>();
+        String referenceCode = "";
+        try{
+            referenceCode = inHelperServer.readLine();
+            for(int i=0; i<reservation.getPassengerList().size(); i++)
+                ticketNumbersList.add(inHelperServer.readLine());
+        }
+        catch (IOException ex) {
+            System.out.println("inHelperServer - socket - error reading reference code or ticket numbers from helper server");
+        }
+        return new FinalizeValueObject(referenceCode, ticketNumbersList);
     }
 }

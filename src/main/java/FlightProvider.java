@@ -5,7 +5,7 @@ import java.util.ArrayList;
  */
 public interface FlightProvider {
     ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date);
-    ArrayList<Integer> getPricesList(Flight flight);
-    ReserveValueObject reserve(Flight flight);
-    FinalizeValueObject finalize(Flight flight);
+    PriceValueObject getPricesList(SeatClass seatClass);
+    ReserveValueObject doReservation(Reservation reservation);
+    FinalizeValueObject doFinalization(Reservation reservation);
 }

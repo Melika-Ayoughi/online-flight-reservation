@@ -21,7 +21,7 @@ public abstract class OnlineFlightProvider implements FlightProvider {
     }
 
     public abstract ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date);
-    public abstract ArrayList<Integer> getPricesList(Flight flight);
-    public abstract ReserveValueObject reserve(Flight flight);
-    public abstract FinalizeValueObject finalize(Flight flight);
+    public abstract PriceValueObject getPricesList(SeatClass seatClass);
+    public abstract ReserveValueObject doReservation(Reservation reservation);
+    public abstract FinalizeValueObject doFinalization(Reservation reservation);
 }
