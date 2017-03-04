@@ -1,5 +1,6 @@
 package controller;
 
+import domain.AkbarTicket;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,18 +14,18 @@ import java.io.PrintWriter;
 public class ResultsServlet extends HttpServlet {
 
     public void init() throws ServletException {
+//        AkbarTicket.getAkbarTicket();
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String source = request.getParameter("src");
             String destination = request.getParameter("dest");
-            int departureDate = Integer.parseInt(request.getParameter("departureDate")) ;
+            String departureDate = request.getParameter("departureDate");
             String returnDate = request.getParameter("returnDate");
             String adultCount = request.getParameter("adult-count");
             String childCount = request.getParameter("child-count");
             String infantCount = request.getParameter("infant-count");
-            System.out.println(source + destination + departureDate + returnDate + adultCount + childCount + infantCount);
 
             request.getRequestDispatcher("Results.jsp").forward(request, response);
         }
