@@ -40,13 +40,13 @@
                 <button class="clicked-buttons" id="one-way">یک طرفه</button>
                 <button class="clicked-buttons" id="two-way">رفت و برگشت</button>
             </div>
-            <form class="search-form">
+            <form class="search-form"  action="Search-Results.do" method="GET">
                 <div class="form-line">
                     <div class="airplane-logo">
                         <i class="fa fa-plane fa-size"></i>
                     </div>
                     <span>مبدا</span>
-                    <select class="airport" id="from">
+                    <select class="airport" name="src" id="from">
                         <option value="THR">تهران - فرودگاه امام</option>
                         <option value="MHD">مشهد - فرودگاه امام</option>
                         <option value="IFN">اصفهان - فرودگاه امام</option>
@@ -70,7 +70,7 @@
                         <i class="fa fa-plane fa-rotate-90 fa-size"></i>
                     </div>
                     <span>مقصد</span>
-                    <select class="airport" id="to">
+                    <select class="airport" name="dest" id="to">
                         <option value="THR">تهران - فرودگاه امام</option>
                         <option value="MHD">مشهد - فرودگاه امام</option>
                         <option value="IFN">اصفهان - فرودگاه امام</option>
@@ -94,14 +94,14 @@
                         <i class="fa fa-calendar fa-size"></i>
                     </div>
                     <span>رفت</span>
-                    <input class="date" type="text" value="۱۳۹۵/۱۱/۲۵">
+                    <input class="date" type="text" id="departure-date" name="departureDate" value="05Feb">
                 </div>
                 <div class="form-line">
                     <div class="airplane-logo">
                         <i class="fa fa-calendar fa-size"></i>
                     </div>
                     <span>برگشت</span>
-                    <input class="date" type="text" value="۱۳۹۵/۱۱/۲۵" id="return-date">
+                    <input class="date" type="text" id="return-date" name="returnDate" value="07Feb">
                 </div>
                 <div class="passenger-counts">
                     <div class="age-classes" id="adult">
@@ -110,7 +110,7 @@
                             <i class="fa fa-user fa-male"></i>
                         </div>
                         <div class="age-count">
-                            <select class="num-count">
+                            <select name="adult-count" class="num-count">
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -130,7 +130,7 @@
                             <i class="fa fa-user fa-child"></i>
                         </div>
                         <div class="age-count">
-                            <select class="num-count">
+                            <select name="child-count" class="num-count">
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -150,7 +150,7 @@
                             <i class="fa fa-user fa-child"></i>
                         </div>
                         <div class="age-count">
-                            <select class="num-count">
+                            <select name="infant-count" class="num-count">
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
