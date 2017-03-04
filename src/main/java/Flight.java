@@ -54,4 +54,10 @@ public class Flight {
     public String getAirlineCode() {
         return airlineCode;
     }
+
+//    public boolean equals(Flight flight) {
+//        if(this.airlineCode.equals(flight.airlineCode) &&
+//                this.)
+//        return false;
+//    }
 }
