@@ -48,4 +48,13 @@ public class SeatClass {
     public Integer getInfantPrice() {
         return infantPrice;
     }
+
+    public boolean equals(SeatClass seatClass) {
+        if (this.getName().equals(seatClass.getName()) &&
+                this.getOriginCode().equals(seatClass.getOriginCode()) &&
+                this.getDestinationCode().equals(seatClass.getDestinationCode()) &&
+                this.getAirlineCode().equals(seatClass.getAirlineCode()))
+            return true;
+        return false;
+    }
 }

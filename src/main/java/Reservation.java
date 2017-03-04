@@ -19,6 +19,7 @@ public class Reservation {
     private List<Passenger> passengerList = new ArrayList<Passenger>();
 
     private String token;
+    private Integer totalPrice;
     private String referenceCode;
     private List<String> ticketNumbersList = new ArrayList<String>();
 
@@ -92,10 +93,15 @@ public class Reservation {
         return tickets;
     }
 
-    public int getTotalPrice(String adultPrice, String childPrice, String infantPrice){
-        return Integer.parseInt(adultPrice)*Integer.parseInt(adultCount)
-                + Integer.parseInt(childPrice)*Integer.parseInt(childCount)
-                + Integer.parseInt(infantPrice)*Integer.parseInt(infantCount);
+    public void setTotalPrice(Integer adultPrice, Integer childPrice, Integer infantPrice){
+        totalPrice = adultPrice*Integer.parseInt(adultCount)
+                + childPrice*Integer.parseInt(childCount)
+                + infantPrice*Integer.parseInt(infantCount);
+        return;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
     }
 
     public Reservation(String srcCode, String destCode, String date, String airlineCode, String flightNumber, String seatClassName, String adultCount, String childCount, String infantCount) {
@@ -108,5 +114,11 @@ public class Reservation {
         this.adultCount = adultCount;
         this.childCount = childCount;
         this.infantCount = infantCount;
+    }
+
+    public int getTotalPrice(String adultPrice, String childPrice, String infantPrice){
+        return Integer.parseInt(adultPrice)*Integer.parseInt(adultCount)
+                + Integer.parseInt(childPrice)*Integer.parseInt(childCount)
+                + Integer.parseInt(infantPrice)*Integer.parseInt(infantCount);
     }
 }

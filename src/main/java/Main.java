@@ -29,5 +29,14 @@ public class Main {
         akbarTicket.setFlightProvider(ca1HelperServer);
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 2, 1, 0);
         System.out.println(flights.size());
+        ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
+        passengers.add(new Passenger("Ali","Iman", "0912425"));
+        passengers.add(new Passenger("Melika","Ayoughi", "0939763"));
+        passengers.add(new Passenger("Hope","Vanished", "0919224"));
+        Reservation reservation = new Reservation("THR", "MHD", "05Feb", "IR", "452", "Y", "1", "1", "1", passengers);
+        reservation = akbarTicket.reserve(reservation);
+        ArrayList<Flight> flights2 = akbarTicket.search("THR", "MHD", "05Feb", 2, 1, 0);
+        ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClasses();
+        System.out.println(reservation.getTotalPrice());
     }
 }
