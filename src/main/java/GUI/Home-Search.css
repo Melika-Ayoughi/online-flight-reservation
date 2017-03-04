@@ -2,9 +2,7 @@ html * {
     direction: rtl !important;
     font-family: Vazir;
 
-    /*for slow-motion transitions*/
-    transition: background-color 0.2s;
-    -webkit-transition: background-color 0.2s;
+
 }
 
 /* ---------------------------------------------------- types --------------------------------------------------- */
