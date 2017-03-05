@@ -1,0 +1,498 @@
+html * {
+    direction: rtl !important;
+    font-family: Vazir;
+
+
+}
+
+/* ---------------------------------------------------- types --------------------------------------------------- */
+
+body {
+    background-color: #7477B6;
+    background-image: url("Images/Background.png");
+    background-size: 966.67px 966.67px;
+    background-repeat: no-repeat;
+    background-position-x: -200px;
+    background-position-y: 200px;
+    height: 99.5vh;
+}
+
+header {
+    color: white;
+    text-align: center;
+}
+
+footer {
+    font-size: small;
+    position: absolute;
+    bottom: 7.5px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+/* --------------------------------------------------- classes -------------------------------------------------- */
+
+.heading {
+    vertical-align: middle;
+    width: 65%;
+    height: 45px;
+    margin: auto;
+    padding: 10px;
+    color: #FFFFFF;
+}
+
+.username {
+    font-size: large;
+    float: left;
+    vertical-align: middle;
+}
+
+.brand-logo {
+    /*padding-bottom: 10px;*/
+    font-size: x-large;
+    float: right;
+    vertical-align: middle;
+}
+
+.brand-logo img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.line {
+    margin: auto;
+    width: 75%;
+    /*padding-top: 10px;*/
+    color: #FFFFFF;
+}
+
+.buttons-search-form {
+    margin-top: 64px;
+    margin-right: 23%;
+    background-color: #7477B6;
+    width: 315px;
+    float: right;
+}
+
+.pair-buttons {
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    color: black;
+    width: 99.5%;
+    height: 42px;
+    padding: 1px;
+    /*cursor: pointer;*/
+}
+
+.clicked-buttons {
+    font-size: medium;
+    border: 0px;
+}
+
+.clicked-buttons button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+
+}
+
+/* Clear floats (clearfix hack) */
+.clicked-buttons:after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Add a background color on hover */
+.clicked-buttons:hover {
+    background-color: #3e8e41;
+}
+
+.search-form {
+    color: #FFFFFF;
+    margin-top: 15px;
+    border-radius: 8px;
+    height: 320px;
+    width: 100%;
+    background-color: #3D4067;
+    padding-top: 15px;
+
+    font-size: small;
+}
+
+.form-line {
+    margin-top: 0px;
+    height: 32px;
+    margin-bottom: 15px;
+}
+
+.date {
+    border-radius: 5px;
+    border: 0px;
+    text-align: left;
+    font-size: small;
+    padding-left: 10px;
+    /*line-height: 32px;*/
+    width: 179px;
+    height: 30px;
+    float: left;
+    margin-left: 20px;
+}
+
+.search-button input {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: 0px;
+    width: 100%;
+    color: #FFFFFF;
+    font-size: larger;
+    text-align: center;
+    height: 44px;
+    background-color: #E99488;
+}
+
+.search-button input:hover {
+    background-color: #FDA093;
+}
+
+.search-button input:active {
+    background-color: #D98A7F;
+}
+
+.airplane-logo {
+    font-size: large;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.passenger-counts {
+    padding-top: 10px;
+    height: 78px;
+}
+
+.age-classes {
+    width: 105px;
+    height: 78px;
+    display: inline-block;
+    text-align: center;
+    font-size: xx-small;
+    vertical-align: top;
+}
+
+.age-logo {
+    float: right;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+.age-count {
+    float: left;
+}
+
+.block {
+    display: block;
+    vertical-align: middle;
+    margin-bottom: 10px;
+}
+
+.num-count {
+    border-radius: 8px;
+    border: 0px;
+    font-size: small;
+    width: 50px;
+    height: 32px;
+    margin-left: 20px;
+}
+
+.day-logo {
+    height: 355px;
+    width: 220px;
+    font-size: x-large;
+    margin-top: 80px;
+    margin-left: 23%;
+    color: #FFFFFF;
+    text-align: center;
+    float: left;
+}
+
+.image {
+    height: 265px;
+    width: auto;
+}
+
+.airport {
+    color: black;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    border: 0px;
+    font-size: small;
+    width: 190px;
+    height: 32px;
+    float: left;
+    margin-left: 20px;
+}
+
+/* ------------------------------------------------- Drop Down -------------------------------------------------- */
+
+#to {
+    z-index: -1;
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+}
+
+.airport nav ul li{
+    vertical-align: middle;
+    display:inline-block;
+    width: 100%;
+}
+
+.airport nav ul li a {
+    padding-right: 20px;
+}
+
+.username nav ul li {
+    display:inline-block;
+    background-color: #7477B6;
+}
+
+.airport nav a {
+    font-size: small;
+    display:block;
+    color: black;
+    line-height: 32px;
+    text-decoration:none;
+}
+
+.username nav a {
+    display:block;
+    color:#FFFFFF;
+    line-height: 45px;
+    text-decoration:none;
+}
+
+.font-medium {
+    font-size: medium;
+}
+
+.airport nav a:hover {
+    background-color: #EEEEEE;
+    color: black;
+}
+
+.airport nav a:active {
+    background-color: #D3D3D3;
+    color: black;
+}
+
+.username nav a:hover {
+    /*background-color: #51559D;*/
+    background-color: inherit;
+    color: #CACDFB;
+}
+
+.airport nav ul ul {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 32px;
+}
+
+.username nav ul ul {
+    display: none;
+    position: absolute;
+    top: 45px; /* the height of the main nav */
+}
+
+.airport nav ul li:hover > ul {
+    display: inherit;
+}
+
+.username nav ul li:hover > ul {
+    display:inherit;
+}
+
+.airport nav ul ul li {
+    font-size: small;
+    width: 190px;
+    float: none;
+    display: list-item;
+    position: relative;
+    background-color: #FFFFFF;
+}
+
+.username nav ul ul li {
+    font-size: small;
+    text-align: center;
+    width:120px;
+    float:none;
+    display:list-item;
+    position: relative;
+}
+
+/* ---------------------------------------------------- ID's ---------------------------------------------------- */
+
+#one-way {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    width: 45%;
+    height: 100%;
+    background-color: #FFFFFF;
+    color: black;
+    float: right;
+}
+
+#two-way {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    width: 55%;
+    height: 100%;
+    background-color: #3D4067;
+    color: #FFFFFF;
+    float: left;
+}
+
+#two-way:hover {
+    background-color: #616378;
+}
+
+#adult {
+    float: right;
+}
+
+#infant {
+    float: left;
+}
+
+#age-adult {
+    font-size: large;
+    vertical-align: middle;
+}
+
+#age-child {
+    font-size: large;
+    vertical-align: middle;
+}
+
+#age-infant {
+    font-size: small;
+    vertical-align: middle;
+}
+
+#return-date {
+    background-color: #A1A1A1;
+}
+
+/* ------------------------------------------------- Slide Show ------------------------------------------------- */
+
+.slide-show {
+    height: 265px;
+    width: 210px;
+    margin-bottom: 10px;
+}
+
+.slide-show img {
+    position: absolute;
+    left: 24.5%;
+}
+
+@keyframes cf4FadeInOut {
+    0% {  opacity: 1;  }
+    17% {  opacity: 1;  }
+    25% {  opacity: 0;  }
+    92% {  opacity: 0.1;  }
+    100% {  opacity: 1;  }
+}
+
+@-webkit-keyframes cf4FadeInOut {
+    0% {  opacity: 1;  }
+    17% {  opacity: 1;  }
+    25% {  opacity: 0;  }
+    92% {  opacity: 0.1;  }
+    100% {  opacity: 1;  }
+}
+
+@-moz-keyframes cf4FadeInOut {
+    0% {  opacity: 1;  }
+    17% {  opacity: 1;  }
+    25% {  opacity: 0;  }
+    92% {  opacity: 0.1;  }
+    100% {  opacity: 1;  }
+}
+
+@-o-keyframes cf4FadeInOut {
+    0% {  opacity: 1;  }
+    17% {  opacity: 1;  }
+    25% {  opacity: 0;  }
+    92% {  opacity: 0.1;  }
+    100% {  opacity: 1;  }
+}
+
+.slide-show img:nth-of-type(1) {
+    animation: cf4FadeInOut 40s linear 35s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 35s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 35s infinite;
+    -o-animation: cf4FadeInOut 40s linear 35s infinite;
+}
+
+.slide-show img:nth-of-type(2) {
+    animation: cf4FadeInOut 40s linear 30s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 30s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 30s infinite;
+    -o-animation: cf4FadeInOut 40s linear 30s infinite;
+}
+
+.slide-show img:nth-of-type(3) {
+    animation: cf4FadeInOut 40s linear 25s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 25s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 25s infinite;
+    -o-animation: cf4FadeInOut 40s linear 25s infinite;
+}
+
+.slide-show img:nth-of-type(4) {
+    animation: cf4FadeInOut 40s linear 20s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 20s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 20s infinite;
+    -o-animation: cf4FadeInOut 40s linear 20s infinite;
+}
+
+.slide-show img:nth-of-type(5) {
+    animation: cf4FadeInOut 40s linear 15s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 15s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 15s infinite;
+    -o-animation: cf4FadeInOut 40s linear 15s infinite;
+}
+
+.slide-show img:nth-of-type(6) {
+    animation: cf4FadeInOut 40s linear 10s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 10s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 10s infinite;
+    -o-animation: cf4FadeInOut 40s linear 10s infinite;
+}
+
+.slide-show img:nth-of-type(7) {
+    animation: cf4FadeInOut 40s linear 5s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 5s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 5s infinite;
+    -o-animation: cf4FadeInOut 40s linear 5s infinite;
+}
+
+.slide-show img:nth-of-type(8) {
+    animation: cf4FadeInOut 40s linear 0s infinite;
+    -webkit-animation: cf4FadeInOut 40s linear 0s infinite;
+    -moz-animation: cf4FadeInOut 40s linear 0s infinite;
+    -o-animation: cf4FadeInOut 40s linear 0s infinite;
+}
+
+.slide-show:hover img {
+    animation-play-state: paused;
+    -webkit-animation-play-state: paused;
+    -o-animation-play-state: paused;
+    -moz-animation-play-state: paused;
+}

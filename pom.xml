@@ -6,7 +6,9 @@
 
     <groupId>com.test.socket.App</groupId>
     <artifactId>CA1</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
+    <url>http://maven.apache.org</url>
 
     <dependencies>
 
@@ -34,7 +36,16 @@
             <version>4.7.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <finalName>online_flight_reservation</finalName>
+    </build>
 
 </project>
