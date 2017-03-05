@@ -37,8 +37,23 @@ public class AkbarTicket {
     }
 
 
-    private void setAppropriateFlights (ArrayList<Flight> flights, Integer passengersCount) {
-        for(Flight flight : flights) {
+    private Flight copyFlight(Flight flight) {
+        Flight copy = new Flight(flight.getAirlineCode(), flight.getFlightNumber(), flight.getDate(), flight.getSrcCode(),
+                flight.getDestCode(), flight.getDepartureTime(), flight.getArrivalTime(), flight.getAirplaneModel(),
+                flight.getMapSeatClassCapacities());
+        ArrayList<MapSeatClassCapacity> copyMapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
+        for (MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
+                copyMapSeatClassCapacities.add(new MapSeatClassCapacity(mapSeatClassCapacity.getSeatClass(), mapSeatClassCapacity.getCapacity()));
+        copy.setMapSeatClassCapacities(copyMapSeatClassCapacities);
+        return copy;
+    }
+
+
+    private ArrayList<Flight> getAppropriateFlights (ArrayList<Flight> flights, Integer passengersCount) {
+        ArrayList<Flight> copiedFlights = new ArrayList<Flight>();
+        for (Flight flight : flights)
+            copiedFlights.add(copyFlight(flight));
+        for(Flight flight : copiedFlights) {
             ArrayList<MapSeatClassCapacity> seatClassCapacities = new ArrayList<MapSeatClassCapacity>();
             for (MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
                 seatClassCapacities.add(mapSeatClassCapacity);
@@ -48,13 +63,13 @@ public class AkbarTicket {
             seatClassCapacities.clear();
         }
         ArrayList<Flight> flightArrayList = new ArrayList<Flight>();
-        for (Flight flight : flights)
+        for (Flight flight : copiedFlights)
             flightArrayList.add(flight);
         for (Flight flight : flightArrayList)
             if(flight.getMapSeatClassCapacities().size()==0)
-                flights.remove(flight);
+                copiedFlights.remove(flight);
         flightArrayList.clear();
-        return;
+        return copiedFlights;
     }
 
 
@@ -64,11 +79,10 @@ public class AkbarTicket {
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
                 mapSeatClassCapacity.setSeatClass(setSeatClassPrices(mapSeatClassCapacity.getSeatClass()));
-//      for(Flight flight : flights)
-//          flight = flightRepo.getFlight(flight);
+        for(Flight flight : flights)
+            flight = flightRepo.store(flight);
         Integer passengersCount = adultCount + childCount + infantCount;
-        setAppropriateFlights(flights, passengersCount);
-        return flights;
+        return getAppropriateFlights(flights, passengersCount);
     }
 
 
@@ -76,12 +90,23 @@ public class AkbarTicket {
         ReserveValueObject reserveValueObject = flightProvider.doReservation(reservation);
         reservation.setToken(reserveValueObject.token);
         reservation.setTotalPrice(reserveValueObject.adultPrice, reserveValueObject.childPrice, reserveValueObject.infantPrice);
-//      reservation = reserveRepo.update(reservation);
+        reservation = reserveRepo.store(reservation);
         return reservation;
     }
 
 
     public Reservation finalize (String token) {
-        return null;
+        Reservation reservation = reserveRepo.getReservationByToken(token);
+        if (reservation == null) {
+            /*
+                no such reservation
+                should write some kind of error
+             */
+            return null;
+        }
+        FinalizeValueObject finalizeValueObject = flightProvider.doFinalization(reservation);
+        reservation.setReferenceCode(finalizeValueObject.referenceCode);
+        reservation.setTicketNumbersList(finalizeValueObject.ticketNoList);
+        return reservation;
     }
 }

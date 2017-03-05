@@ -55,9 +55,25 @@ public class Flight {
         return airlineCode;
     }
 
-//    public boolean equals(Flight flight) {
-//        if(this.airlineCode.equals(flight.airlineCode) &&
-//                this.)
-//        return false;
-//    }
+
+    public void setDepartureTime(String departureTime) {
+        this.departureTime = departureTime;
+    }
+    public void setArrivalTime(String arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+    public void setAirplaneModel(String airplaneModel) {
+        this.airplaneModel = airplaneModel;
+    }
+    public void setMapSeatClassCapacities(ArrayList<MapSeatClassCapacity> mapSeatClassCapacities) {
+        this.mapSeatClassCapacities = mapSeatClassCapacities;
+    }
+
+    public boolean equals(Flight flight) {
+        if(this.airlineCode.equals(flight.airlineCode) &&
+                this.flightNumber.equals(flight.flightNumber) && this.date.equals(flight.date) &&
+                this.srcCode.equals(flight.srcCode) && this.destCode.equals(flight.destCode))
+            return true;
+        return false;
+    }
 }
