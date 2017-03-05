@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -14,9 +15,11 @@ public class AkbarTicket {
 
 
     private AkbarTicket() { }
-    public static AkbarTicket getAkbarTicket() {
+    public static AkbarTicket getAkbarTicket() throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
+            // Default provider
+            akbarTicket.flightProvider = new CA1HelperServer("188.166.78.119", 8081);
             akbarTicket.flightRepo = FlightRepo.getFlightRepo();
             akbarTicket.reserveRepo = ReserveRepo.getReserveRepo();
             akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
@@ -97,18 +100,33 @@ public class AkbarTicket {
     }
 
 
-    public Reservation finalize (String token) {
+    public ArrayList<TicketBean> finalize (String token) {
         Reservation reservation = reserveRepo.getReservationByToken(token);
         if (reservation == null) {
-            /*
-                no such reservation
-                should write some kind of error
-             */
+            /*     no such reservation. should write some kind of error    */
             return null;
         }
         FinalizeValueObject finalizeValueObject = flightProvider.doFinalization(reservation);
         reservation.setReferenceCode(finalizeValueObject.referenceCode);
         reservation.setTicketNumbersList(finalizeValueObject.ticketNoList);
-        return reservation;
+
+        String departureTime = "", arrivalTime = "", airplaneModel = "";
+        ArrayList<Flight> flights = akbarTicket.search(reservation.getSrcCode(), reservation.getDestCode(), reservation.getDate(), 0, 0, 0);
+        for (Flight flight : flights)
+            if (flight.getAirlineCode().equals(reservation.getAirlineCode()) && flight.getFlightNumber().equals(reservation.getFlightNumber())) {
+                departureTime = flight.getDepartureTime();
+                arrivalTime = flight.getArrivalTime();
+                airplaneModel = flight.getAirplaneModel();
+            }
+
+        ArrayList<TicketBean> ticketBeans = new ArrayList<TicketBean>();
+        for (Integer i = 0; i < reservation.getPassengerList().size(); i++) {
+            Passenger passenger = reservation.getPassengerList().get(i);
+            String ticketNo = reservation.getTicketNumbersList().get(i);
+            ticketBeans.add(new TicketBean(passenger.getFirstname(), passenger.getSurname(), reservation.getReferenceCode(),
+                    ticketNo, reservation.getSrcCode(), reservation.getDestCode(), reservation.getAirlineCode(),
+                    reservation.getFlightNumber(), reservation.getSeatClassName(), departureTime, arrivalTime, airplaneModel));
+        }
+        return ticketBeans;
     }
 }
