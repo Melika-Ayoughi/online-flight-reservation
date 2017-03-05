@@ -123,4 +123,10 @@ public class Reservation {
                 + Integer.parseInt(childPrice)*Integer.parseInt(childCount)
                 + Integer.parseInt(infantPrice)*Integer.parseInt(infantCount);
     }
+
+    public boolean equals(Reservation reservation) {
+        if (this.getToken().equals(reservation.getToken()))
+            return true;
+        return false;
+    }
 }
