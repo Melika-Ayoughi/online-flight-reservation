@@ -21,12 +21,6 @@ public class ResultsServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
         try {
-            PrintWriter out = response.getWriter();
-//            response.setContentType("text/html;charset=UTF-8");
-//            response.setContentType("text/html;charset=windows-1256");
-            request.setCharacterEncoding("windows-1256");
-            response.setHeader("Content-Language" , "ar");
-
             String source = request.getParameter("src");
             String destination = request.getParameter("dest");
             String departureDate = request.getParameter("departureDate");
@@ -38,8 +32,8 @@ public class ResultsServlet extends HttpServlet {
 //            request.setAttribute("flightList", flightsList);
 //            request.getRequestDispatcher("Results.jsp").forward(request, response);
 
-
-
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
             out.write("\n");
             out.write("\n");
             out.write("\n");
@@ -53,7 +47,8 @@ public class ResultsServlet extends HttpServlet {
             out.write("    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->\n");
             out.write("    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">\n");
             out.write("\n");
-            out.println("    <title>انتخاب پرواز</title>\n");
+
+            out.write("    <title>انتخاب پرواز</title>\n");
             out.write("    <link rel=\"stylesheet\" type=\"text/css\" href=\"CSS-Reset.css\">\n");
             out.write("    <link rel=\"stylesheet\" type=\"text/css\" href=\"Results.css\">\n");
             out.write("\n");
@@ -67,7 +62,7 @@ public class ResultsServlet extends HttpServlet {
             out.write("\n");
 
             int numOfFlights = 0;
-            for (Flight flight : flightsList) {
+            for(Flight flight : flightsList){
                 numOfFlights += flight.getMapSeatClassCapacities().size();
             }
 
@@ -111,7 +106,7 @@ public class ResultsServlet extends HttpServlet {
             out.write("        <div class=\"col-xs-6 col-sm-5 col-md-4 pull-right\">\n");
             out.write("            <div class=\"number-of-flights\">\n");
             out.write("                <span> ");
-            out.print(numOfFlights);
+            out.print( numOfFlights);
             out.write(" </span>\n");
             out.write("                <span>پرواز </span>\n");
             out.write("                <span class=\"hidden-xs hidden-sm\">با مشخصات دلخواه شما  </span>\n");
@@ -125,8 +120,21 @@ public class ResultsServlet extends HttpServlet {
             out.write("\n");
             out.write("    ");
 
-            for (Flight flight : flightsList) {
-                for (MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities()) {
+            for(Flight flight : flightsList){
+                for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities()){
+
+                    out.write("\n");
+                    out.write("\n");
+                    out.write("        ");
+                    out.write("\n");
+                    out.write("        <form class=\"results-form\"  action=\"Reserve.do?");
+                    out.print("flight-id="+flight.getFlightId()+"&flight-number="
+                            +flight.getFlightNumber()+"&date="+flight.getDate()+"&src-code="+flight.getSrcCode()+"&dest-code="
+                            +flight.getDestCode()+"&airline-code="+flight.getAirlineCode()+"&seat-class="
+                            +mapSeatClassCapacity.getSeatClass().getName()+"&adult-count="+request.getParameter("adult-count")
+                            +"&child-count="+request.getParameter("child-count")+"&infant-count="
+                            +request.getParameter("infant-count"));
+                    out.write("\" method=\"POST\">\n");
                     out.write("\n");
                     out.write("                <div class=\"white-section col-md-9 pull-right row-distance\">\n");
                     out.write("                    <div class=\"row\">\n");
@@ -179,7 +187,7 @@ public class ResultsServlet extends HttpServlet {
                     out.write("                    </div>\n");
                     out.write("                </div>\n");
                     out.write("\n");
-                    out.write("                <div class=\"price-btn col-md-3 pull-right row-distance\">\n");
+                    out.write("                <button type=\"submit\" class=\"price-btn col-md-3 pull-right row-distance\">\n");
                     out.write("                    <div class=\"col-md-12 place-middle\">\n");
                     out.write("                        <span>");
                     out.print(mapSeatClassCapacity.getSeatClass().getAdultPrice());
@@ -192,10 +200,13 @@ public class ResultsServlet extends HttpServlet {
                     out.write("                    <div class=\"col-md-12 place-middle\">\n");
                     out.write("                        رزرو آنلاین\n");
                     out.write("                    </div>\n");
-                    out.write("                </div>\n");
+                    out.write("                </button>\n");
+                    out.write("        </form>\n");
                     out.write("                ");
+
                 }
             }
+
             out.write("\n");
             out.write("\n");
             out.write("    </div>\n");
@@ -209,6 +220,7 @@ public class ResultsServlet extends HttpServlet {
             out.write("\n");
             out.write("</body>\n");
             out.write("</html>");
+
         }
         catch (Exception ex) {
             request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Bad%20number%20format3").forward(request, response);
