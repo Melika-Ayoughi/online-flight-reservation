@@ -83,8 +83,6 @@ public class AkbarTicket {
 
     public ArrayList<Flight> search(String originCode, String destCode, String date,
                                     Integer adultCount, Integer childCount, Integer infantCount) {
-        logger.debug("debug SRCH "+originCode+" "+destCode+" "+date);
-        logger.info("info SRCH "+originCode+" "+destCode+" "+date);
         ArrayList<Flight> flights = flightProvider.getFlightsList(originCode, destCode, date);
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
@@ -94,6 +92,7 @@ public class AkbarTicket {
             flightArrayList.add(flightRepo.store(flight));
         flights.clear();
         Integer passengersCount = adultCount + childCount + infantCount;
+        logger.info("SRCH "+originCode+" "+destCode+" "+date);
         return getAppropriateFlights(flightArrayList, passengersCount);
     }
 
@@ -103,6 +102,9 @@ public class AkbarTicket {
         reservation.setToken(reserveValueObject.token);
         reservation.setTotalPrice(reserveValueObject.adultPrice, reserveValueObject.childPrice, reserveValueObject.infantPrice);
         reservation = reserveRepo.store(reservation);
+        //TODO add flight id
+        logger.info("RES "+reservation.getToken()+" "+reservation.getAdultCount()
+                +" "+reservation.getChildCount()+" "+reservation.getInfantCount());
         return reservation;
     }
 
@@ -116,6 +118,7 @@ public class AkbarTicket {
         FinalizeValueObject finalizeValueObject = flightProvider.doFinalization(reservation);
         reservation.setReferenceCode(finalizeValueObject.referenceCode);
         reservation.setTicketNumbersList(finalizeValueObject.ticketNoList);
+        logger.info("FINRES "+reservation.getToken()+" "+reservation.getReferenceCode()+" "+reservation.getTotalPrice());
 
         String departureTime = "", arrivalTime = "", airplaneModel = "";
         ArrayList<Flight> flights = akbarTicket.search(reservation.getSrcCode(), reservation.getDestCode(), reservation.getDate(), 0, 0, 0);
@@ -133,6 +136,9 @@ public class AkbarTicket {
             ticketBeans.add(new TicketBean(passenger.getFirstname(), passenger.getSurname(), reservation.getReferenceCode(),
                     ticketNo, reservation.getSrcCode(), reservation.getDestCode(), reservation.getAirlineCode(),
                     reservation.getFlightNumber(), reservation.getSeatClassName(), departureTime, arrivalTime, airplaneModel));
+            //TODO add<Customer Type> <Price>
+            logger.info("TICKET "+ticketBeans.get(i).referenceCode+" "+ticketBeans.get(i).ticketNo
+                    +" "+reservation.getPassengerList().get(i).getNationalId()+" ");
         }
         return ticketBeans;
     }
