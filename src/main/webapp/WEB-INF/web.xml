@@ -14,4 +14,14 @@
         <url-pattern>/Search-Results.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>reserve</servlet-name>
+        <servlet-class>controller.ReserveServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>reserve</servlet-name>
+        <url-pattern>/Reserve.do</url-pattern>
+    </servlet-mapping>
+
 </web-app>

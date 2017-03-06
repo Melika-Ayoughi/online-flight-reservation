@@ -84,6 +84,15 @@
         for(Flight flight : flightArrayList){
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities()){
                 %>
+
+        <%--pass flightid and seat class name and number of adult, child, infant requests--%>
+        <form class="results-form"  action="Reserve.do?<%="flight-id="+flight.getFlightId()+"&flight-number="
+        +flight.getFlightNumber()+"&date="+flight.getDate()+"&src-code="+flight.getSrcCode()+"&dest-code="
+        +flight.getDestCode()+"&airline-code="+flight.getAirlineCode()+"&seat-class="
+        +mapSeatClassCapacity.getSeatClass().getName()+"&adult-count="+request.getParameter("adult-count")
+        +"&child-count="+request.getParameter("child-count")+"&infant-count="
+        +request.getParameter("infant-count")%>" method="POST">
+
                 <div class="white-section col-md-9 pull-right row-distance">
                     <div class="row">
                         <div class="col-md-3 place-middle font-large lbl-color-black pull-right">
@@ -120,7 +129,7 @@
                     </div>
                 </div>
 
-                <div class="price-btn col-md-3 pull-right row-distance">
+                <button type="submit" class="price-btn col-md-3 pull-right row-distance">
                     <div class="col-md-12 place-middle">
                         <span><%=mapSeatClassCapacity.getSeatClass().getAdultPrice()%></span>
                         <span>ریال</span>
@@ -131,7 +140,8 @@
                     <div class="col-md-12 place-middle">
                         رزرو آنلاین
                     </div>
-                </div>
+                </button>
+        </form>
                 <%
             }
         }

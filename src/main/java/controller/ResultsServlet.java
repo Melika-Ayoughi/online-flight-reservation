@@ -18,7 +18,7 @@ public class ResultsServlet extends HttpServlet {
     public void init() throws ServletException {
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
         try {
             String source = request.getParameter("src");
