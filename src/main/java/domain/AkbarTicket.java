@@ -2,6 +2,7 @@ package domain;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 /**
  * Created by Ali_Iman on 3/3/17.
@@ -12,6 +13,7 @@ public class AkbarTicket {
     private FlightRepo flightRepo;
     private ReserveRepo reserveRepo;
     private SeatClassRepo seatClassRepo;
+    private final Logger logger = Logger.getLogger(AkbarTicket.class);
 
 
     private AkbarTicket() { }
@@ -80,6 +82,8 @@ public class AkbarTicket {
 
     public ArrayList<Flight> search(String originCode, String destCode, String date,
                                     Integer adultCount, Integer childCount, Integer infantCount) {
+        logger.debug("debug SRCH "+originCode+" "+destCode+" "+date);
+        logger.info("info SRCH "+originCode+" "+destCode+" "+date);
         ArrayList<Flight> flights = flightProvider.getFlightsList(originCode, destCode, date);
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
