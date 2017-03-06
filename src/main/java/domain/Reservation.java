@@ -130,6 +130,14 @@ public class Reservation {
                 + Integer.parseInt(infantPrice)*Integer.parseInt(infantCount);
     }
 
+    public String getPassengerType (Integer passengerIndex) {
+        if (passengerIndex <= Integer.parseInt(adultCount))
+            return ("adult");
+        else if (passengerIndex <= Integer.parseInt(adultCount)+Integer.parseInt(childCount))
+            return ("child");
+        return ("infant");
+    }
+
     public boolean equals(Reservation reservation) {
         if (this.getToken().equals(reservation.getToken()))
             return true;
