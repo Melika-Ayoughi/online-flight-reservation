@@ -32,6 +32,9 @@ footer {
     text-align: center;
     color: black;
 }
+a {
+    color: inherit;
+}
 /* --------------------------------------------------- classes -------------------------------------------------- */
 .heading {
     background-color: #686CA7;

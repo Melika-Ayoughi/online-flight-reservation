@@ -1,7 +1,6 @@
 package controller;
 
-import domain.AkbarTicket;
-import domain.Flight;
+import domain.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +21,9 @@ public class ResultsServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        FlightProvider ca1HelperServer = new CA1HelperServer("188.166.78.119", 8081);
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        akbarTicket.setFlightProvider(ca1HelperServer);
 
         try {
             String source = request.getParameter("src");
@@ -35,10 +36,12 @@ public class ResultsServlet extends HttpServlet {
 
             ArrayList<Flight> flightsList = akbarTicket.search(source,destination,departureDate,adultCount,childCount,infantCount);
 
+            request.setAttribute("flightList", flightsList);
             request.getRequestDispatcher("Results.jsp").forward(request, response);
         }
         catch (Exception ex){
             request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Bad%20number%20format3").forward(request, response);
+            ex.printStackTrace();
         }
 
     }
