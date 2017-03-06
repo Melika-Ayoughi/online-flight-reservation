@@ -14,7 +14,7 @@ public class Flight {
     private String departureTime;
     private String arrivalTime;
     private String airplaneModel;
-
+    private Integer flightId;
     private ArrayList<MapSeatClassCapacity> mapSeatClassCapacities;
 
     public Flight(String airlineCode, String flightNumber, String date, String srcCode, String destCode, String departureTime, String arrrivalTime, String airplaneModel, ArrayList<MapSeatClassCapacity> mapSeatClassCapacities) {
@@ -56,7 +56,9 @@ public class Flight {
     public String getAirlineCode() {
         return airlineCode;
     }
-
+    public Integer getFlightId() {
+        return flightId;
+    }
 
     public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
@@ -69,6 +71,9 @@ public class Flight {
     }
     public void setMapSeatClassCapacities(ArrayList<MapSeatClassCapacity> mapSeatClassCapacities) {
         this.mapSeatClassCapacities = mapSeatClassCapacities;
+    }
+    public void setFlightId(Integer flightId) {
+        this.flightId = flightId;
     }
 
     public boolean equals(Flight flight) {

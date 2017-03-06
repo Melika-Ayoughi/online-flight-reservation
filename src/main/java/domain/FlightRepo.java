@@ -46,6 +46,7 @@ public class FlightRepo {
     }
 
     private Flight add(Flight flight) {
+        flight.setFlightId(flights.size());
         flights.add(flight);
         return flight;
     }
