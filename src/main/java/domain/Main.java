@@ -22,7 +22,7 @@ public class Main {
         ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();
         ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
-        String dep = ticketBeans.get(0).departureTime;
+        Flight flight1 = akbarTicket.searchFlight("IR","822", "05Feb", "THR", "MHD");
         System.out.println(reservation.getTotalPrice());
     }
 }

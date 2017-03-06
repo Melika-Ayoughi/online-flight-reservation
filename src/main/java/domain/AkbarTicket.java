@@ -102,9 +102,10 @@ public class AkbarTicket {
         reservation.setToken(reserveValueObject.token);
         reservation.setTotalPrice(reserveValueObject.adultPrice, reserveValueObject.childPrice, reserveValueObject.infantPrice);
         reservation = reserveRepo.store(reservation);
-        //TODO add flight id
+        Flight flight = searchFlight(reservation.getAirlineCode(), reservation.getFlightNumber(), reservation.getDate(),
+                                                                    reservation.getSrcCode(), reservation.getDestCode());
         logger.info("RES "+reservation.getToken()+" "+reservation.getAdultCount()
-                +" "+reservation.getChildCount()+" "+reservation.getInfantCount());
+                +" "+reservation.getChildCount()+" "+reservation.getInfantCount()+" "+flight.getFlightId());
         return reservation;
     }
 
@@ -120,14 +121,12 @@ public class AkbarTicket {
         reservation.setTicketNumbersList(finalizeValueObject.ticketNoList);
         logger.info("FINRES "+reservation.getToken()+" "+reservation.getReferenceCode()+" "+reservation.getTotalPrice());
 
-        String departureTime = "", arrivalTime = "", airplaneModel = "";
-        ArrayList<Flight> flights = akbarTicket.search(reservation.getSrcCode(), reservation.getDestCode(), reservation.getDate(), 0, 0, 0);
-        for (Flight flight : flights)
-            if (flight.getAirlineCode().equals(reservation.getAirlineCode()) && flight.getFlightNumber().equals(reservation.getFlightNumber())) {
-                departureTime = flight.getDepartureTime();
-                arrivalTime = flight.getArrivalTime();
-                airplaneModel = flight.getAirplaneModel();
-            }
+        String departureTime, arrivalTime, airplaneModel;
+        Flight flight = searchFlight(reservation.getAirlineCode(), reservation.getFlightNumber(), reservation.getDate(),
+                                                                    reservation.getSrcCode(), reservation.getDestCode());
+        departureTime = flight.getDepartureTime();
+        arrivalTime = flight.getArrivalTime();
+        airplaneModel = flight.getAirplaneModel();
 
         ArrayList<TicketBean> ticketBeans = new ArrayList<TicketBean>();
         for (Integer i = 0; i < reservation.getPassengerList().size(); i++) {
