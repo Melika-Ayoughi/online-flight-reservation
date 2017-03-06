@@ -8,9 +8,7 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        FlightProvider ca1HelperServer = new CA1HelperServer("188.166.78.119", 8081);
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-        akbarTicket.setFlightProvider(ca1HelperServer);
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
         System.out.println(flights.size());
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
@@ -23,7 +21,8 @@ public class Main {
         ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClasses();
         ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();
-        akbarTicket.finalize(reservation.getToken());
+        ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
+        String dep = ticketBeans.get(0).departureTime;
         System.out.println(reservation.getTotalPrice());
     }
 }

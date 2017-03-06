@@ -84,6 +84,12 @@ public class Reservation {
     public List<Passenger> getPassengerList() {
         return passengerList;
     }
+    public String getReferenceCode() {
+        return referenceCode;
+    }
+    public List<String> getTicketNumbersList() {
+        return ticketNumbersList;
+    }
 
     public ArrayList<String> getTickets() {
         ArrayList<String> tickets = new ArrayList<String>();
