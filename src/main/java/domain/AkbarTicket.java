@@ -136,10 +136,19 @@ public class AkbarTicket {
             ticketBeans.add(new TicketBean(passenger.getFirstname(), passenger.getSurname(), reservation.getReferenceCode(),
                     ticketNo, reservation.getSrcCode(), reservation.getDestCode(), reservation.getAirlineCode(),
                     reservation.getFlightNumber(), reservation.getSeatClassName(), departureTime, arrivalTime, airplaneModel));
-            //TODO add<Customer Type> <Price>
-            logger.info("TICKET "+ticketBeans.get(i).referenceCode+" "+ticketBeans.get(i).ticketNo
-                    +" "+reservation.getPassengerList().get(i).getNationalId()+" ");
+            //TODO add <Price>
+            logger.info("TICKET "+ticketBeans.get(i).referenceCode+" "+ticketBeans.get(i).ticketNo+" "+
+                                  reservation.getPassengerList().get(i).getNationalId()+" "+
+                                  reservation.getPassengerType(i));
         }
         return ticketBeans;
+    }
+
+    public Flight searchFlight (String airlineCode, String flightNumber, String date, String srcCode, String destCode) {
+        ArrayList<Flight> flights = search(srcCode, destCode, date, 0, 0, 0);
+        for(Flight flight : flights)
+            if(flight.getAirlineCode().equals(airlineCode) && flight.getFlightNumber().equals(flightNumber))
+                return flight;
+        return null;
     }
 }
