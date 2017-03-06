@@ -35,6 +35,16 @@
     <meta name="author" content="Melika Ayoughi, Ali Iman">
 </head>
 <body>
+
+<%
+    Flight flight = (Flight)request.getAttribute("flight");
+    SeatClass seatClass = (SeatClass) request.getAttribute("seat-class");
+    Integer totalPassengerCount = Integer.parseInt((String)request.getAttribute("adult-count")) +
+            Integer.parseInt((String)request.getAttribute("child-count")) +
+            Integer.parseInt((String)request.getAttribute("infant-count")) ;
+%>
+
+
 <header>
     <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
     <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
@@ -87,13 +97,23 @@
         </div>
         <div class="row" id="flight-info">
             <div class="col-xs-12 col-sm-12 col-md-4 pull-right">
-                <div class="place-middle"> ایران ایر ۱۷۴۰</div>
-                <div class="place-middle"><i class="fa fa-calendar-o" aria-hidden="true"></i> دوشنبه ۱۷ اسفند</div>
+                <div class="place-middle">
+                    <%=flight.getAirlineCode() +" "+flight.getFlightNumber()%>
+                </div>
+                <div class="place-middle"><i class="fa fa-calendar-o" aria-hidden="true"></i> <%=flight.getDate()%></div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 pull-right"><div class="place-middle"> تهران ۱۷:۴۰ >> مشهد ۱۸:۵۰ </div></div>
             <div class="col-xs-12 col-sm-12 col-md-4 pull-right">
-                <div class="place-middle"><i class="fa fa-suitcase" aria-hidden="true"></i> کلاس اقتصادی</div>
-                <div class="place-middle"><i class="fa fa-plane" aria-hidden="true"></i> بوئینگ MD83</div>
+                <div class="place-middle">
+                    <%=flight.getSrcCode()+" "+flight.getDepartureTime()+" >> "+flight.getDestCode()+" "+flight.getArrivalTime()%>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 pull-right">
+                <div class="place-middle"><i class="fa fa-suitcase" aria-hidden="true"></i>کلاس
+                <%=seatClass.getName()%>
+                </div>
+                <div class="place-middle"><i class="fa fa-plane" aria-hidden="true"></i>
+                    <%=flight.getAirplaneModel()%>
+                </div>
             </div>
         </div>
         <div class="gray-font" id="paycheck">
@@ -118,13 +138,22 @@
                     بزرگسال
                 </div>
                 <div class="hidden-xs hidden-sm col-md-2 pull-right">
-                    ۱,۳۵۰,۰۰۰ ریال
+                    <span>
+                    <%=seatClass.getAdultPrice()%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۱,۳۵۰,۰۰۰ ریال--%>
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    ۲ نفر
+                    <span><%=request.getAttribute("adult-count")%></span>
+                    <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    ۲,۷۰۰,۰۰۰ ریال
+                    <span>
+                    <%=seatClass.getAdultPrice() * Integer.parseInt((String)request.getAttribute("adult-count"))%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۲,۷۰۰,۰۰۰ ریال--%>
                 </div>
             </div>
             <div class="paycheck-line">
@@ -132,13 +161,22 @@
                     کودک زیر ۱۲ سال
                 </div>
                 <div class="hidden-xs hidden-sm col-md-2 pull-right">
-                    ۱,۰۰۰,۰۰۰ ریال
+                    <span>
+                    <%=seatClass.getChildPrice()%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۱,۰۰۰,۰۰۰ ریال--%>
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    ۵ نفر
+                    <span><%=request.getAttribute("child-count")%></span>
+                    <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    ۵,۰۰۰,۰۰۰ ریال
+                    <span>
+                    <%=seatClass.getChildPrice() * Integer.parseInt((String)request.getAttribute("child-count"))%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۵,۰۰۰,۰۰۰ ریال--%>
                 </div>
             </div>
             <div class="paycheck-line" id="third-line">
@@ -146,13 +184,21 @@
                     نوزاد زیر ۲ سال
                 </div>
                 <div class="hidden-xs hidden-sm col-md-2 pull-right">
-                    ۲,۵۰۰ ریال
+                    <span><%=seatClass.getInfantPrice()%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۲,۵۰۰ ریال--%>
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    ۳ نفر
+                    <span><%=request.getAttribute("infant-count")%></span>
+                    <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    ۷,۵۰۰ ریال
+                    <span><%=seatClass.getInfantPrice() * Integer.parseInt((String)request.getAttribute("infant-count"))%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۷,۵۰۰ ریال--%>
+
                 </div>
             </div>
             <div class="paycheck-line" id="last-line">
@@ -164,7 +210,12 @@
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    ۷,۷۰۷,۵۰۰ ریال
+                    <span><%=seatClass.getAdultPrice() * Integer.parseInt((String)request.getAttribute("adult-count"))
+                            +seatClass.getChildPrice() * Integer.parseInt((String)request.getAttribute("child-count"))
+                            +seatClass.getInfantPrice() * Integer.parseInt((String)request.getAttribute("infant-count"))%>
+                    </span>
+                    <span>ریال</span>
+                    <%--۷,۷۰۷,۵۰۰ ریال--%>
                 </div>
             </div>
         </div>
@@ -172,277 +223,62 @@
             اطلاعات
         </div>
 
+        <%
+            for(int i=1; i<= totalPassengerCount;i++){
+
+                %>
         <div class="passenger-info-list">
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
+            <div class="gray-row row">
+                <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
+                    <%--<div class="place-middle">--%>
+
+        <%
+                if(i<=Integer.parseInt((String)request.getAttribute("adult-count"))){
+                    %>
+
                         <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
-                        ۱- بزرگسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
-                        ۲- بزرگسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
+                        <span><%=i+"-"%></span><span>بزرگسال:</span>
+                        <%--۱- بزرگسال:--%>
+                        <%
+                }
+
+
+                if(i>Integer.parseInt((String)request.getAttribute("adult-count")) && i<=Integer.parseInt((String)request.getAttribute("adult-count"))+Integer.parseInt((String)request.getAttribute("child-count"))){
+                    %>
+
                         <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
-                        ۳- خردسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
-                        ۴- خردسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
-                        ۵- خردسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
-                        ۶- خردسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
-                        ۷- خردسال:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
+                        <span><%=i+"-"%></span><span>خردسال:</span>
+                        <%--۳- خردسال:--%>
+                        <%
+                }
+
+                if(i>Integer.parseInt((String)request.getAttribute("adult-count"))+Integer.parseInt((String)request.getAttribute("child-count"))
+                        && i<=totalPassengerCount){
+                    %>
                         <span class="hidden-mobile" id="infant-8"><i class="fa fa-user fa-child"></i></span>
-                        ۸- نوزاد:
-                    </div>
+                        <span><%=i+"-"%></span><span>نوزاد:</span>
+                        <%--۸- نوزاد:--%>
+                        <%
+                }
+
+                %>
+                    <%--</div>--%>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
                     <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
+                        <select class="passenger-info">
+                            <option value="F">خانم</option>
+                            <option value="M">آقای</option>
+                        </select>
+                        <%--<nav class="passenger-info">--%>
+                        <%--<ul>--%>
+                        <%--<li><a href="#">آقای</a>--%>
+                        <%--<ul>--%>
+                        <%--<li><a href="#">خانم</a></li>--%>
+                        <%--</ul>--%>
+                        <%--</li>--%>
+                        <%--</ul>--%>
+                        <%--</nav>--%>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
@@ -461,79 +297,11 @@
                     </div>
                 </div>
             </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile" id="infant-9"><i class="fa fa-user fa-child"></i></span>
-                        ۹- نوزاد:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
-            <div class="gray-row">
-                <div class="col-xs-6 col-sm-6 col-md-2 pull-right">
-                    <div class="place-middle">
-                        <span class="hidden-mobile" id="infant-10"><i class="fa fa-user fa-child"></i></span>
-                        ۱۰- نوزاد:
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <nav class="passenger-info">
-                            <ul>
-                                <li><a href="#">آقای</a>
-                                    <ul>
-                                        <li><a href="#">خانم</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
-                </div>
-            </div>
+                        <%
+            }
+        %>
         </div>
+
         <div class="button-row">
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right">
@@ -552,6 +320,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
