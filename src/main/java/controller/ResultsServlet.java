@@ -222,10 +222,14 @@ public class ResultsServlet extends HttpServlet {
             out.write("</html>");
 
         }
-        catch (Exception ex) {
-            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Bad%20number%20format3").forward(request, response);
-            ex.printStackTrace();
+        catch (IOException ioexception){
+            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=IO%20Exception%20Happened!").forward(request, response);
+            ioexception.printStackTrace();
         }
+//        catch (Exception ex) {
+//            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Bad%20number%20format3").forward(request, response);
+//            ex.printStackTrace();
+//        }
     }
 
     public void destroy() {

@@ -223,14 +223,18 @@
             اطلاعات
         </div>
 
+        <form class="passenger-form"  action="Tickets.do" method="POST">
+        <div class="passenger-info-list">
         <%
             for(int i=1; i<= totalPassengerCount;i++){
 
                 %>
-        <div class="passenger-info-list">
             <div class="gray-row row">
                 <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
                     <%--<div class="place-middle">--%>
+                    <input type="hidden" name="adult-count" value="<%=request.getAttribute("adult-count")%>">
+                    <input type="hidden" name="child-count" value="<%=request.getAttribute("child-count")%>">
+                    <input type="hidden" name="infant-count" value="<%=request.getAttribute("infant-count")%>">
 
         <%
                 if(i<=Integer.parseInt((String)request.getAttribute("adult-count"))){
@@ -243,7 +247,9 @@
                 }
 
 
-                if(i>Integer.parseInt((String)request.getAttribute("adult-count")) && i<=Integer.parseInt((String)request.getAttribute("adult-count"))+Integer.parseInt((String)request.getAttribute("child-count"))){
+                if(i>Integer.parseInt((String)request.getAttribute("adult-count")) &&
+                        i<=Integer.parseInt((String)request.getAttribute("adult-count"))
+                                +Integer.parseInt((String)request.getAttribute("child-count"))){
                     %>
 
                         <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
@@ -252,7 +258,8 @@
                         <%
                 }
 
-                if(i>Integer.parseInt((String)request.getAttribute("adult-count"))+Integer.parseInt((String)request.getAttribute("child-count"))
+                if(i>Integer.parseInt((String)request.getAttribute("adult-count"))
+                        +Integer.parseInt((String)request.getAttribute("child-count"))
                         && i<=totalPassengerCount){
                     %>
                         <span class="hidden-mobile" id="infant-8"><i class="fa fa-user fa-child"></i></span>
@@ -264,12 +271,9 @@
                 %>
                     <%--</div>--%>
                 </div>
-                <div class="col-xs-6 col-sm-6 col-md-1 pull-right">
-                    <div class="place-middle">
-                        <select class="passenger-info">
-                            <option value="F">خانم</option>
-                            <option value="M">آقای</option>
-                        </select>
+                <select class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
+                        <option value="MRS-<%=i%>">خانم</option>
+                        <option value="MR-<%=i%>">آقای</option>
                         <%--<nav class="passenger-info">--%>
                         <%--<ul>--%>
                         <%--<li><a href="#">آقای</a>--%>
@@ -279,22 +283,16 @@
                         <%--</li>--%>
                         <%--</ul>--%>
                         <%--</nav>--%>
-                    </div>
+                </select>
+
+                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
+                        <input class="passenger-info" name="name-<%=i%>" type="text" placeholder="نام(انگلیسی)" >
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام(انگلیسی)" >
-                    </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
+                        <input class="passenger-info" name="surname-<%=i%>" type="text" placeholder="نام خانوادگی(انگلیسی)" >
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="نام خانوادگی(انگلیسی)" >
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-3 pull-right">
-                    <div class="place-middle">
-                        <input class="passenger-info" type="text" placeholder="شماره ملی" >
-                    </div>
+                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
+                        <input class="passenger-info" name="id-<%=i%>" type="text" placeholder="شماره ملی" >
                 </div>
             </div>
                         <%
@@ -304,23 +302,23 @@
 
         <div class="button-row">
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
-            <div class="col-xs-6 col-sm-6 col-md-4 pull-right">
-                <div class="place-middle">
+            <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
+                <%--<div class="place-middle">--%>
                     <button class="bottom-page-btn" id="reject-button" type="button" onclick="">
                         <span>انصراف</span>
                     </button>
-                </div>
+                <%--</div>--%>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-4 pull-right">
-                <div class="place-middle">
-                    <button class="bottom-page-btn" id="pay-button" type="button" onclick="">
+            <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
+                <%--<div class="place-middle">--%>
+                    <button class="bottom-page-btn" id="pay-button" type="submit">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  ></span>
                     </button>
-                </div>
+                <%--</div>--%>
             </div>
         </div>
-
+        </form>
     </div>
 </div>
 

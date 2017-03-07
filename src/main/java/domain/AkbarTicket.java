@@ -93,6 +93,7 @@ public class AkbarTicket {
         flights.clear();
         Integer passengersCount = adultCount + childCount + infantCount;
         logger.info("SRCH "+originCode+" "+destCode+" "+date);
+
         return getAppropriateFlights(flightArrayList, passengersCount);
     }
 
