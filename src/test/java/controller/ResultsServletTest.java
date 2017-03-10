@@ -105,7 +105,28 @@ public class ResultsServletTest {
         elements = responseElement.getElementsByClass("col-md-12 place-middle");
         Element totalPrice = elements.get(0);
         String totalPriceString = totalPrice.childNode(1).toString();
-        assertEquals("Total price = 3000 + 2000 + 1000", "<span>3000</span>", totalPriceString);
+        assertEquals("Total price = 3000 + 2000 + 1000", "<span>6000</span>", totalPriceString);
+    }
+
+    @Test
+    public void doPost3() throws Exception {
+        request = new HttpServletRequestMock();
+        response = new HttpServletResponseMock();
+
+        request.addParameter("src", "THR");
+        request.addParameter("dest", "MHD");
+        request.addParameter("departureDate", "05Feb");
+        request.addParameter("returnDate", "07Feb");
+        request.addParameter("adult-count", "4");
+        request.addParameter("child-count", "3");
+        request.addParameter("infant-count", "2");
+
+        resultsServlet.doPost(request, response);
+        String responseHtml = response.getData().toString();
+        Document responseDoc = Jsoup.parse(responseHtml);
+        Elements responseElements = responseDoc.getElementsByClass("results-form");
+        assertEquals("There are 2 flights and 2 seatClasses that can handle 9 persons",
+                2, responseElements.size());
     }
 
     @Test

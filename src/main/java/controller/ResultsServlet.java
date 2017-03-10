@@ -29,8 +29,9 @@ public class ResultsServlet extends HttpServlet {
             Integer childCount = Integer.parseInt(request.getParameter("child-count"));
             Integer infantCount = Integer.parseInt(request.getParameter("infant-count"));
             ArrayList<Flight> flightsList = akbarTicket.search(source, destination, departureDate, adultCount, childCount, infantCount);
-//            request.setAttribute("flightList", flightsList);
-//            request.getRequestDispatcher("Results.jsp").forward(request, response);
+
+//          request.setAttribute("flightList", flightsList);
+//          request.getRequestDispatcher("Results.jsp").forward(request, response);
 
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter out = response.getWriter();
