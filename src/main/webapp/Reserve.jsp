@@ -270,9 +270,9 @@
                 %>
                     <%--</div>--%>
                 </div>
-                <select name="gender" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
-                        <option value="MRS-<%=i%>">خانم</option>
-                        <option value="MR-<%=i%>">آقای</option>
+                <select name="gender-<%=i%>" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
+                        <option value="Mrs.">خانم</option>
+                        <option value="Mr.">آقای</option>
                         <%--<nav class="passenger-info">--%>
                         <%--<ul>--%>
                         <%--<li><a href="#">آقای</a>--%>
