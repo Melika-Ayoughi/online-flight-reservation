@@ -2,6 +2,8 @@ package domain;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.log4j.Logger;
 
 /**
@@ -25,6 +27,7 @@ public class AkbarTicket {
             akbarTicket.flightRepo = FlightRepo.getFlightRepo();
             akbarTicket.reserveRepo = ReserveRepo.getReserveRepo();
             akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
+            akbarTicket.logger.debug("Singleton akbarTicket construction");
         }
         return akbarTicket;
     }
@@ -40,6 +43,8 @@ public class AkbarTicket {
         seatClass.setAdultPrice(priceValueObject.adultPrice);
         seatClass.setChildPrice(priceValueObject.childPrice);
         seatClass.setInfantPrice(priceValueObject.infantPrice);
+        logger.debug("SetSeatClassPrices "+seatClass.getName()+" "+seatClass.getOriginCode()+" "+seatClass.getDestinationCode()+" "
+                                        +seatClass.getAirlineCode()+" "+seatClass.getAdultPrice());
         return seatClassRepo.store(seatClass);
     }
 
@@ -80,9 +85,7 @@ public class AkbarTicket {
         return copiedFlights;
     }
 
-
-    public ArrayList<Flight> search(String originCode, String destCode, String date,
-                                    Integer adultCount, Integer childCount, Integer infantCount) {
+    private ArrayList<Flight> search(String originCode, String destCode, String date) {
         ArrayList<Flight> flights = flightProvider.getFlightsList(originCode, destCode, date);
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
@@ -91,9 +94,15 @@ public class AkbarTicket {
         for(Flight flight : flights)
             flightArrayList.add(flightRepo.store(flight));
         flights.clear();
+        logger.debug("SRCH "+originCode+" "+destCode+" "+date);
+        return flightArrayList;
+    }
+
+    public ArrayList<Flight> search(String originCode, String destCode, String date,
+                                    Integer adultCount, Integer childCount, Integer infantCount) {
+        ArrayList<Flight> flightArrayList = search(originCode, destCode, date);
         Integer passengersCount = adultCount + childCount + infantCount;
         logger.info("SRCH "+originCode+" "+destCode+" "+date);
-
         return getAppropriateFlights(flightArrayList, passengersCount);
     }
 
@@ -114,6 +123,7 @@ public class AkbarTicket {
     public ArrayList<TicketBean> finalize (String token) {
         Reservation reservation = reserveRepo.getReservationByToken(token);
         if (reservation == null) {
+            logger.debug("There is no Reservation for given token " + token);
             /*     no such reservation. should write some kind of error    */
             return null;
         }
@@ -137,19 +147,26 @@ public class AkbarTicket {
                     ticketNo, reservation.getSrcCode(), reservation.getDestCode(), reservation.getAirlineCode(),
                     reservation.getFlightNumber(), reservation.getSeatClassName(), reservation.getDate(), departureTime, arrivalTime,
                     airplaneModel, reservation.getPassengerType(i), passenger.getGender()));
-            //TODO add <Price>
+            SeatClass reservationSeatClass = searchSeatClass(reservation.getSeatClassName().charAt(0), reservation.getSrcCode(),
+                                                                  reservation.getDestCode(), reservation.getAirlineCode());
             logger.info("TICKET "+ticketBeans.get(i).referenceCode+" "+ticketBeans.get(i).ticketNo+" "+
                                   reservation.getPassengerList().get(i).getNationalId()+" "+
-                                  reservation.getPassengerType(i));
+                                  reservation.getPassengerType(i)+" "+reservationSeatClass.getPriceForType(reservation.getPassengerType(i)));
         }
         return ticketBeans;
     }
 
     public Flight searchFlight (String airlineCode, String flightNumber, String date, String srcCode, String destCode) {
-        ArrayList<Flight> flights = search(srcCode, destCode, date, 0, 0, 0);
+        ArrayList<Flight> flights = search(srcCode, destCode, date);
         for(Flight flight : flights)
             if(flight.getAirlineCode().equals(airlineCode) && flight.getFlightNumber().equals(flightNumber))
                 return flight;
         return null;
+    }
+
+    public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) {
+        SeatClass seatClass = new SeatClass(name, orgCode, destCode, airlineCode);
+        seatClass = setSeatClassPrices(seatClass);
+        return seatClass;
     }
 }

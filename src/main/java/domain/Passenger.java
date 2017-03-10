@@ -9,12 +9,6 @@ public class Passenger {
     private String nationalId;
     private String gender;
 
-//    public Passenger(String firstname, String surname, String nationalId) {
-//        this.firstname = firstname;
-//        this.surname = surname;
-//        this.nationalId = nationalId;
-//    }
-
     public Passenger(String firstname, String surname, String nationalId, String gender) {
         this.firstname = firstname;
         this.surname = surname;
