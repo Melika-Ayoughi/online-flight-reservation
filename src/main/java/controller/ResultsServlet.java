@@ -228,8 +228,7 @@ public class ResultsServlet extends HttpServlet {
 
         }
         catch (IOException ioexception){
-            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=IO%20Exception%20Happened!").forward(request, response);
-            ioexception.printStackTrace();
+            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Helper%20Server%20Is%20Unreachable").forward(request, response);
         }
 //        catch (Exception ex) {
 //            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Bad%20number%20format3").forward(request, response);

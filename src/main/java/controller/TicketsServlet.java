@@ -25,43 +25,49 @@ public class TicketsServlet extends HttpServlet{
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-//    response.sendRedirect("Home-Search.html");
+        try {
 
-    Integer totalPassengerCount = Integer.parseInt(request.getParameter("total-count"));
-    ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
+            //    response.sendRedirect("Home-Search.html");
 
-    ArrayList<String> genderList = new ArrayList<String>();
+            Integer totalPassengerCount = Integer.parseInt(request.getParameter("total-count"));
+            ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
 
-    for (int i = 1; i <= totalPassengerCount; i++) {
-        String gender = request.getParameter("gender");
-        genderList.add(gender);
+            ArrayList<String> genderList = new ArrayList<String>();
 
-        Passenger passenger = new Passenger(request.getParameter("name-" + i),request.getParameter("surname-" + i)
-                ,request.getParameter("id-" + i),request.getParameter("gender-"+i));
-        passengerList.add(passenger);
-        logger.debug("PASSENGER " + i + " passed on to ticket.jsp :" + passenger.toString());
-    }
+            for (int i = 1; i <= totalPassengerCount; i++) {
+                String gender = request.getParameter("gender");
+                genderList.add(gender);
+
+                Passenger passenger = new Passenger(request.getParameter("name-" + i), request.getParameter("surname-" + i)
+                        , request.getParameter("id-" + i), request.getParameter("gender-" + i));
+                passengerList.add(passenger);
+                logger.debug("PASSENGER " + i + " passed on to ticket.jsp :" + passenger.toString());
+            }
 
 
-    Reservation reservation = new Reservation(request.getParameter("src-code"),
-            request.getParameter("dest-code"), request.getParameter("date"),
-            request.getParameter("airline-code"), request.getParameter("flight-number"),
-            request.getParameter("seat-class"), request.getParameter("adult-count"),
-            request.getParameter("child-count"), request.getParameter("infant-count"),
-            passengerList);
+            Reservation reservation = new Reservation(request.getParameter("src-code"),
+                    request.getParameter("dest-code"), request.getParameter("date"),
+                    request.getParameter("airline-code"), request.getParameter("flight-number"),
+                    request.getParameter("seat-class"), request.getParameter("adult-count"),
+                    request.getParameter("child-count"), request.getParameter("infant-count"),
+                    passengerList);
 
-    logger.debug("RESERVATION passed on to AkbarTicket.reserve()    " + reservation.toString());
+            logger.debug("RESERVATION passed on to AkbarTicket.reserve()    " + reservation.toString());
 
-    Reservation finalReservation = AkbarTicket.getAkbarTicket().reserve(reservation);
+            Reservation finalReservation = AkbarTicket.getAkbarTicket().reserve(reservation);
 
-    logger.debug("FINAL RESERVATION: " + finalReservation.toString());
+            logger.debug("FINAL RESERVATION: " + finalReservation.toString());
 
-    ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().finalize(finalReservation.getToken());
+            ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().finalize(finalReservation.getToken());
 
-    logger.debug("Ticketbeans: "+ ticketBeans.toString());
+            logger.debug("Ticketbeans: " + ticketBeans.toString());
 
-    request.setAttribute("tickets", ticketBeans);
-    request.getRequestDispatcher("Tickets.jsp").forward(request, response);
+            request.setAttribute("tickets", ticketBeans);
+            request.getRequestDispatcher("Tickets.jsp").forward(request, response);
+        }
+        catch (IOException ex){
+            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Helper%20Server%20Is%20Unreachable").forward(request, response);
+        }
 
     }
 
