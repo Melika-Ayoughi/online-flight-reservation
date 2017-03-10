@@ -35,7 +35,7 @@ public class TicketsServlet extends HttpServlet{
     for (int i = 1; i <= totalPassengerCount; i++) {
         String gender = request.getParameter("gender");
         genderList.add(gender);
-        
+
         Passenger passenger = new Passenger(request.getParameter("name-" + i),request.getParameter("surname-" + i)
                 ,request.getParameter("id-" + i),request.getParameter("gender-"+i));
         passengerList.add(passenger);

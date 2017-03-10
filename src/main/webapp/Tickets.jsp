@@ -89,8 +89,7 @@
                     نام
                 </div>
                 <div class="ticket-rows row-1-4 place-middle-value">
-                    <%--?//TODO add gender and age--%>
-                    <%=ticket.firstName+" "+ticket.surname%>
+                    <%=ticket.gender+" "+ticket.firstName+" "+ticket.surname+"-"+ticket.type%>
                     <%--MR Adult Iranpour--%>
                 </div>
                 <div class="ticket-rows row-1-12 place-middle-label">
@@ -138,8 +137,8 @@
                 </div>
                 <div class="ticket-rows row-1-3 place-middle-label white-box">
                     <%--//TODO date should be in ticket--%>
-                    <%--<%=ticket.date%>--%>
-                    دوشنبه ۲۵/۱۱/۱۳۹۵
+                    <%=ticket.date%>
+                    <%--دوشنبه ۲۵/۱۱/۱۳۹۵--%>
                 </div>
                 <div class="ticket-rows row-1-6 place-middle-label white-box">
                    <%=ticket.departureTime%>
