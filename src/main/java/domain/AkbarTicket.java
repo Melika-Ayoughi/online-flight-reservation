@@ -43,8 +43,6 @@ public class AkbarTicket {
         seatClass.setAdultPrice(priceValueObject.adultPrice);
         seatClass.setChildPrice(priceValueObject.childPrice);
         seatClass.setInfantPrice(priceValueObject.infantPrice);
-        logger.debug("SetSeatClassPrices "+seatClass.getName()+" "+seatClass.getOriginCode()+" "+seatClass.getDestinationCode()+" "
-                                        +seatClass.getAirlineCode()+" "+seatClass.getAdultPrice());
         return seatClassRepo.store(seatClass);
     }
 
@@ -167,6 +165,8 @@ public class AkbarTicket {
     public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) {
         SeatClass seatClass = new SeatClass(name, orgCode, destCode, airlineCode);
         seatClass = setSeatClassPrices(seatClass);
+        logger.debug("searchSeatClass "+seatClass.getName()+" "+seatClass.getOriginCode()+" "+seatClass.getDestinationCode()+" "
+                +seatClass.getAirlineCode()+" "+seatClass.getAdultPrice());
         return seatClass;
     }
 }
