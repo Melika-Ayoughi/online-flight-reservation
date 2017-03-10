@@ -1,6 +1,8 @@
 package domain;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        ArrayList<Flight> flights3 = akbarTicket.search("MHD", "THR", "06Feb", 0, 0, 0);
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
         System.out.println(flights.size());
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
