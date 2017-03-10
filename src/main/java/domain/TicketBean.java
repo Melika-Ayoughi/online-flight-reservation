@@ -13,11 +13,15 @@ public class TicketBean {
     public String airlineCode;
     public String flightNo;
     public String seatClassName;
+    public String date;
     public String departureTime;
     public String arrivalTime;
     public String airplaneModel;
+    public String type;
+    public String gender;
 
-    public TicketBean(String firstName, String surname, String referenceCode, String ticketNo, String originCode, String destinationCode, String airlineCode, String flightNo, String seatClassName, String departureTime, String arrivalTime, String airplaneModel) {
+
+    public TicketBean(String firstName, String surname, String referenceCode, String ticketNo, String originCode, String destinationCode, String airlineCode, String flightNo, String seatClassName, String date, String departureTime, String arrivalTime, String airplaneModel, String type, String gender) {
         this.firstName = firstName;
         this.surname = surname;
         this.referenceCode = referenceCode;
@@ -27,9 +31,12 @@ public class TicketBean {
         this.airlineCode = airlineCode;
         this.flightNo = flightNo;
         this.seatClassName = seatClassName;
+        this.date = date;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.airplaneModel = airplaneModel;
+        this.type = type;
+        this.gender = gender;
     }
 
     @Override
@@ -44,9 +51,12 @@ public class TicketBean {
                 ", airlineCode='" + airlineCode + '\'' +
                 ", flightNo='" + flightNo + '\'' +
                 ", seatClassName='" + seatClassName + '\'' +
+                ", date='" + date + '\'' +
                 ", departureTime='" + departureTime + '\'' +
                 ", arrivalTime='" + arrivalTime + '\'' +
                 ", airplaneModel='" + airplaneModel + '\'' +
+                ", type='" + type + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

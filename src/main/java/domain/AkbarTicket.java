@@ -135,7 +135,8 @@ public class AkbarTicket {
             String ticketNo = reservation.getTicketNumbersList().get(i);
             ticketBeans.add(new TicketBean(passenger.getFirstname(), passenger.getSurname(), reservation.getReferenceCode(),
                     ticketNo, reservation.getSrcCode(), reservation.getDestCode(), reservation.getAirlineCode(),
-                    reservation.getFlightNumber(), reservation.getSeatClassName(), departureTime, arrivalTime, airplaneModel));
+                    reservation.getFlightNumber(), reservation.getSeatClassName(), reservation.getDate(), departureTime, arrivalTime,
+                    airplaneModel, reservation.getPassengerType(i), passenger.getGender()));
             //TODO add <Price>
             logger.info("TICKET "+ticketBeans.get(i).referenceCode+" "+ticketBeans.get(i).ticketNo+" "+
                                   reservation.getPassengerList().get(i).getNationalId()+" "+
