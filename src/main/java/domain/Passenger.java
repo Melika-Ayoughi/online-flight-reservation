@@ -7,11 +7,19 @@ public class Passenger {
     private String firstname;
     private String surname;
     private String nationalId;
+    private String gender;
 
-    public Passenger(String firstname, String surname, String nationalId) {
+//    public Passenger(String firstname, String surname, String nationalId) {
+//        this.firstname = firstname;
+//        this.surname = surname;
+//        this.nationalId = nationalId;
+//    }
+
+    public Passenger(String firstname, String surname, String nationalId, String gender) {
         this.firstname = firstname;
         this.surname = surname;
         this.nationalId = nationalId;
+        this.gender = gender;
     }
 
     public String getFirstname() {
@@ -22,6 +30,9 @@ public class Passenger {
     }
     public String getNationalId() {
         return nationalId;
+    }
+    public String getGender() {
+        return gender;
     }
 
     @Override
