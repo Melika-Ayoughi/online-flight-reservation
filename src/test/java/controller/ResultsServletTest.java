@@ -1,32 +1,28 @@
 package controller;
 
+import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import org.jsoup.Jsoup;
+import org.jsoup.helper.Validate;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.security.Principal;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.Map;
-
-import static org.junit.Assert.*;
 
 /**
- * Created by Ali_Iman on 3/6/17.
+ * Created by Ali_Iman on 3/7/17.
  */
 public class ResultsServletTest {
+    ResultsServlet resultsServlet;
+    HttpServletRequestMock request;
+    HttpServletResponseMock response;
 
     @Before
     public void setUp() throws Exception {
-
+        resultsServlet = new ResultsServlet();
     }
 
     @After
@@ -36,16 +32,21 @@ public class ResultsServletTest {
 
     @Test
     public void doPost() throws Exception {
-//        httpServletRequest.setAttribute("src","THR");
-//        httpServletRequest.setAttribute("dest","MHD");
-//        httpServletRequest.setAttribute("departureDate","05Feb");
-//        httpServletRequest.setAttribute("returnDate","05Feb");
-//        httpServletRequest.setAttribute("adult-count","1");
-//        httpServletRequest.setAttribute("child-count","0");
-//        httpServletRequest.setAttribute("infant-count","0");
-//        resultsServlet.doPost(httpServletRequest, httpServletResponse);
-//        System.out.println("3");
-//        System.out.println(httpServletResponse);
-    }
+        request = new HttpServletRequestMock();
+        response = new HttpServletResponseMock();
 
+        request.addParameter("src", "THR");
+        request.addParameter("dest", "MHD");
+        request.addParameter("departureDate", "05Feb");
+        request.addParameter("returnDate", "07Feb");
+        request.addParameter("adult-count", "1");
+        request.addParameter("child-count", "1");
+        request.addParameter("infant-count", "1");
+
+        resultsServlet.doPost(request, response);
+        String responseHtml = response.getData().toString();
+        Document responseDoc = Jsoup.parse(responseHtml);
+        Elements elements = responseDoc.getElementsByClass();
+        System.out.println(responseDoc);
+    }
 }
