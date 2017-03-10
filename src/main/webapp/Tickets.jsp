@@ -89,6 +89,7 @@
                     نام
                 </div>
                 <div class="ticket-rows row-1-4 place-middle-value">
+                    <%--?//TODO add gender and age--%>
                     <%=ticket.firstName+" "+ticket.surname%>
                     <%--MR Adult Iranpour--%>
                 </div>
