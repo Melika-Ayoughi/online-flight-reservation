@@ -59,4 +59,12 @@ public class SeatClass {
             return true;
         return false;
     }
+
+    public Integer getPriceForType(String type) {
+        if (type.equals("infant"))
+            return infantPrice;
+        else if (type.equals("child"))
+            return childPrice;
+        return adultPrice;
+    }
 }
