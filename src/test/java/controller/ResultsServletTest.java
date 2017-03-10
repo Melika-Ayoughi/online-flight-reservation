@@ -73,6 +73,20 @@ public class ResultsServletTest {
         assertEquals("There should be one flight with 3 seatClasses but just one of them can handle 3 persons",
                                                                 1, responseElements.size());
         Element responseElement = responseElements.get(0);
+        Elements elements;
+
+        elements = responseElement.getElementsByClass("col-md-3 place-middle font-large lbl-color-black pull-right");
+        Element airlineCodeFlightNumber = elements.get(0);
+        String airlineCodeFlightNumberString = airlineCodeFlightNumber.childNode(0).toString();
+        assertEquals("Flight number and airline code", "\n W5 822 ", airlineCodeFlightNumberString);
+
+        elements = responseElement.getElementsByClass("col-md-9 place-middle font-large lbl-color-dark-gray pull-right");
+        Element srcCodeDestCodeArrTimeDepTime = elements.get(0);
+        String srcCodeDestCodeArrTimeDepTimeString = srcCodeDestCodeArrTimeDepTime.childNode(0).toString();
+        assertEquals("SrcCode destCode arrTime depTime", "\n MHD 0730 &gt;&gt; THR 0840 ", srcCodeDestCodeArrTimeDepTimeString);
+
+
+        System.out.println("haiw");
     }
 
     @Test
