@@ -22,8 +22,8 @@ public abstract class OnlineFlightProvider implements FlightProvider {
         connectToHelperServer(helperServerIP, helperServerPort);
     }
 
-    public abstract ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date);
-    public abstract PriceValueObject getPricesList(SeatClass seatClass);
-    public abstract ReserveValueObject doReservation(Reservation reservation);
-    public abstract FinalizeValueObject doFinalization(Reservation reservation);
+    public abstract ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) throws IOException;
+    public abstract PriceValueObject getPricesList(SeatClass seatClass) throws IOException;
+    public abstract ReserveValueObject doReservation(Reservation reservation) throws IOException;
+    public abstract FinalizeValueObject doFinalization(Reservation reservation) throws IOException;
 }

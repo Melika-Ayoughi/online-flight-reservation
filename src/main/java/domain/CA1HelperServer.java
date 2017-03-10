@@ -1,5 +1,7 @@
 package domain;
 
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,12 +11,14 @@ import java.util.List;
  * Created by Ali_Iman on 3/1/17.
  */
 public class CA1HelperServer extends OnlineFlightProvider {
+    private final Logger logger = Logger.getLogger(CA1HelperServer.class);
+
     public CA1HelperServer(String helperServerIP, Integer helperServerPort) throws IOException {
         super(helperServerIP, helperServerPort);
     }
 
 
-    public ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) {
+    public ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) throws IOException {
         ArrayList<Flight> flights = new ArrayList<Flight>();
         ArrayList<String> avResponse = new ArrayList<String>();
         String avRequest = "AV " + originCode + " " + destinationCode + " " + date;
@@ -33,7 +37,8 @@ public class CA1HelperServer extends OnlineFlightProvider {
             }
         }
         catch (IOException ex) {
-            System.out.println("inHelperServer - socket - Error in reading AV response!");
+            logger.debug("inHelperServer - socket - Error in reading AV response!");
+            throw ex;
         }
 
         String firstLine, secondLine;
@@ -74,7 +79,7 @@ public class CA1HelperServer extends OnlineFlightProvider {
     }
 
 
-    public PriceValueObject getPricesList(SeatClass seatClass) {
+    public PriceValueObject getPricesList(SeatClass seatClass) throws IOException {
         String prices;
         String priceRequest = "PRICE "+ seatClass.getOriginCode() + " " + seatClass.getDestinationCode() + " " +
                                         seatClass.getAirlineCode() + " " + seatClass.getName();
@@ -83,8 +88,8 @@ public class CA1HelperServer extends OnlineFlightProvider {
             prices = inHelperServer.readLine();
         }
         catch (IOException ex) {
-            System.out.println("inHelperServer - socket - Error in reading Price response!");
-            return getPricesList(seatClass);
+            logger.debug("inHelperServer - socket - Error in reading Price response!");
+            throw ex;
         }
         List<String> pricesFields = Arrays.asList(prices.split("\\s* \\s*"));
         if(pricesFields.size() != 3)
@@ -98,7 +103,7 @@ public class CA1HelperServer extends OnlineFlightProvider {
     }
 
 
-    public ReserveValueObject doReservation(Reservation reservation) {
+    public ReserveValueObject doReservation(Reservation reservation) throws IOException {
         String resRequest = "RES " + reservation.getSrcCode() + " " + reservation.getDestCode() + " " +
                                      reservation.getDate() + " " + reservation.getAirlineCode() + " " +
                                      reservation.getFlightNumber() + " " + reservation.getSeatClassName() + " " +
@@ -112,17 +117,17 @@ public class CA1HelperServer extends OnlineFlightProvider {
         try {
             resResponse = inHelperServer.readLine();
             if (resResponse == null) {
-                System.out.println("inHelperServer - probably connection lost  - RES Response is null!");
+                logger.debug("inHelperServer - probably connection lost  - RES Response is null!");
                 return null;
             }
         }
         catch (IOException ex){
-            System.out.println("inHelperServer - socket - error in reading RES response from server");
-            return null;
+            logger.debug("inHelperServer - socket - error in reading RES response from server");
+            throw ex;
         }
         List<String> resResponseFields = Arrays.asList(resResponse.split("\\s* \\s*"));
         if(resResponseFields.size() != 4) {
-            System.out.println("inHelperServer - format error - RES result format is wrong!!!");
+            logger.debug("inHelperServer - format error - RES result format is wrong!!!");
             return null;
         }
 
@@ -135,7 +140,7 @@ public class CA1HelperServer extends OnlineFlightProvider {
     }
 
 
-    public FinalizeValueObject doFinalization(Reservation reservation) {
+    public FinalizeValueObject doFinalization(Reservation reservation) throws IOException {
         String finRequest = "FIN " + reservation.getToken();
         outHelperServer.println(finRequest);
 
@@ -147,7 +152,8 @@ public class CA1HelperServer extends OnlineFlightProvider {
                 ticketNumbersList.add(inHelperServer.readLine());
         }
         catch (IOException ex) {
-            System.out.println("inHelperServer - socket - error reading reference code or ticket numbers from helper server");
+            logger.debug("inHelperServer - socket - error reading reference code or ticket numbers from helper server");
+            throw ex;
         }
         return new FinalizeValueObject(referenceCode, ticketNumbersList);
     }
