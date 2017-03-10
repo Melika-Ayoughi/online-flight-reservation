@@ -1,0 +1,110 @@
+html * {
+    direction: rtl !important;
+    font-family: Vazir;
+
+    /*for slow-motion transitions*/
+    transition: box-shadow 0.2s;
+    -webkit-transition: box-shadow 0.2s;
+}
+
+/* ---------------------------------------------------- types --------------------------------------------------- */
+body {
+    background-color: white;
+    /*height: 100vh;*/
+}
+header {
+    width: 100%;
+    margin: auto;
+    padding: 10px;
+    color: #3D4067;
+    position:fixed;
+    /*top: 0px;*/
+    background: inherit;
+    z-index: 10;
+    background-color: white;
+}
+footer {
+    /*position: absolute;*/
+    /*bottom: 2%;*/
+    /*width: 100%;*/
+    margin: 2%;
+    font-size: small;
+    text-align: center;
+    color: black;
+}
+/* --------------------------------------------------- classes -------------------------------------------------- */
+
+.mylabel{
+    font-size: larger;
+    padding: 10%;
+}
+
+.under-label{
+    font-size: large;
+    align-content: center;
+    padding-right: 10%;
+}
+
+
+.brand-logo {
+    float: right;
+    vertical-align: middle;
+    font-size: large;
+}
+.brand-logo img {
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.brand-logo * {
+    display: inline-block;
+}
+.username {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    /*padding: 2%;*/
+}
+
+/* ----------------------------------------------- username-dropdown ----------------------------------------------- */
+
+.dropbtn {
+    background-color: white;
+    color: #3D4067;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+.username-dropdown {
+    float: left;
+    font-size: medium;
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: #3D4067;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #EEEEEE}
+.dropdown-content a:active {background-color: #D3D3D3}
+.username-dropdown:hover .dropdown-content {
+    display: block;
+    border-radius: 5px;
+}
+.username-dropdown:hover .dropbtn {
+    color: #686CA7;
+}

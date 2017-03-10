@@ -24,26 +24,31 @@ public class ReserveServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Flight flight = AkbarTicket.getAkbarTicket().searchFlight(request.getParameter("airline-code"),
-                request.getParameter("flight-number"),request.getParameter("date"),
-                request.getParameter("src-code"),request.getParameter("dest-code"));
+        try {
+            Flight flight = AkbarTicket.getAkbarTicket().searchFlight(request.getParameter("airline-code"),
+                    request.getParameter("flight-number"), request.getParameter("date"),
+                    request.getParameter("src-code"), request.getParameter("dest-code"));
 
-        SeatClass seatClass = null;
+            SeatClass seatClass = null;
 
-        for(MapSeatClassCapacity mapSeatClassCapacity: flight.getMapSeatClassCapacities()) {
-            if (mapSeatClassCapacity.getSeatClass().getName().toString().equals(request.getParameter("seat-class"))) {
-                seatClass = mapSeatClassCapacity.getSeatClass();
+            for (MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities()) {
+                if (mapSeatClassCapacity.getSeatClass().getName().toString().equals(request.getParameter("seat-class"))) {
+                    seatClass = mapSeatClassCapacity.getSeatClass();
+                }
             }
-        }
 
-        logger.info("TMPRES "+request.getParameter("flight-id")+" "+seatClass.getAdultPrice()
-                +" "+seatClass.getChildPrice()+" "+seatClass.getInfantPrice());
-        request.setAttribute("flight", flight);
-        request.setAttribute("seat-class", seatClass);
-        request.setAttribute("adult-count", request.getParameter("adult-count"));
-        request.setAttribute("child-count", request.getParameter("child-count"));
-        request.setAttribute("infant-count", request.getParameter("infant-count"));
-        request.getRequestDispatcher("Reserve.jsp").forward(request, response);
+            logger.info("TMPRES " + request.getParameter("flight-id") + " " + seatClass.getAdultPrice()
+                    + " " + seatClass.getChildPrice() + " " + seatClass.getInfantPrice());
+            request.setAttribute("flight", flight);
+            request.setAttribute("seat-class", seatClass);
+            request.setAttribute("adult-count", request.getParameter("adult-count"));
+            request.setAttribute("child-count", request.getParameter("child-count"));
+            request.setAttribute("infant-count", request.getParameter("infant-count"));
+            request.getRequestDispatcher("Reserve.jsp").forward(request, response);
+        }
+        catch (IOException ex){
+            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Helper%20Server%20Is%20Unreachable").forward(request, response);
+        }
     }
 
     public void destroy() {
