@@ -190,7 +190,11 @@ public class ResultsServlet extends HttpServlet {
                     out.write("                <button type=\"submit\" class=\"price-btn col-md-3 pull-right row-distance\">\n");
                     out.write("                    <div class=\"col-md-12 place-middle\">\n");
                     out.write("                        <span>");
-                    out.print(mapSeatClassCapacity.getSeatClass().getAdultPrice());
+
+                    out.print(mapSeatClassCapacity.getSeatClass().getAdultPrice()*Integer.parseInt(request.getParameter("adult-count"))
+                            +mapSeatClassCapacity.getSeatClass().getChildPrice()*Integer.parseInt(request.getParameter("child-count"))
+                            +mapSeatClassCapacity.getSeatClass().getInfantPrice()*Integer.parseInt(request.getParameter("infant-count")));
+
                     out.write("</span>\n");
                     out.write("                        <span>ریال</span>\n");
                     out.write("\n");

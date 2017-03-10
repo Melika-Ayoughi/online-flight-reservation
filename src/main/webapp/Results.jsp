@@ -138,7 +138,10 @@
 
                 <button type="submit" class="price-btn col-md-3 pull-right row-distance">
                     <div class="col-md-12 place-middle">
-                        <span><%=mapSeatClassCapacity.getSeatClass().getAdultPrice()%></span>
+                        <span><%=mapSeatClassCapacity.getSeatClass().getAdultPrice()*Integer.parseInt(request.getParameter("adult-count"))
+                                +mapSeatClassCapacity.getSeatClass().getChildPrice()*Integer.parseInt(request.getParameter("child-count"))
+                                +mapSeatClassCapacity.getSeatClass().getInfantPrice()*Integer.parseInt(request.getParameter("infant-count"))
+                        %></span>
                         <span>ریال</span>
 
                     </div>
