@@ -100,7 +100,7 @@ public class AkbarTicket {
                                     Integer adultCount, Integer childCount, Integer infantCount) {
         ArrayList<Flight> flightArrayList = search(originCode, destCode, date);
         Integer passengersCount = adultCount + childCount + infantCount;
-        logger.info("SRCH "+originCode+" "+destCode+" "+date);
+        logger.info("SRCH "+originCode+" "+destCode+" "+date+" "+adultCount+" "+childCount+" "+infantCount);
         return getAppropriateFlights(flightArrayList, passengersCount);
     }
 
