@@ -31,4 +31,22 @@ public class TicketBean {
         this.arrivalTime = arrivalTime;
         this.airplaneModel = airplaneModel;
     }
+
+    @Override
+    public String toString() {
+        return "TicketBean{" +
+                "firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", referenceCode='" + referenceCode + '\'' +
+                ", ticketNo='" + ticketNo + '\'' +
+                ", originCode='" + originCode + '\'' +
+                ", destinationCode='" + destinationCode + '\'' +
+                ", airlineCode='" + airlineCode + '\'' +
+                ", flightNo='" + flightNo + '\'' +
+                ", seatClassName='" + seatClassName + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", arrivalTime='" + arrivalTime + '\'' +
+                ", airplaneModel='" + airplaneModel + '\'' +
+                '}';
+    }
 }

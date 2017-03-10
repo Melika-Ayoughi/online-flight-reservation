@@ -76,7 +76,6 @@
     <div class="toolbar">
         <div class="hidden-xs hidden-sm col-md-1 pull-right"></div>
         <div class="col-xs-6 col-sm-5 col-md-3 pull-right">
-            <!--<span class="glyphicon glyphicon-arrow-right" aria-hidden="true">  صفحه ی نتایج </span>-->
             <i class="fa fa-arrow-right" aria-hidden="true"></i>
             <div class="backtosearch"><span class="hidden-xs">برگشت به</span><span>صفحه ی نتایج </span></div>
         </div>
@@ -236,7 +235,6 @@
                 %>
             <div class="gray-row row">
                 <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
-                    <%--<div class="place-middle">--%>
         <%
                 if(i<=Integer.parseInt((String)request.getAttribute("adult-count"))){
                     %>
@@ -304,21 +302,17 @@
         <div class="button-row">
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                <%--<div class="place-middle">--%>
-                    <button class="bottom-page-btn" id="reject-button" type="submit">
-                        <input type="hidden" name="cancel-button" value="true">
-                        <span>انصراف</span>
-                    </button>
-                <%--</div>--%>
+                    <a href="Home-Search.html">
+                        <button class="bottom-page-btn" id="reject-button" type="submit">
+                            <span>انصراف</span>
+                        </button>
+                    </a>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                <%--<div class="place-middle">--%>
                     <button class="bottom-page-btn" id="pay-button" type="submit">
-                        <input type="hidden" name="submit-button" value="true">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  ></span>
                     </button>
-                <%--</div>--%>
             </div>
         </div>
         </form>
