@@ -223,7 +223,12 @@
             اطلاعات
         </div>
 
-        <form class="passenger-form"  action="Tickets.do" method="POST">
+        <form class="passenger-form"  action="Tickets.do?<%="flight-id="+flight.getFlightId()+"&flight-number="
+                +flight.getFlightNumber()+"&date="+flight.getDate()+"&src-code="+flight.getSrcCode()+"&dest-code="
+                +flight.getDestCode()+"&airline-code="+flight.getAirlineCode()+"&seat-class="
+                +seatClass.getName()+"&adult-count="+request.getAttribute("adult-count")
+                +"&child-count="+request.getAttribute("child-count")+"&infant-count="
+                +request.getAttribute("infant-count")+"&total-count="+totalPassengerCount%>" method="POST" >
         <div class="passenger-info-list">
         <%
             for(int i=1; i<= totalPassengerCount;i++){
@@ -232,10 +237,6 @@
             <div class="gray-row row">
                 <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
                     <%--<div class="place-middle">--%>
-                    <input type="hidden" name="adult-count" value="<%=request.getAttribute("adult-count")%>">
-                    <input type="hidden" name="child-count" value="<%=request.getAttribute("child-count")%>">
-                    <input type="hidden" name="infant-count" value="<%=request.getAttribute("infant-count")%>">
-
         <%
                 if(i<=Integer.parseInt((String)request.getAttribute("adult-count"))){
                     %>
@@ -271,7 +272,7 @@
                 %>
                     <%--</div>--%>
                 </div>
-                <select class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
+                <select name="gender" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
                         <option value="MRS-<%=i%>">خانم</option>
                         <option value="MR-<%=i%>">آقای</option>
                         <%--<nav class="passenger-info">--%>
@@ -304,7 +305,8 @@
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
                 <%--<div class="place-middle">--%>
-                    <button class="bottom-page-btn" id="reject-button" type="button" onclick="">
+                    <button class="bottom-page-btn" id="reject-button" type="submit">
+                        <input type="hidden" name="cancel-button" value="true">
                         <span>انصراف</span>
                     </button>
                 <%--</div>--%>
@@ -312,6 +314,7 @@
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
                 <%--<div class="place-middle">--%>
                     <button class="bottom-page-btn" id="pay-button" type="submit">
+                        <input type="hidden" name="submit-button" value="true">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  ></span>
                     </button>
