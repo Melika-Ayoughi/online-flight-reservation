@@ -45,27 +45,8 @@
 %>
 
 
-<header>
-    <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
-    <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-        <div class="brand-logo">
-            <img src="Images/LogoBlack.png" alt="">اکبر تیکت
-            &reg;
-        </div>
-    </div>
-    <div class="hidden-xs col-sm-4 col-md-4 pull-right"></div>
-    <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-        <div class="username-dropdown">
-            <button class="dropbtn"><i class="fa fa-user fa-fw"></i>نام کاربر</button>
-            <div class="dropdown-content">
-                <a href="#">بلیت های من</a>
-                <a href="#">خروج</a>
-            </div>
-        </div>
-    </div>
-    <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
-    <br> <br> <br>
-</header>
+<%@include file="header.jsp" %>
+
 <div class="container">
     <div class="heading">
         <div id="search" class="hidden-xs">جستجوی پرواز  ></div>
@@ -319,7 +300,7 @@
     </div>
 </div>
 
-<footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
+<%@include file="footer.jsp" %>
 
 </body>
 </html>

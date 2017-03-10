@@ -33,20 +33,22 @@
     ArrayList<TicketBean> tickets = (ArrayList<TicketBean>)request.getAttribute("tickets");
 %>
 
-<header>
-    <div class="brand-logo">
-        <img src="Images/LogoBlack.png" alt="">اکبر تیکت
-        &reg;
-    </div>
-    <div class="username-dropdown">
-        <button class="dropbtn"><i class="fa fa-user fa-fw"></i>نام کاربر</button>
-        <div class="dropdown-content">
-            <a href="#">بلیت های من</a>
-            <a href="#">خروج</a>
-        </div>
-    </div>
-    <br> <br> <br>
-</header>
+<%@include file="header.jsp" %>
+
+<%--<header>--%>
+    <%--<div class="brand-logo">--%>
+        <%--<img src="Images/LogoBlack.png" alt="">اکبر تیکت--%>
+        <%--&reg;--%>
+    <%--</div>--%>
+    <%--<div class="username-dropdown">--%>
+        <%--<button class="dropbtn"><i class="fa fa-user fa-fw"></i>نام کاربر</button>--%>
+        <%--<div class="dropdown-content">--%>
+            <%--<a href="#">بلیت های من</a>--%>
+            <%--<a href="#">خروج</a>--%>
+        <%--</div>--%>
+    <%--</div>--%>
+    <%--<br> <br> <br>--%>
+<%--</header>--%>
 <div class="container">
     <div class="heading">
         <div id="search" class="hidden-xs">جستجوی پرواز  ></div>
@@ -154,8 +156,9 @@
     %>
 
 </div>
-<div>
-    <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
-</div>
+<%--<div>--%>
+    <%--<footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>--%>
+<%--</div>--%>
+<%@include file="footer.jsp" %>
 </body>
 </html>
