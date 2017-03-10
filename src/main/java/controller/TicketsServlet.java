@@ -26,7 +26,6 @@ public class TicketsServlet extends HttpServlet{
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-
             //    response.sendRedirect("Home-Search.html");
 
             Integer totalPassengerCount = Integer.parseInt(request.getParameter("total-count"));
@@ -35,6 +34,15 @@ public class TicketsServlet extends HttpServlet{
             ArrayList<String> genderList = new ArrayList<String>();
 
             for (int i = 1; i <= totalPassengerCount; i++) {
+                if( isEmpty(request.getParameter("name-" + i)) ||
+                        isEmpty(request.getParameter("surname-" + i)) ||
+                        isEmpty(request.getParameter("id-" + i)) ||
+                        !request.getParameter("name-" + i).matches("^[a-zA-Z]*$") ||
+                        !request.getParameter("surname-" + i).matches("^[a-zA-Z]*$") ||
+                        !request.getParameter("id-" + i).matches("^[0-9]*$")){
+                    throw new InputFormatException("Exception in inputs in Reserve.jsp page");
+                }
+
                 String gender = request.getParameter("gender");
                 genderList.add(gender);
 
@@ -68,10 +76,19 @@ public class TicketsServlet extends HttpServlet{
         catch (IOException ex){
             request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Helper%20Server%20Is%20Unreachable").forward(request, response);
         }
+        catch (InputFormatException ex){
+            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Input%20Format%20Was%20Incorrect").forward(request, response);
+        }
 
     }
 
     public void destroy() {
     }
 
+    private boolean isEmpty(String str){
+        if(str != null && !str.equals(""))
+            return false;
+        else
+            return true;
+    }
 }
