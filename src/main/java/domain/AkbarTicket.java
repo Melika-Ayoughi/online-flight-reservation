@@ -38,7 +38,7 @@ public class AkbarTicket {
     }
 
 
-    private SeatClass setSeatClassPrices(SeatClass seatClass) {
+    private SeatClass setSeatClassPrices(SeatClass seatClass) throws IOException {
         PriceValueObject priceValueObject = flightProvider.getPricesList(seatClass);
         seatClass.setAdultPrice(priceValueObject.adultPrice);
         seatClass.setChildPrice(priceValueObject.childPrice);
@@ -83,7 +83,7 @@ public class AkbarTicket {
         return copiedFlights;
     }
 
-    private ArrayList<Flight> search(String originCode, String destCode, String date) {
+    private ArrayList<Flight> search(String originCode, String destCode, String date) throws IOException {
         ArrayList<Flight> flights = flightProvider.getFlightsList(originCode, destCode, date);
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
@@ -97,7 +97,7 @@ public class AkbarTicket {
     }
 
     public ArrayList<Flight> search(String originCode, String destCode, String date,
-                                    Integer adultCount, Integer childCount, Integer infantCount) {
+                                    Integer adultCount, Integer childCount, Integer infantCount) throws IOException {
         ArrayList<Flight> flightArrayList = search(originCode, destCode, date);
         Integer passengersCount = adultCount + childCount + infantCount;
         logger.info("SRCH "+originCode+" "+destCode+" "+date+" "+adultCount+" "+childCount+" "+infantCount);
@@ -105,7 +105,7 @@ public class AkbarTicket {
     }
 
 
-    public Reservation reserve (Reservation reservation) {
+    public Reservation reserve (Reservation reservation) throws IOException {
         ReserveValueObject reserveValueObject = flightProvider.doReservation(reservation);
         reservation.setToken(reserveValueObject.token);
         reservation.setTotalPrice(reserveValueObject.adultPrice, reserveValueObject.childPrice, reserveValueObject.infantPrice);
@@ -118,7 +118,7 @@ public class AkbarTicket {
     }
 
 
-    public ArrayList<TicketBean> finalize (String token) {
+    public ArrayList<TicketBean> finalize (String token) throws IOException {
         Reservation reservation = reserveRepo.getReservationByToken(token);
         if (reservation == null) {
             logger.debug("There is no Reservation for given token " + token);
@@ -154,7 +154,7 @@ public class AkbarTicket {
         return ticketBeans;
     }
 
-    public Flight searchFlight (String airlineCode, String flightNumber, String date, String srcCode, String destCode) {
+    public Flight searchFlight (String airlineCode, String flightNumber, String date, String srcCode, String destCode) throws IOException {
         ArrayList<Flight> flights = search(srcCode, destCode, date);
         for(Flight flight : flights)
             if(flight.getAirlineCode().equals(airlineCode) && flight.getFlightNumber().equals(flightNumber))
@@ -162,7 +162,7 @@ public class AkbarTicket {
         return null;
     }
 
-    public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) {
+    public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) throws IOException {
         SeatClass seatClass = new SeatClass(name, orgCode, destCode, airlineCode);
         seatClass = setSeatClassPrices(seatClass);
         logger.debug("searchSeatClass "+seatClass.getName()+" "+seatClass.getOriginCode()+" "+seatClass.getDestinationCode()+" "
