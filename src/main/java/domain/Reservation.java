@@ -130,6 +130,26 @@ public class Reservation {
                 + Integer.parseInt(infantPrice)*Integer.parseInt(infantCount);
     }
 
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "srcCode='" + srcCode + '\'' +
+                ", destCode='" + destCode + '\'' +
+                ", date='" + date + '\'' +
+                ", airlineCode='" + airlineCode + '\'' +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", seatClassName='" + seatClassName + '\'' +
+                ", adultCount='" + adultCount + '\'' +
+                ", childCount='" + childCount + '\'' +
+                ", infantCount='" + infantCount + '\'' +
+                ", passengerList=" + passengerList +
+                ", token='" + token + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", referenceCode='" + referenceCode + '\'' +
+                ", ticketNumbersList=" + ticketNumbersList +
+                '}';
+    }
+
     public String getPassengerType (Integer passengerIndex) {
         if (passengerIndex <= Integer.parseInt(adultCount))
             return ("adult");
