@@ -285,13 +285,13 @@
                 </select>
 
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-<%=i%>" type="text" placeholder="نام(انگلیسی)" >
+                        <input class="passenger-info" name="name-<%=i%>" type="text" placeholder="نام(انگلیسی)" required aria-describedby="name-format" aria-required="true" pattern="[a-zA-Z]*" title="first name with characters only">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-<%=i%>" type="text" placeholder="نام خانوادگی(انگلیسی)" >
+                        <input class="passenger-info" name="surname-<%=i%>" type="text" placeholder="نام خانوادگی(انگلیسی)" required aria-required="true" pattern="[a-zA-Z]*" title="last name with characters only">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-<%=i%>" type="text" placeholder="شماره ملی" >
+                        <input class="passenger-info" name="id-<%=i%>" type="text" placeholder="شماره ملی" required aria-required="true" pattern="[0-9]*" title="national id requires only numbers">
                 </div>
             </div>
                         <%
