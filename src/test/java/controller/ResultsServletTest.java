@@ -73,6 +73,39 @@ public class ResultsServletTest {
         assertEquals("There should be one flight with 3 seatClasses but just one of them can handle 3 persons",
                                                                 1, responseElements.size());
         Element responseElement = responseElements.get(0);
+        Elements elements;
+
+        elements = responseElement.getElementsByClass("col-md-3 place-middle font-large lbl-color-black pull-right");
+        Element airlineCodeFlightNumber = elements.get(0);
+        String airlineCodeFlightNumberString = airlineCodeFlightNumber.childNode(0).toString();
+        assertEquals("Flight number and airline code", "\n W5 822 ", airlineCodeFlightNumberString);
+
+        elements = responseElement.getElementsByClass("col-md-9 place-middle font-large lbl-color-dark-gray pull-right");
+        Element srcCodeDestCodeArrTimeDepTime = elements.get(0);
+        String srcCodeDestCodeArrTimeDepTimeString = srcCodeDestCodeArrTimeDepTime.childNode(0).toString();
+        assertEquals("SrcCode destCode arrTime depTime", "\n MHD 0730 &gt;&gt; THR 0840 ", srcCodeDestCodeArrTimeDepTimeString);
+
+        elements = responseElement.getElementsByClass("col-md-3 place-middle lbl-color-black pull-right");
+        Element date = elements.get(0);
+        String dateString = date.childNode(3).toString();
+        assertEquals("Date", "<span>06Feb</span>", dateString);
+
+        elements = responseElement.getElementsByClass("col-md-3 place-middle font-small lbl-color-light-gray pull-right");
+        Element planeModel = elements.get(0);
+        String plainModelString = planeModel.childNode(3).toString();
+        assertEquals("Plain model", "<span>351</span>", plainModelString);
+
+        elements = responseElement.getElementsByClass("col-md-6 place-middle font-small lbl-color-light-gray pull-right");
+        Element seatClassCapacity = elements.get(0);
+        String capacityString = seatClassCapacity.childNode(3).toString();
+        String seatClassString = seatClassCapacity.childNode(7).toString();
+        assertEquals("Capacity", "<span>9</span>", capacityString);
+        assertEquals("SeatClass name", "<span> F </span>", seatClassString);
+
+        elements = responseElement.getElementsByClass("col-md-12 place-middle");
+        Element totalPrice = elements.get(0);
+        String totalPriceString = totalPrice.childNode(1).toString();
+        assertEquals("Total price = 3000 + 2000 + 1000", "<span>3000</span>", totalPriceString);
     }
 
     @Test

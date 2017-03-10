@@ -151,9 +151,9 @@ public class Reservation {
     }
 
     public String getPassengerType (Integer passengerIndex) {
-        if (passengerIndex <= Integer.parseInt(adultCount))
+        if (passengerIndex < Integer.parseInt(adultCount))
             return ("adult");
-        else if (passengerIndex <= Integer.parseInt(adultCount)+Integer.parseInt(childCount))
+        else if (passengerIndex < Integer.parseInt(adultCount)+Integer.parseInt(childCount))
             return ("child");
         return ("infant");
     }
