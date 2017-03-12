@@ -21,6 +21,12 @@ public class ResultsServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
         try {
+
+            if(isEmpty(request.getParameter("departureDate")))
+            {
+                throw new InputFormatException("departure date was empty");
+            }
+
             String source = request.getParameter("src");
             String destination = request.getParameter("dest");
             String departureDate = request.getParameter("departureDate");
@@ -230,6 +236,9 @@ public class ResultsServlet extends HttpServlet {
         catch (IOException ioexception){
             request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Helper%20Server%20Is%20Unreachable").forward(request, response);
         }
+        catch (InputFormatException ex){
+            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Field%20Was%20Empty%20Exception").forward(request, response);
+        }
 //        catch (Exception ex) {
 //            request.getRequestDispatcher("ErrorPage.jsp?errorMessage=Bad%20number%20format3").forward(request, response);
 //            ex.printStackTrace();
@@ -237,5 +246,12 @@ public class ResultsServlet extends HttpServlet {
     }
 
     public void destroy() {
+    }
+
+    private boolean isEmpty(String str){
+        if(str != null && !str.equals(""))
+            return false;
+        else
+            return true;
     }
 }
