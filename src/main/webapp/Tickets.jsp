@@ -62,8 +62,17 @@
             <span>بلیت ها </span>
             <span class="hidden-xs">ی صادر شده</span>
         </h4>
-        <button  id="print-button" type="button" onclick=""> چاپ همه </button>
-
+        <button  id="print-button" type="button" onclick=""><a href="#openModal"> چاپ همه </a></button>
+        <div id="openModal" class="modalDialog">
+            <div> <a href="#close" title="Close" class="close">X</a>
+                <button type="button" id="PDFButton" onclick="">
+                    <span>PDF</span>
+                </button>
+                <button type="button" id="EmailButton" onclick="">
+                    <span>Email</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <%
