@@ -248,4 +248,11 @@ function update() {
 
     updatePayment(adultCount, childCount, infantCount);
     updateInformation(adultCount, childCount, infantCount);
+
+    var formAction = document.getElementById("passenger-form").action;
+    formAction = formAction.replace(/adult-count=./,"adult-count="+adultCount);
+    formAction = formAction.replace(/child-count=./,"child-count="+childCount);
+    formAction = formAction.replace(/infant-count=./,"infant-count="+infantCount);
+    formAction = formAction.replace(/total-count=./,"total-count="+(adultCount+childCount+infantCount));
+    document.getElementById("passenger-form").action = formAction;
 }
