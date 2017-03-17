@@ -25,8 +25,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>--%>
-    <%--<script type="text/javascript" src="Reserve.js"></script>--%>
-    <script type="text/babel" src="Reserve.js"></script>
 
     <title>ورود اطلاعات مسافران</title>
 
@@ -321,11 +319,13 @@
             <input id="infantCount" class="filterInput" placeholder="تعداد خردسالان">
         </div>
         <div class="col-xs-6 col-sm-12 col-md-3  place-middle">
-            <button class="applyFilters">اعمال فیلتر ها</button>
+            <button class="applyFilters" onclick="update()">اعمال فیلتر ها</button>
         </div>
     </div>
 
 </div>
+
+<script type="text/babel" src="Reserve.js"></script>
 
 <%@include file="footer.jsp" %>
 
