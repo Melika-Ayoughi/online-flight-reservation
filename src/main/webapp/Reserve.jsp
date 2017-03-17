@@ -325,7 +325,7 @@
             </select>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
-            <span class="inline">تعداد کودکان</span>
+            <span class="inline">تعداد خردسالان</span>
             <select name="تعداد کودکان" id="childCount" class="filterInput">
                 <option value=0>۰</option>
                 <option value=1>۱</option>
@@ -340,7 +340,7 @@
             </select>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
-            <span class="inline">تعداد خردسالان</span>
+            <span class="inline">تعداد نوزادان</span>
             <select name="تعداد خردسالان" id="infantCount" class="filterInput">
                 <option value=0>۰</option>
                 <option value=1>۱</option>
