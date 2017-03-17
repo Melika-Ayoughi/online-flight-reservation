@@ -44,3 +44,47 @@ function filterSeatClass() {
         document.getElementById("results").innerHTML = finalResultsHtml;
     }
 }
+
+function ascendingCompare(a, b) {
+    var nodes = a.getElementsByClassName("col-md-12 place-middle");
+    var node = nodes[0];
+    var priceA = node.getElementsByTagName("span")[0].innerHTML;
+
+    nodes = b.getElementsByClassName("col-md-12 place-middle");
+    node = nodes[0];
+    var priceB = node.getElementsByTagName("span")[0].innerHTML;
+
+    return priceA - priceB;
+}
+
+function ascendingSortBasedOnPrice() {
+    var elements = document.getElementsByClassName("results-form");
+    elements = Array.prototype.slice.call(elements, 0);
+    elements.sort(ascendingCompare);
+    var finalResultsHtml = "";
+    for(var i = 0; i < elements.length; i++)
+        finalResultsHtml += elements[i].outerHTML;
+    document.getElementById("results").innerHTML = finalResultsHtml;
+}
+
+function descendingCompare(a, b) {
+    var nodes = a.getElementsByClassName("col-md-12 place-middle");
+    var node = nodes[0];
+    var priceA = node.getElementsByTagName("span")[0].innerHTML;
+
+    nodes = b.getElementsByClassName("col-md-12 place-middle");
+    node = nodes[0];
+    var priceB = node.getElementsByTagName("span")[0].innerHTML;
+
+    return priceB - priceA;
+}
+
+function descendingSortBasedOnPrice() {
+    var elements = document.getElementsByClassName("results-form");
+    elements = Array.prototype.slice.call(elements, 0);
+    elements.sort(descendingCompare);
+    var finalResultsHtml = "";
+    for(var i = 0; i < elements.length; i++)
+        finalResultsHtml += elements[i].outerHTML;
+    document.getElementById("results").innerHTML = finalResultsHtml;
+}

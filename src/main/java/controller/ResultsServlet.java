@@ -225,12 +225,12 @@ public class ResultsServlet extends HttpServlet {
 
             out.write("    <div class=\"filters\">\n");
             out.write("        <div class=\"beInline\">\n");
-            out.write("            <button class=\"filterSortButton\">\n");
+            out.write("            <button class=\"filterSortButton\" onclick=\"ascendingSortBasedOnPrice()\">\n");
             out.write("قیمت صعودی\n");
             out.write("             </button>\n");
             out.write("        </div>\n");
             out.write("        <div class=\"beInline\">\n");
-            out.write("            <button class=\"filterSortButton\">\n");
+            out.write("            <button class=\"filterSortButton\" onclick=\"descendingSortBasedOnPrice()\">\n");
             out.write("قیمت نزولی\n");
             out.write("            </button>\n");
             out.write("        </div>\n");

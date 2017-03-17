@@ -164,12 +164,12 @@
 
     <div class="filters">
         <div class="beInline">
-            <button class="filterSortButton">
+            <button class="filterSortButton" onclick="ascendingSortBasedOnPrice()">
                 قیمت صعودی
             </button>
         </div>
         <div class="beInline">
-            <button class="filterSortButton">
+            <button class="filterSortButton" onclick="descendingSortBasedOnPrice()">
                 قیمت نزولی
             </button>
         </div>

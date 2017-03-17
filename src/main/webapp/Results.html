@@ -272,6 +272,7 @@
 
             <button type="submit" class="price-btn col-md-3 pull-right row-distance">
                 <div class="col-md-12 place-middle">
+                    <!--3000 -> 1000 just for testing sort-->
                     <span>3000</span>
                     <span>ریال</span>
 
@@ -288,12 +289,12 @@
 
     <div class="filters">
         <div class="beInline">
-            <button class="filterSortButton">
+            <button class="filterSortButton" onclick="ascendingSortBasedOnPrice()">
                 قیمت صعودی
             </button>
         </div>
         <div class="beInline">
-            <button class="filterSortButton">
+            <button class="filterSortButton" onclick="descendingSortBasedOnPrice()">
                 قیمت نزولی
             </button>
         </div>
