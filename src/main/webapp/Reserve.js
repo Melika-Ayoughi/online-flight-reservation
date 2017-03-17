@@ -93,7 +93,7 @@ function validateForm(totalRows) {
         document.getElementById("passenger-form").submit();
     }
     else {
-        alert("return false");
+        // alert("return false");
         // return false;
         document.getElementById("wrongPassengerInfoAlert").hidden = false;
         alert("اطلاعات مسافران غلط وارد شده است.");
