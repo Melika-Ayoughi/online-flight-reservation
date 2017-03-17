@@ -140,6 +140,7 @@
                 </div>
                 <div class="age-count">
                     <select name="child-count" class="num-count">
+                        <option value="0">۰</option>
                         <option value="1">۱</option>
                         <option value="2">۲</option>
                         <option value="3">۳</option>
@@ -149,7 +150,6 @@
                         <option value="7">۷</option>
                         <option value="8">۸</option>
                         <option value="9">۹</option>
-                        <option value="0">۰</option>
                     </select>
                 </div>
             </div>
@@ -160,6 +160,7 @@
                 </div>
                 <div class="age-count">
                     <select name="infant-count" class="num-count">
+                        <option value="0">۰</option>
                         <option value="1">۱</option>
                         <option value="2">۲</option>
                         <option value="3">۳</option>
@@ -169,7 +170,6 @@
                         <option value="7">۷</option>
                         <option value="8">۸</option>
                         <option value="9">۹</option>
-                        <option value="0">۰</option>
                     </select>
                 </div>
             </div>
