@@ -401,13 +401,11 @@ nav ul ul li {
     padding: 4%;
     width: 100%;
     margin-top: 3%;
-    /*height: 100%;*/
     color: white;
     text-align: center;
     border-radius: 5px;
     border:none;
     font-size: small;
-    height: 95%;
 }
 .bottom-page-btn:hover{
     box-shadow: 5px 5px 5px #888888;

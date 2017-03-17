@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+    <script type="text/babel" src="Reserve.js"></script>
+
     <title>ورود اطلاعات مسافران</title>
 
     <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
@@ -22,7 +27,98 @@
     <meta name="description" content="enter information">
     <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
     <meta name="author" content="Melika Ayoughi, Ali Iman">
-</head>
+    <script>"use strict";
+
+    var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+    /**
+     * Created by melikaayoughi on 3/17/17.
+     */
+// window.onload = function()
+
+// window.onload = countdown(10);
+
+// function countdown(minutes) {
+//     var seconds = 60;
+//     var mins = minutes;
+//     function tick() {
+//         var counter = document.getElementById("time");
+//         var current_minutes = mins-1;
+//         seconds--;
+//         counter.innerHTML = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+//         if( seconds > 0 ) {
+//             setTimeout(tick, 1000);
+//         }
+//         else {
+//             if(mins > 1){
+//                 countdown(mins-1);
+//             }
+//         }
+//     }
+//     tick();
+// }
+//
+// countdown(10);
+
+
+    var ReserveFieldsManager = function () {
+        function ReserveFieldsManager(name, surname, id) {
+            _classCallCheck(this, ReserveFieldsManager);
+
+            this.name = name;
+            this.surname = surname;
+            this.id = id;
+            // alert("name: "+name+" surname: "+surname+" id: "+id);
+        }
+
+        _createClass(ReserveFieldsManager, [{
+            key: "checkStructuralValidity",
+            value: function checkStructuralValidity() {
+                //name validity
+                if (this.name.length < 3 || !this.name.match(/[a-zA-Z]*/)) {
+                    // alert("this.name.length: "+this.name.length+" match: "+this.name.match(/[a-zA-Z]*/) )
+                    alert("first if");
+                    return false;
+                }
+                //surname validity
+                else if (this.surname.length < 3 || !this.surname.match(/[a-zA-Z]*/)) {
+                    alert("second if");
+                    return false;
+                }
+                //id validity
+                else if (this.id.length != 10 || !this.id.match(/[0-9]*/)) {
+                    alert("third if");
+                    return false;
+                }
+                // if (!this.message.match(/\d+/)) return false;
+                else {
+                    alert("else");
+                    return true;
+                }
+            }
+        }]);
+
+        return ReserveFieldsManager;
+    }();
+
+    function checkAndSubmit(totalRows) {
+        // alert(totalRows);
+        for (var i = 1; i <= totalRows; i++) {
+            var reserveFieldManager = new ReserveFieldsManager(document.getElementsByName("name-" + i)[0].value, document.getElementsByName("surname-" + i)[0].value, document.getElementsByName("id-" + i)[0].value);
+            var result = reserveFieldManager.checkStructuralValidity();
+            alert("i: " + i + "result: " + result);
+            if (!result) {
+                document.getElementById("wrongPassengerInfoAlert").hidden = false;
+                break;
+            } else {
+                alert("submit form");
+                document.getElementById("passenger-form").submit();
+            }
+        }
+    }
+    //# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIlJlc2VydmUuanMiXSwibmFtZXMiOlsiUmVzZXJ2ZUZpZWxkc01hbmFnZXIiLCJuYW1lIiwic3VybmFtZSIsImlkIiwibGVuZ3RoIiwibWF0Y2giLCJhbGVydCIsImNoZWNrQW5kU3VibWl0IiwidG90YWxSb3dzIiwiaSIsInJlc2VydmVGaWVsZE1hbmFnZXIiLCJkb2N1bWVudCIsImdldEVsZW1lbnRzQnlOYW1lIiwidmFsdWUiLCJyZXN1bHQiLCJjaGVja1N0cnVjdHVyYWxWYWxpZGl0eSIsImdldEVsZW1lbnRCeUlkIiwiaGlkZGVuIiwic3VibWl0Il0sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQTs7O0FBR0E7O0FBRUE7O0FBRUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7SUFHTUEsb0I7QUFFRixrQ0FBWUMsSUFBWixFQUFpQkMsT0FBakIsRUFBeUJDLEVBQXpCLEVBQTZCO0FBQUE7O0FBQ3pCLGFBQUtGLElBQUwsR0FBWUEsSUFBWjtBQUNBLGFBQUtDLE9BQUwsR0FBZUEsT0FBZjtBQUNBLGFBQUtDLEVBQUwsR0FBVUEsRUFBVjtBQUNBO0FBQ0g7Ozs7a0RBRXlCO0FBQ3RCO0FBQ0EsZ0JBQUksS0FBS0YsSUFBTCxDQUFVRyxNQUFWLEdBQW1CLENBQW5CLElBQXdCLENBQUUsS0FBS0gsSUFBTCxDQUFVSSxLQUFWLENBQWdCLFdBQWhCLENBQTlCLEVBQTREO0FBQ3hEO0FBQ0FDLHNCQUFNLFVBQU47QUFDQSx1QkFBTyxLQUFQO0FBQ0g7QUFDRDtBQUxBLGlCQU1LLElBQUksS0FBS0osT0FBTCxDQUFhRSxNQUFiLEdBQXNCLENBQXRCLElBQTJCLENBQUUsS0FBS0YsT0FBTCxDQUFhRyxLQUFiLENBQW1CLFdBQW5CLENBQWpDLEVBQWtFO0FBQ25FQywwQkFBTSxXQUFOO0FBQ0EsMkJBQU8sS0FBUDtBQUNIO0FBQ0Q7QUFKSyxxQkFLQSxJQUFJLEtBQUtILEVBQUwsQ0FBUUMsTUFBUixJQUFrQixFQUFsQixJQUF3QixDQUFFLEtBQUtELEVBQUwsQ0FBUUUsS0FBUixDQUFjLFFBQWQsQ0FBOUIsRUFBdUQ7QUFDeERDLDhCQUFNLFVBQU47QUFDQSwrQkFBTyxLQUFQO0FBQ0g7QUFDRDtBQUpLLHlCQUtBO0FBQ0RBLGtDQUFNLE1BQU47QUFDQSxtQ0FBTyxJQUFQO0FBQ0g7QUFFSjs7Ozs7O0FBSUwsU0FBU0MsY0FBVCxDQUF3QkMsU0FBeEIsRUFBbUM7QUFDL0I7QUFDQSxTQUFLLElBQUlDLElBQUUsQ0FBWCxFQUFjQSxLQUFHRCxTQUFqQixFQUE0QkMsR0FBNUIsRUFBZ0M7QUFDNUIsWUFBSUMsc0JBQXNCLElBQUlWLG9CQUFKLENBQXlCVyxTQUFTQyxpQkFBVCxDQUEyQixVQUFRSCxDQUFuQyxFQUFzQyxDQUF0QyxFQUF5Q0ksS0FBbEUsRUFDdEJGLFNBQVNDLGlCQUFULENBQTJCLGFBQVdILENBQXRDLEVBQXlDLENBQXpDLEVBQTRDSSxLQUR0QixFQUM2QkYsU0FBU0MsaUJBQVQsQ0FBMkIsUUFBTUgsQ0FBakMsRUFBb0MsQ0FBcEMsRUFBdUNJLEtBRHBFLENBQTFCO0FBRUEsWUFBSUMsU0FBU0osb0JBQW9CSyx1QkFBcEIsRUFBYjtBQUNBVCxjQUFNLFFBQU1HLENBQU4sR0FBUSxVQUFSLEdBQW1CSyxNQUF6QjtBQUNBLFlBQUcsQ0FBQ0EsTUFBSixFQUFXO0FBQ1BILHFCQUFTSyxjQUFULENBQXdCLHlCQUF4QixFQUFtREMsTUFBbkQsR0FBNEQsS0FBNUQ7QUFDQTtBQUNILFNBSEQsTUFJSTtBQUNBWCxrQkFBTSxhQUFOO0FBQ0FLLHFCQUFTSyxjQUFULENBQXdCLGdCQUF4QixFQUEwQ0UsTUFBMUM7QUFDSDtBQUNKO0FBQ0oiLCJmaWxlIjoiUmVzZXJ2ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ3JlYXRlZCBieSBtZWxpa2FheW91Z2hpIG9uIDMvMTcvMTcuXG4gKi9cbi8vIHdpbmRvdy5vbmxvYWQgPSBmdW5jdGlvbigpXG5cbi8vIHdpbmRvdy5vbmxvYWQgPSBjb3VudGRvd24oMTApO1xuXG4vLyBmdW5jdGlvbiBjb3VudGRvd24obWludXRlcykge1xuLy8gICAgIHZhciBzZWNvbmRzID0gNjA7XG4vLyAgICAgdmFyIG1pbnMgPSBtaW51dGVzO1xuLy8gICAgIGZ1bmN0aW9uIHRpY2soKSB7XG4vLyAgICAgICAgIHZhciBjb3VudGVyID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoXCJ0aW1lXCIpO1xuLy8gICAgICAgICB2YXIgY3VycmVudF9taW51dGVzID0gbWlucy0xO1xuLy8gICAgICAgICBzZWNvbmRzLS07XG4vLyAgICAgICAgIGNvdW50ZXIuaW5uZXJIVE1MID0gY3VycmVudF9taW51dGVzLnRvU3RyaW5nKCkgKyBcIjpcIiArIChzZWNvbmRzIDwgMTAgPyBcIjBcIiA6IFwiXCIpICsgU3RyaW5nKHNlY29uZHMpO1xuLy8gICAgICAgICBpZiggc2Vjb25kcyA+IDAgKSB7XG4vLyAgICAgICAgICAgICBzZXRUaW1lb3V0KHRpY2ssIDEwMDApO1xuLy8gICAgICAgICB9XG4vLyAgICAgICAgIGVsc2Uge1xuLy8gICAgICAgICAgICAgaWYobWlucyA+IDEpe1xuLy8gICAgICAgICAgICAgICAgIGNvdW50ZG93bihtaW5zLTEpO1xuLy8gICAgICAgICAgICAgfVxuLy8gICAgICAgICB9XG4vLyAgICAgfVxuLy8gICAgIHRpY2soKTtcbi8vIH1cbi8vXG4vLyBjb3VudGRvd24oMTApO1xuXG5cbmNsYXNzIFJlc2VydmVGaWVsZHNNYW5hZ2VyIHtcblxuICAgIGNvbnN0cnVjdG9yKG5hbWUsc3VybmFtZSxpZCkge1xuICAgICAgICB0aGlzLm5hbWUgPSBuYW1lO1xuICAgICAgICB0aGlzLnN1cm5hbWUgPSBzdXJuYW1lO1xuICAgICAgICB0aGlzLmlkID0gaWQ7XG4gICAgICAgIC8vIGFsZXJ0KFwibmFtZTogXCIrbmFtZStcIiBzdXJuYW1lOiBcIitzdXJuYW1lK1wiIGlkOiBcIitpZCk7XG4gICAgfVxuXG4gICAgY2hlY2tTdHJ1Y3R1cmFsVmFsaWRpdHkoKSB7XG4gICAgICAgIC8vbmFtZSB2YWxpZGl0eVxuICAgICAgICBpZiAodGhpcy5uYW1lLmxlbmd0aCA8IDMgfHwgISh0aGlzLm5hbWUubWF0Y2goL1thLXpBLVpdKi8pKSl7XG4gICAgICAgICAgICAvLyBhbGVydChcInRoaXMubmFtZS5sZW5ndGg6IFwiK3RoaXMubmFtZS5sZW5ndGgrXCIgbWF0Y2g6IFwiK3RoaXMubmFtZS5tYXRjaCgvW2EtekEtWl0qLykgKVxuICAgICAgICAgICAgYWxlcnQoXCJmaXJzdCBpZlwiKTtcbiAgICAgICAgICAgIHJldHVybiBmYWxzZTtcbiAgICAgICAgfVxuICAgICAgICAvL3N1cm5hbWUgdmFsaWRpdHlcbiAgICAgICAgZWxzZSBpZiAodGhpcy5zdXJuYW1lLmxlbmd0aCA8IDMgfHwgISh0aGlzLnN1cm5hbWUubWF0Y2goL1thLXpBLVpdKi8pKSl7XG4gICAgICAgICAgICBhbGVydChcInNlY29uZCBpZlwiKTtcbiAgICAgICAgICAgIHJldHVybiBmYWxzZTtcbiAgICAgICAgfVxuICAgICAgICAvL2lkIHZhbGlkaXR5XG4gICAgICAgIGVsc2UgaWYgKHRoaXMuaWQubGVuZ3RoICE9IDEwIHx8ICEodGhpcy5pZC5tYXRjaCgvWzAtOV0qLykpKXtcbiAgICAgICAgICAgIGFsZXJ0KFwidGhpcmQgaWZcIik7XG4gICAgICAgICAgICByZXR1cm4gZmFsc2U7XG4gICAgICAgIH1cbiAgICAgICAgLy8gaWYgKCF0aGlzLm1lc3NhZ2UubWF0Y2goL1xcZCsvKSkgcmV0dXJuIGZhbHNlO1xuICAgICAgICBlbHNlIHtcbiAgICAgICAgICAgIGFsZXJ0KFwiZWxzZVwiKTtcbiAgICAgICAgICAgIHJldHVybiB0cnVlO1xuICAgICAgICB9XG5cbiAgICB9XG59XG5cblxuZnVuY3Rpb24gY2hlY2tBbmRTdWJtaXQodG90YWxSb3dzKSB7XG4gICAgLy8gYWxlcnQodG90YWxSb3dzKTtcbiAgICBmb3IgKGxldCBpPTE7IGk8PXRvdGFsUm93czsgaSsrKXtcbiAgICAgICAgbGV0IHJlc2VydmVGaWVsZE1hbmFnZXIgPSBuZXcgUmVzZXJ2ZUZpZWxkc01hbmFnZXIoZG9jdW1lbnQuZ2V0RWxlbWVudHNCeU5hbWUoXCJuYW1lLVwiK2kpWzBdLnZhbHVlLFxuICAgICAgICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudHNCeU5hbWUoXCJzdXJuYW1lLVwiK2kpWzBdLnZhbHVlLCBkb2N1bWVudC5nZXRFbGVtZW50c0J5TmFtZShcImlkLVwiK2kpWzBdLnZhbHVlKTtcbiAgICAgICAgbGV0IHJlc3VsdCA9IHJlc2VydmVGaWVsZE1hbmFnZXIuY2hlY2tTdHJ1Y3R1cmFsVmFsaWRpdHkoKTtcbiAgICAgICAgYWxlcnQoXCJpOiBcIitpK1wicmVzdWx0OiBcIityZXN1bHQpO1xuICAgICAgICBpZighcmVzdWx0KXtcbiAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwid3JvbmdQYXNzZW5nZXJJbmZvQWxlcnRcIikuaGlkZGVuID0gZmFsc2U7XG4gICAgICAgICAgICBicmVhaztcbiAgICAgICAgfVxuICAgICAgICBlbHNle1xuICAgICAgICAgICAgYWxlcnQoXCJzdWJtaXQgZm9ybVwiKTtcbiAgICAgICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwicGFzc2VuZ2VyLWZvcm1cIikuc3VibWl0KCk7XG4gICAgICAgIH1cbiAgICB9XG59Il19</script></head>
 <body>
 
 
@@ -72,7 +168,9 @@
                 <span>زمان </span>
                 <span class="hidden-xs">باقی مانده</span>
                 <span>: </span>
-                <span class="time">۰۴:۵۹</span>
+                <span id="time">
+
+                </span>
             </div>
         </div>
         <div class="hidden-xs hidden-sm col-md-1 pull-right"></div>
@@ -207,7 +305,11 @@
             اطلاعات
         </div>
 
-        <form class="passenger-form" action="Tickets.do?flight-id=0&amp;flight-number=452&amp;date=05Feb&amp;src-code=THR&amp;dest-code=MHD&amp;airline-code=IR&amp;seat-class=M&amp;adult-count=2&amp;child-count=1&amp;infant-count=1&amp;total-count=4" method="POST">
+        <div class="alert alert-danger" hidden="true" id="wrongPassengerInfoAlert">
+            مشخصات مسافران غلط وارد شده است! لطفا دوباره پر کنید.
+        </div>
+
+        <form id="passenger-form" action="Tickets.do?flight-id=0&amp;flight-number=452&amp;date=05Feb&amp;src-code=THR&amp;dest-code=MHD&amp;airline-code=IR&amp;seat-class=M&amp;adult-count=2&amp;child-count=1&amp;infant-count=1&amp;total-count=4" method="POST">
             <div class="passenger-info-list">
 
                 <div class="gray-row row">
@@ -235,13 +337,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-1" type="text" placeholder="نام(انگلیسی)" required="" aria-describedby="name-format" aria-required="true" pattern="[a-zA-Z]*" title="first name with characters only">
+                        <input class="passenger-info" name="name-1" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-1" type="text" placeholder="نام خانوادگی(انگلیسی)" required="" aria-required="true" pattern="[a-zA-Z]*" title="last name with characters only">
+                        <input class="passenger-info" name="surname-1" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-1" type="text" placeholder="شماره ملی" required="" aria-required="true" pattern="[0-9]*" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-1" type="text" placeholder="شماره ملی" title="national id requires only numbers">
                     </div>
                 </div>
 
@@ -270,13 +372,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-2" type="text" placeholder="نام(انگلیسی)" required="" aria-describedby="name-format" aria-required="true" pattern="[a-zA-Z]*" title="first name with characters only">
+                        <input class="passenger-info" name="name-2" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-2" type="text" placeholder="نام خانوادگی(انگلیسی)" required="" aria-required="true" pattern="[a-zA-Z]*" title="last name with characters only">
+                        <input class="passenger-info" name="surname-2" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-2" type="text" placeholder="شماره ملی" required="" aria-required="true" pattern="[0-9]*" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-2" type="text" placeholder="شماره ملی" title="national id requires only numbers">
                     </div>
                 </div>
 
@@ -305,13 +407,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" required="" aria-describedby="name-format" aria-required="true" pattern="[a-zA-Z]*" title="first name with characters only">
+                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" required="" aria-required="true" pattern="[a-zA-Z]*" title="last name with characters only">
+                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" required="" aria-required="true" pattern="[0-9]*" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers">
                     </div>
                 </div>
 
@@ -339,13 +441,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" required="" aria-describedby="name-format" aria-required="true" pattern="[a-zA-Z]*" title="first name with characters only">
+                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" required="" aria-required="true" pattern="[a-zA-Z]*" title="last name with characters only">
+                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" required="" aria-required="true" pattern="[0-9]*" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers">
                     </div>
                 </div>
 
@@ -354,14 +456,13 @@
             <div class="button-row">
                 <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
                 <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <a href="Home-Search.html">
-                        <button class="bottom-page-btn" id="reject-button" type="submit">
-                            <span>انصراف</span>
-                        </button>
-                    </a>
+                    <button class="bottom-page-btn" id="reject-button">
+                        <a href="Home-Search.html">انصراف</a>
+
+                    </button>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <button class="bottom-page-btn" id="pay-button" type="submit">
+                    <button class="bottom-page-btn" id="pay-button" onclick="checkAndSubmit(4)">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  &gt;</span>
                     </button>
