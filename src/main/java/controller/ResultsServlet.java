@@ -123,7 +123,7 @@ public class ResultsServlet extends HttpServlet {
             out.write("        <div class=\"hidden-xs hidden-sm col-md-1 pull-right\"></div>\n");
             out.write("    </div>\n");
             out.write("\n");
-            out.write("    <div class=\"gray-back row\">\n");
+            out.write("    <div class=\"gray-back row\" id=\"results\">\n");
             out.write("\n");
             out.write("    ");
 
@@ -222,9 +222,36 @@ public class ResultsServlet extends HttpServlet {
             out.write("\n");
             out.write("    </div>\n");
             out.write("\n");
+
+            out.write("    <div class=\"filters\">\n");
+            out.write("        <div class=\"beInline\">\n");
+            out.write("            <button class=\"filterSortButton\" onclick=\"ascendingSortBasedOnPrice()\">\n");
+            out.write("قیمت صعودی\n");
+            out.write("             </button>\n");
+            out.write("        </div>\n");
+            out.write("        <div class=\"beInline\">\n");
+            out.write("            <button class=\"filterSortButton\" onclick=\"descendingSortBasedOnPrice()\">\n");
+            out.write("قیمت نزولی\n");
+            out.write("            </button>\n");
+            out.write("        </div>\n");
+            out.write("        <div class=\"beInline\">\n");
+            out.write("            <input class=\"givenFilter\" id=\"seatClassFilter\" placeholder=\"کلاس صندلی\">\n");
+            out.write("        </div>\n");
+            out.write("        <div class=\"beInline\">\n");
+            out.write("            <input class=\"givenFilter\" id=\"airlineFilter\" placeholder=\"هواپیمایی\">\n");
+            out.write("        </div>\n");
+            out.write("        <div class=\"beInline\">\n");
+            out.write("            <button class=\"filterButton\" onclick=\"filterSeatClass()\">\n");
+            out.write("اعمال فیلتر\n");
+            out.write("            </button>\n");
+            out.write("        </div>\n");
+            out.write("    </div>\n");
+
             out.write("\n");
             out.write("</div>\n");
             out.write("\n");
+            out.write("<script type=\"text/javascript\" src=\"Results.js\"></script>\n");
+
             out.write("<div>\n");
             out.write("    <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>\n");
             out.write("</div>\n");

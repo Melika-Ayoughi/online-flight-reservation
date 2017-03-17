@@ -88,7 +88,7 @@
         <div class="hidden-xs hidden-sm col-md-1 pull-right"></div>
     </div>
 
-    <div class="gray-back row">
+    <div class="gray-back row" id="results">
 
     <%
         for(Flight flight : flightArrayList){
@@ -162,8 +162,33 @@
 
     </div>
 
+    <div class="filters">
+        <div class="beInline">
+            <button class="filterSortButton" onclick="ascendingSortBasedOnPrice()">
+                قیمت صعودی
+            </button>
+        </div>
+        <div class="beInline">
+            <button class="filterSortButton" onclick="descendingSortBasedOnPrice()">
+                قیمت نزولی
+            </button>
+        </div>
+        <div class="beInline">
+            <input class="givenFilter" id="seatClassFilter" placeholder="کلاس صندلی">
+        </div>
+        <div class="beInline">
+            <input class="givenFilter" id="airlineFilter" placeholder="هواپیمایی">
+        </div>
+        <div class="beInline">
+            <button class="filterButton" onclick="filterSeatClass()">
+                اعمال فیلتر
+            </button>
+        </div>
+    </div>
 
 </div>
+
+<script type="text/javascript" src="Results.js"></script>
 
 <%@include file="footer.jsp" %>
 

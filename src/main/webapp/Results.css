@@ -137,7 +137,46 @@ a {
     margin-top: 2%;
 }
 
+.filters {
+    margin: auto;
+    width: 80%;
+}
+
+.filterSortButton{
+    margin-top: 1.5%;
+    margin-bottom: 1%;
+    width: 25%;
+    display: inline;
+}
+
+.filterButton{
+    margin-top: 1.5%;
+    margin-bottom: 1%;
+    width: 18%;
+    display: inline;
+}
+
+.givenFilter{
+    display: inline;
+    height: 20px;
+    text-align: center;
+    font-size: x-small;
+}
+
+.beInline{
+    display: inline;
+}
+
 /* -------------------------------------------------- IDs -------------------------------------------------- */
+
+#seatClassFilter{
+    width: 10%;
+}
+
+#airlineFilter{
+    width: 19.8%;
+}
+
 #search{
     display: inline;
     color: #3D4067;
