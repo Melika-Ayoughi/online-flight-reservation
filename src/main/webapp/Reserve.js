@@ -82,6 +82,43 @@ function checkAndSubmit(totalRows) {
     }
 }
 
+function checkCapacity(passengerCount) {
+    var capacity = parseInt(document.getElementsByClassName("hidden-xs hidden-sm hidden-md hidden-lg")[0].innerHTML);
+    return (capacity >= passengerCount)
+}
+
+function updatePayment(adultCount, childCount, infantCount) {
+    var firstLine = document.getElementById("first-line");
+    var adultPrice = parseInt(firstLine.getElementsByTagName("span")[0].innerHTML);
+    firstLine.getElementsByTagName("span")[2].innerHTML = adultCount;
+    firstLine.getElementsByTagName("span")[4].innerHTML = adultCount*adultPrice;
+
+    var secondLine = document.getElementById("second-line");
+    var childPrice = parseInt(secondLine.getElementsByTagName("span")[0].innerHTML);
+    secondLine.getElementsByTagName("span")[2].innerHTML = childCount;
+    secondLine.getElementsByTagName("span")[4].innerHTML = childCount*childPrice;
+
+    var thirdLine = document.getElementById("third-line");
+    var infantPrice = parseInt(thirdLine.getElementsByTagName("span")[0].innerHTML);
+    thirdLine.getElementsByTagName("span")[2].innerHTML = infantCount;
+    thirdLine.getElementsByTagName("span")[4].innerHTML = infantCount*infantPrice;
+
+    var lastLine = document.getElementById("last-line");
+    lastLine.getElementsByTagName("span")[0].innerHTML = adultCount*adultPrice + childCount*childPrice + infantCount*infantPrice;
+}
+
+function updateInformation(adultCount, childCount, infantCount) {
+
+}
+
 function update() {
-    
+    var adultCount = parseInt(document.getElementById("adultCount").value);
+    var childCount = parseInt(document.getElementById("childCount").value);
+    var infantCount = parseInt(document.getElementById("infantCount").value);
+
+    if(!checkCapacity(adultCount+childCount+infantCount))
+        return;
+
+    updatePayment(adultCount, childCount, infantCount);
+    updateInformation(adultCount, childCount, infantCount);
 }

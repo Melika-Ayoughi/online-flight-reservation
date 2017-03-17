@@ -262,9 +262,14 @@ footer {
 
 .filterInput {
     margin-top: 1%;
-    width: 100%;
     height: 5%;
-    text-align: center;
+    margin-right: 5%;
+    /*text-align: center;*/
+    display: inline;
+}
+
+.inline {
+    display: inline;
 }
 
 .applyFilters {

@@ -141,7 +141,7 @@
                     <%--۲,۷۰۰,۰۰۰ ریال--%>
                 </div>
             </div>
-            <div class="paycheck-line">
+            <div class="paycheck-line" id="second-line">
                 <div class="col-xs-6 col-sm-4 col-md-6 pull-right">
                     کودک زیر ۱۲ سال
                 </div>
@@ -310,13 +310,49 @@
 
     <div class="filterButtons" id="setPassengerCounts">
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
-            <input id="adultCount" class="filterInput" placeholder="تعداد بزرگسالان">
+            <span class="inline">تعداد بزرگسالان</span>
+            <select name="تعداد بزرگسالان" id="adultCount" class="filterInput">
+                <option value=0>۰</option>
+                <option value=1>۱</option>
+                <option value=2>۲</option>
+                <option value=3>۳</option>
+                <option value=4>۴</option>
+                <option value=5>۵</option>
+                <option value=6>۶</option>
+                <option value=7>۷</option>
+                <option value=8>۸</option>
+                <option value=9>۹</option>
+            </select>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
-            <input id="childCount" class="filterInput" placeholder="تعداد کودکان">
+            <span class="inline">تعداد کودکان</span>
+            <select name="تعداد کودکان" id="childCount" class="filterInput">
+                <option value=0>۰</option>
+                <option value=1>۱</option>
+                <option value=2>۲</option>
+                <option value=3>۳</option>
+                <option value=4>۴</option>
+                <option value=5>۵</option>
+                <option value=6>۶</option>
+                <option value=7>۷</option>
+                <option value=8>۸</option>
+                <option value=9>۹</option>
+            </select>
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
-            <input id="infantCount" class="filterInput" placeholder="تعداد خردسالان">
+            <span class="inline">تعداد خردسالان</span>
+            <select name="تعداد خردسالان" id="infantCount" class="filterInput">
+                <option value=0>۰</option>
+                <option value=1>۱</option>
+                <option value=2>۲</option>
+                <option value=3>۳</option>
+                <option value=4>۴</option>
+                <option value=5>۵</option>
+                <option value=6>۶</option>
+                <option value=7>۷</option>
+                <option value=8>۸</option>
+                <option value=9>۹</option>
+            </select>
         </div>
         <div class="col-xs-6 col-sm-12 col-md-3  place-middle">
             <button class="applyFilters" onclick="update()">اعمال فیلتر ها</button>
