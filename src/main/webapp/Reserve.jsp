@@ -23,6 +23,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>--%>
+    <%--<script type="text/javascript" src="Reserve.js"></script>--%>
+    <script type="text/babel" src="Reserve.js"></script>
+
     <title>ورود اطلاعات مسافران</title>
 
     <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
@@ -66,7 +71,9 @@
                 <span>زمان </span>
                 <span class="hidden-xs">باقی مانده</span>
                 <span>: </span>
-                <span class="time">۰۴:۵۹</span>
+                <span id="time">
+                    <%--۰۴:۵۹--%>
+                </span>
             </div>
         </div>
         <div class="hidden-xs hidden-sm col-md-1 pull-right"></div>
@@ -203,7 +210,11 @@
             اطلاعات
         </div>
 
-        <form class="passenger-form"  action="Tickets.do?<%="flight-id="+flight.getFlightId()+"&flight-number="
+        <div class="alert alert-danger" hidden="true" id="wrongPassengerInfoAlert">
+            مشخصات مسافران غلط وارد شده است! لطفا دوباره پر کنید.
+        </div>
+
+        <form id="passenger-form"  action="Tickets.do?<%="flight-id="+flight.getFlightId()+"&flight-number="
                 +flight.getFlightNumber()+"&date="+flight.getDate()+"&src-code="+flight.getSrcCode()+"&dest-code="
                 +flight.getDestCode()+"&airline-code="+flight.getAirlineCode()+"&seat-class="
                 +seatClass.getName()+"&adult-count="+request.getAttribute("adult-count")
@@ -266,13 +277,13 @@
                 </select>
 
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-<%=i%>" type="text" placeholder="نام(انگلیسی)" required aria-describedby="name-format" aria-required="true" pattern="[a-zA-Z]*" title="first name with characters only">
+                        <input class="passenger-info" name="name-<%=i%>" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-<%=i%>" type="text" placeholder="نام خانوادگی(انگلیسی)" required aria-required="true" pattern="[a-zA-Z]*" title="last name with characters only">
+                        <input class="passenger-info" name="surname-<%=i%>" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-<%=i%>" type="text" placeholder="شماره ملی" required aria-required="true" pattern="[0-9]*" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-<%=i%>" type="text" placeholder="شماره ملی" title="national id requires only numbers">
                 </div>
             </div>
                         <%
@@ -283,14 +294,13 @@
         <div class="button-row">
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <a href="Home-Search.html">
-                        <button class="bottom-page-btn" id="reject-button" type="submit">
-                            <span>انصراف</span>
-                        </button>
-                    </a>
+                <button class="bottom-page-btn" id="reject-button">
+                    <a href="Home-Search.html">انصراف</a>
+                    <%--<span>انصراف</span>--%>
+                </button>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <button class="bottom-page-btn" id="pay-button" type="submit">
+                    <button class="bottom-page-btn" id="pay-button" onclick="checkAndSubmit(<%=totalPassengerCount%>)">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  ></span>
                     </button>

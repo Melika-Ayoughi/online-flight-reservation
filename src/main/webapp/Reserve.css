@@ -92,10 +92,7 @@ footer {
     padding: 10px;
     color: black;
 }
-.time {
-    color: red;
-    display: inline-block;
-}
+
 .timing {
     float: left;
 }
@@ -168,6 +165,10 @@ footer {
     font-size: large;
 }
 
+.alert {
+    display: none;
+}
+
 #infant-8 {
     font-size: small;
     padding-right: 2.5%;
@@ -197,6 +198,12 @@ footer {
 }
 
 /* ---------------------------------------------------- paycheck-info ---------------------------------------------------- */
+
+
+#time {
+    color: red;
+    display: inline-block;
+}
 
 #transfer-paycheck-info {
     font-size: small;
