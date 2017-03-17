@@ -108,7 +108,113 @@ function updatePayment(adultCount, childCount, infantCount) {
 }
 
 function updateInformation(adultCount, childCount, infantCount) {
+    var passengersInformations = "";
+    var passengerInformations;
 
+    for (var i=1; i<=adultCount; i++) {
+        passengerInformations = '';
+        passengerInformations += '            <div class="gray-row row">\n';
+        passengerInformations += '                <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">\n';
+        passengerInformations += '                        <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>\n';
+        passengerInformations += '                        <span>';
+        passengerInformations += i;
+        passengerInformations += '-</span><span>بزرگسال:</span>\n';
+        passengerInformations += '                </div>';
+        passengerInformations += '                <select name="gender-';
+        passengerInformations += i;
+        passengerInformations += '" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">\n';
+        passengerInformations += '                        <option value="Mrs.">خانم</option>\n';
+        passengerInformations += '                        <option value="Mr.">آقای</option>\n';
+        passengerInformations += '                </select>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="name-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">\n';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="surname-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="id-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="شماره ملی" title="national id requires only numbers">\n';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '            </div>\n';
+
+        passengersInformations += passengerInformations;
+    }
+    for (var i=adultCount+1; i<=adultCount+childCount; i++) {
+        passengerInformations = '';
+        passengerInformations += '            <div class="gray-row row">\n';
+        passengerInformations += '                <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">\n';
+        passengerInformations += '                        <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>\n';
+        passengerInformations += '                        <span>';
+        passengerInformations += i;
+        passengerInformations += '-</span><span>خردسال:</span>\n';
+        passengerInformations += '                </div>';
+        passengerInformations += '                <select name="gender-';
+        passengerInformations += i;
+        passengerInformations += '" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">\n';
+        passengerInformations += '                        <option value="Mrs.">خانم</option>\n';
+        passengerInformations += '                        <option value="Mr.">آقای</option>\n';
+        passengerInformations += '                </select>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="name-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">\n';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="surname-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="id-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="شماره ملی" title="national id requires only numbers">\n';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '            </div>\n';
+
+        passengersInformations += passengerInformations;
+    }
+    for (var i=adultCount+childCount+1; i<=adultCount+childCount+infantCount; i++) {
+        passengerInformations = '';
+        passengerInformations += '            <div class="gray-row row">\n';
+        passengerInformations += '                <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">\n';
+        passengerInformations += '                        <span class="hidden-mobile" id="infant-8"><i class="fa fa-user fa-child"></i></span>\n';
+        passengerInformations += '                        <span>';
+        passengerInformations += i;
+        passengerInformations += '-</span><span>نوزاد:</span>\n';
+        passengerInformations += '                </div>';
+        passengerInformations += '                <select name="gender-';
+        passengerInformations += i;
+        passengerInformations += '" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">\n';
+        passengerInformations += '                        <option value="Mrs.">خانم</option>\n';
+        passengerInformations += '                        <option value="Mr.">آقای</option>\n';
+        passengerInformations += '                </select>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="name-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">\n';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="surname-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '                <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">\n';
+        passengerInformations += '                        <input class="passenger-info" name="id-';
+        passengerInformations += i;
+        passengerInformations += '" type="text" placeholder="شماره ملی" title="national id requires only numbers">\n';
+        passengerInformations += '                </div>\n';
+        passengerInformations += '            </div>\n';
+
+        passengersInformations += passengerInformations;
+    }
+
+    document.getElementsByClassName("passenger-info-list")[0].innerHTML = passengersInformations;
 }
 
 function update() {
