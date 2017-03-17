@@ -26,6 +26,7 @@ public class TicketsServlet extends HttpServlet{
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
+
             //    response.sendRedirect("Home-Search.html");
 
             Integer totalPassengerCount = Integer.parseInt(request.getParameter("total-count"));
@@ -40,6 +41,13 @@ public class TicketsServlet extends HttpServlet{
                         !request.getParameter("name-" + i).matches("^[a-zA-Z]*$") ||
                         !request.getParameter("surname-" + i).matches("^[a-zA-Z]*$") ||
                         !request.getParameter("id-" + i).matches("^[0-9]*$")){
+                    System.out.println(isEmpty(request.getParameter("name-" + i)));
+                    System.out.println(isEmpty(request.getParameter("surname-" + i)));
+                    System.out.println(isEmpty(request.getParameter("id-" + i)));
+                    System.out.println(!request.getParameter("name-" + i).matches("^[a-zA-Z]*$") );
+                    System.out.println(!request.getParameter("surname-" + i).matches("^[a-zA-Z]*$") );
+                    System.out.println(!request.getParameter("id-" + i).matches("^[0-9]*$"));
+
                     throw new InputFormatException("Exception in inputs in Reserve.jsp page");
                 }
 
