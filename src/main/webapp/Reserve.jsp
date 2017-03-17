@@ -219,7 +219,7 @@
                 +flight.getDestCode()+"&airline-code="+flight.getAirlineCode()+"&seat-class="
                 +seatClass.getName()+"&adult-count="+request.getAttribute("adult-count")
                 +"&child-count="+request.getAttribute("child-count")+"&infant-count="
-                +request.getAttribute("infant-count")+"&total-count="+totalPassengerCount%>" method="POST" >
+                +request.getAttribute("infant-count")+"&total-count="+totalPassengerCount%>" method="POST" onsubmit="event.preventDefault(); validateForm(<%=totalPassengerCount%>);" >
         <div class="passenger-info-list">
         <%
             for(int i=1; i<= totalPassengerCount;i++){
@@ -300,7 +300,7 @@
                 </button>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <button class="bottom-page-btn" id="pay-button" onclick="checkAndSubmit(<%=totalPassengerCount%>)">
+                    <button class="bottom-page-btn" id="pay-button">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  ></span>
                     </button>
