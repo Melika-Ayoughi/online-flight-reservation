@@ -102,6 +102,8 @@ function validateForm(totalRows) {
 }
 
 function checkCapacity(passengerCount) {
+    if(passengerCount == 0)
+        return false;
     var capacity = parseInt(document.getElementsByClassName("hidden-xs hidden-sm hidden-md hidden-lg")[0].innerHTML);
     return (capacity >= passengerCount)
 }
