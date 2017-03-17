@@ -292,6 +292,7 @@
         </div>
 
         <div class="button-row">
+            <div class="hidden-xs hidden-sm hidden-md hidden-lg"><%=flight.getSeatClassCapacity(seatClass.getName())%></div>
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
                 <button class="bottom-page-btn" id="reject-button">
@@ -308,6 +309,22 @@
         </div>
         </form>
     </div>
+
+    <div class="filterButtons" id="setPassengerCounts">
+        <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
+            <input id="adultCount" class="filterInput" placeholder="تعداد بزرگسالان">
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
+            <input id="childCount" class="filterInput" placeholder="تعداد کودکان">
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
+            <input id="infantCount" class="filterInput" placeholder="تعداد خردسالان">
+        </div>
+        <div class="col-xs-6 col-sm-12 col-md-3  place-middle">
+            <button class="applyFilters">اعمال فیلتر ها</button>
+        </div>
+    </div>
+
 </div>
 
 <%@include file="footer.jsp" %>

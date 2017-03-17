@@ -83,4 +83,11 @@ public class Flight {
             return true;
         return false;
     }
+
+    public Integer getSeatClassCapacity(Character seatClassName) {
+        for (MapSeatClassCapacity mapSeatClassCapacity : mapSeatClassCapacities)
+            if (mapSeatClassCapacity.getSeatClass().getName().equals(seatClassName))
+                return mapSeatClassCapacity.getCapacity();
+        return null;
+    }
 }
