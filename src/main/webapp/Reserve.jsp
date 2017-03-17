@@ -25,8 +25,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"></script>--%>
-    <%--<script type="text/javascript" src="Reserve.js"></script>--%>
-    <script type="text/babel" src="Reserve.js"></script>
 
     <title>ورود اطلاعات مسافران</title>
 
@@ -143,7 +141,7 @@
                     <%--۲,۷۰۰,۰۰۰ ریال--%>
                 </div>
             </div>
-            <div class="paycheck-line">
+            <div class="paycheck-line" id="second-line">
                 <div class="col-xs-6 col-sm-4 col-md-6 pull-right">
                     کودک زیر ۱۲ سال
                 </div>
@@ -292,6 +290,7 @@
         </div>
 
         <div class="button-row">
+            <div class="hidden-xs hidden-sm hidden-md hidden-lg"><%=flight.getSeatClassCapacity(seatClass.getName())%></div>
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
                 <button class="bottom-page-btn" id="reject-button">
@@ -308,7 +307,61 @@
         </div>
         </form>
     </div>
+
+    <div class="filterButtons" id="setPassengerCounts">
+        <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
+            <span class="inline">تعداد بزرگسالان</span>
+            <select name="تعداد بزرگسالان" id="adultCount" class="filterInput">
+                <option value=0>۰</option>
+                <option value=1>۱</option>
+                <option value=2>۲</option>
+                <option value=3>۳</option>
+                <option value=4>۴</option>
+                <option value=5>۵</option>
+                <option value=6>۶</option>
+                <option value=7>۷</option>
+                <option value=8>۸</option>
+                <option value=9>۹</option>
+            </select>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
+            <span class="inline">تعداد کودکان</span>
+            <select name="تعداد کودکان" id="childCount" class="filterInput">
+                <option value=0>۰</option>
+                <option value=1>۱</option>
+                <option value=2>۲</option>
+                <option value=3>۳</option>
+                <option value=4>۴</option>
+                <option value=5>۵</option>
+                <option value=6>۶</option>
+                <option value=7>۷</option>
+                <option value=8>۸</option>
+                <option value=9>۹</option>
+            </select>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
+            <span class="inline">تعداد خردسالان</span>
+            <select name="تعداد خردسالان" id="infantCount" class="filterInput">
+                <option value=0>۰</option>
+                <option value=1>۱</option>
+                <option value=2>۲</option>
+                <option value=3>۳</option>
+                <option value=4>۴</option>
+                <option value=5>۵</option>
+                <option value=6>۶</option>
+                <option value=7>۷</option>
+                <option value=8>۸</option>
+                <option value=9>۹</option>
+            </select>
+        </div>
+        <div class="col-xs-6 col-sm-12 col-md-3  place-middle">
+            <button class="applyFilters" onclick="update()">اعمال فیلتر ها</button>
+        </div>
+    </div>
+
 </div>
+
+<script type="text/babel" src="Reserve.js"></script>
 
 <%@include file="footer.jsp" %>
 
