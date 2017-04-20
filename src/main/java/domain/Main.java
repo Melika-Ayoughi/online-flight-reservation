@@ -1,5 +1,7 @@
 package domain;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,6 +14,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
+
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(flights));
+
         System.out.println(flights.size());
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
         passengers.add(new Passenger("Ali","Iman", "0912425", "male"));

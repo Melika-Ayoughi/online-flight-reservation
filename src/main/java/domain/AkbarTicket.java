@@ -23,7 +23,7 @@ public class AkbarTicket {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
             // Default provider
-            akbarTicket.flightProvider = new CA1HelperServer("188.166.78.119", 8081);
+            akbarTicket.flightProvider = new CA1HelperServer("178.62.207.47", 8081);
             akbarTicket.flightRepo = FlightRepo.getFlightRepo();
             akbarTicket.reserveRepo = ReserveRepo.getReserveRepo();
             akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
