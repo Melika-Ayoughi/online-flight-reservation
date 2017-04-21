@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="onlinereservation">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/onlinereservation.js"></script>
+
+<form ng-controller="searchController as searchCtrl"
+      ng-submit="searchCtrl.search()" novalidate>
+    <button type="submit" value="search">search flights</button>
+</form>
+
+</body>
+</html>
