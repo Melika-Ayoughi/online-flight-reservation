@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="ar">
-    <head>
-        <meta charset="utf-8">
-        <title>جستجوی بلیت</title>
-        <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
-        <link rel="stylesheet" type="text/css" href="Home-Search.css">
 
-
-        <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-        <meta name="description" content="ticket booking">
-        <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
-        <meta name="author" content="Melika Ayoughi, Ali Iman">
-    </head>
-    <body>
+    <!--<link rel="stylesheet" type="text/css" href="Home-Search.css">-->
         <div class="heading">
             <div class="brand-logo">
                 <img src="Images/LogoWhite.png" alt="">
@@ -40,13 +27,13 @@
                 <button class="clicked-buttons" id="one-way">یک طرفه</button>
                 <button class="clicked-buttons" id="two-way">رفت و برگشت</button>
             </div>
-            <form class="search-form"  action="Search-Results.do" method="POST">
+            <form class="search-form" data-ng-controller="Home-SearchController as homeCtrl">
                 <div class="form-line">
                     <div class="airplane-logo">
                         <i class="fa fa-plane fa-size"></i>
                     </div>
                     <span>مبدا</span>
-                    <select class="airport" name="src" id="from">
+                    <select class="airport" name="src" id="from" ng-model="searchRequest.srcCode">
                         <option value="THR">تهران - فرودگاه امام</option>
                         <option value="MHD">مشهد - فرودگاه امام</option>
                         <option value="IFN">اصفهان - فرودگاه امام</option>
@@ -70,7 +57,7 @@
                         <i class="fa fa-plane fa-rotate-90 fa-size"></i>
                     </div>
                     <span>مقصد</span>
-                    <select class="airport" name="dest" id="to">
+                    <select class="airport" name="dest" id="to" ng-model="searchRequest.destCode">
                         <option value="THR">تهران - فرودگاه امام</option>
                         <option value="MHD">مشهد - فرودگاه امام</option>
                         <option value="IFN">اصفهان - فرودگاه امام</option>
@@ -94,7 +81,7 @@
                         <i class="fa fa-calendar fa-size"></i>
                     </div>
                     <span>رفت</span>
-                    <input class="date" type="text" id="departure-date" name="departureDate" value="05Feb" required>
+                    <input class="date" type="text" id="departure-date" name="departureDate" value="05Feb" ng-model="searchRequest.date" required>
                 </div>
                 <div class="form-line">
                     <div class="airplane-logo">
@@ -110,8 +97,8 @@
                             <i class="fa fa-user fa-male"></i>
                         </div>
                         <div class="age-count">
-                            <select name="adult-count" class="num-count">
-                                <option value="1">۱</option>
+                            <select name="adult-count" class="num-count" ng-model="searchRequest.adultCount">
+                                <option value="1" selected="selected">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
                                 <option value="4">۴</option>
@@ -130,8 +117,8 @@
                             <i class="fa fa-user fa-child"></i>
                         </div>
                         <div class="age-count">
-                            <select name="child-count" class="num-count">
-                                <option value="0">۰</option>
+                            <select name="child-count" class="num-count" ng-model="searchRequest.childCount">
+                                <option value="0" selected="selected">۰</option>
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -150,8 +137,8 @@
                             <i class="fa fa-user fa-child"></i>
                         </div>
                         <div class="age-count">
-                            <select name="infant-count" class="num-count">
-                                <option value="0">۰</option>
+                            <select name="infant-count" class="num-count" ng-model="searchRequest.infantCount">
+                                <option value="0" selected="selected">۰</option>
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -166,7 +153,7 @@
                     </div>
                 </div>
                 <div class = "search-button">
-                    <input type="submit" value="جستجو">
+                    <input type="submit" value="جستجو" ng-click="homeCtrl.searchFlights()">
                 </div>
             </form>
         </div>
@@ -184,5 +171,3 @@
             <span class="cheap-text">سفر ارزان و آسان با اکبر تیکت</span>
         </div>
         <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
-    </body>
-</html>

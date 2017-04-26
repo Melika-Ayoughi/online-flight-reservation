@@ -31,6 +31,10 @@ footer {
     color: white;
 }
 
+input {
+    color: black;
+}
+
 /* --------------------------------------------------- classes -------------------------------------------------- */
 
 .heading {
@@ -189,6 +193,7 @@ footer {
 
 .age-count {
     float: left;
+    color: black;
 }
 
 .block {
