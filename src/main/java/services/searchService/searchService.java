@@ -2,6 +2,7 @@ package services.searchService;
 
 import domain.AkbarTicket;
 import domain.Flight;
+import services.searchService.searchRequest;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
