@@ -75,11 +75,16 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
     // localThis = this;
 
     this.searchFlights = function(){
+        $rootScope.passengerInfo.adultCount = $scope.searchRequest.adultCount;
+        $rootScope.passengerInfo.childCount = $scope.searchRequest.childCount;
+        $rootScope.passengerInfo.infantCount = $scope.searchRequest.infantCount;
+
         // $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$scope.searchRequest).then(
         //     function (response) {
         //         $scope.flightList = response.data;
         //         $location.path('/Results');
         //     });
+
 
         //just for testing
         $rootScope.flightList = [{
@@ -150,11 +155,26 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
         childCount: 1,
         infantCount: 1
     };
+
+    $rootScope.passengerInfo = {
+        adultCount: 1,
+        childCount: 1,
+        infantCount: 1
+    }
 });
 
-app.controller('ResultsController', function($scope, $rootScope, $http){
+app.controller('ResultsController', function($scope, $rootScope, $http, $location){
     $scope.message = 'results!';
 
+
+    this.loadReservePage = function(flight, seatClass){
+
+        $rootScope.chosenFlight = flight;
+        $rootScope.chosenSeatClass = seatClass;
+
+        $location.path('/Reserve');
+    };
+    
     this.ascendingCompare = function(a, b){
         var nodes = a.getElementsByClassName("col-md-12 place-middle");
         var node = nodes[0];
@@ -201,8 +221,15 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
 
 });
 
-app.controller('ReserveController', function($scope, $http){
+app.controller('ReserveController', function($scope, $http, $rootScope){
     $scope.message = 'reserve!';
+    $scope.flight = $rootScope.chosenFlight;
+    $scope.seatClass = $rootScope.chosenSeatClass;
+
+    $scope.adultCount = $rootScope.adultCount;
+    $scope.childCount = $rootScope.childCount;
+    $scope.infantCount = $rootScope.infantCount;
+
 });
 
 app.controller('TicketsController', function($scope, $http){

@@ -1,38 +1,3 @@
-<html lang="ar"><head>
-    <!-- Bootstrap -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
-
-    <title>ورود اطلاعات مسافران</title>
-
-    <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
-    <link rel="stylesheet" type="text/css" href="Reserve.css">
-
-
-    <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <meta name="description" content="enter information">
-    <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
-    <meta name="author" content="Melika Ayoughi, Ali Iman">
-
-</head>
-<body>
-
-
-
-
-
 
 <header>
     <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
@@ -57,7 +22,7 @@
 </header>
 
 
-<div class="container">
+<div class="container" ng-controller="ReserveController as reserveController">
     <div class="heading">
         <div id="search" class="hidden-xs">جستجوی پرواز  &gt;</div>
         <div id="choose" class="hidden-xs">انتخاب پرواز  &gt;</div>
@@ -90,21 +55,22 @@
         <div class="row" id="flight-info">
             <div class="col-xs-12 col-sm-12 col-md-4 pull-right">
                 <div class="place-middle">
-                    IR 452
+                    {{flight.airlineCode + " " + flight.flightNumber}}
                 </div>
-                <div class="place-middle"><i class="fa fa-calendar-o" aria-hidden="true"></i> 05Feb</div>
+                <div class="place-middle"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{flight.date}}</div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 pull-right">
                 <div class="place-middle">
-                    THR 1740 &gt;&gt; MHD 1850
+                    {{flight.srcCode + " " + flight.departureTime + " >> " + flight.destCode + " " + flight.arrivalTime}}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-4 pull-right">
-                <div class="place-middle"><i class="fa fa-suitcase" aria-hidden="true"></i>کلاس
-                    M
+                <div class="place-middle"><i class="fa fa-suitcase" aria-hidden="true"></i>
+                    <span>کلاس</span>
+                    <span>{{seatClass.name}}</span>
                 </div>
                 <div class="place-middle"><i class="fa fa-plane" aria-hidden="true"></i>
-                    M80
+                    {{flight.airplaneModel}}
                 </div>
             </div>
         </div>
@@ -131,18 +97,18 @@
                 </div>
                 <div class="hidden-xs hidden-sm col-md-2 pull-right">
                     <span>
-                    4000
+                    {{seatClass.adultPrice}}
                     </span>
                     <span>ریال</span>
 
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    <span>2</span>
+                    <span>{{passengerInfo.adultCount}}</span>
                     <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
                     <span>
-                    8000
+                    {{passengerInfo.adultCount*seatClass.adultPrice}}
                     </span>
                     <span>ریال</span>
 
@@ -154,18 +120,18 @@
                 </div>
                 <div class="hidden-xs hidden-sm col-md-2 pull-right">
                     <span>
-                    3000
+                    {{seatClass.childPrice}}
                     </span>
                     <span>ریال</span>
 
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    <span>1</span>
+                    <span>{{passengerInfo.childCount}}</span>
                     <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
                     <span>
-                    3000
+                    {{passengerInfo.childCount*seatClass.childPrice}}
                     </span>
                     <span>ریال</span>
 
@@ -176,18 +142,16 @@
                     نوزاد زیر ۲ سال
                 </div>
                 <div class="hidden-xs hidden-sm col-md-2 pull-right">
-                    <span>2000
-                    </span>
+                    <span>{{seatClass.infantPrice}}</span>
                     <span>ریال</span>
 
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    <span>1</span>
+                    <span>{{passengerInfo.infantCount}}</span>
                     <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    <span>2000
-                    </span>
+                    <span>{{passengerInfo.infantCount*seatClass.infantPrice}}</span>
                     <span>ریال</span>
 
 
@@ -202,8 +166,7 @@
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    <span>13000
-                    </span>
+                    <span>{{passengerInfo.infantCount*seatClass.infantPrice + passengerInfo.childCount*seatClass.childPrice + passengerInfo.adultCount*seatClass.adultPrice}}</span>
                     <span>ریال</span>
 
                 </div>
@@ -227,20 +190,10 @@
                         <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
                         <span>1-</span><span>بزرگسال:</span>
 
-
-
                     </div>
                     <select name="gender-1" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
-
-
-
-
-
-
-
-
 
                     </select>
 
@@ -255,40 +208,7 @@
                     </div>
                 </div>
 
-                <div class="gray-row row">
-                    <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
 
-
-                        <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
-                        <span>2-</span><span>بزرگسال:</span>
-
-
-
-                    </div>
-                    <select name="gender-2" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
-                        <option value="Mrs.">خانم</option>
-                        <option value="Mr.">آقای</option>
-
-
-
-
-
-
-
-
-
-                    </select>
-
-                    <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-2" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-2" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-2" type="text" placeholder="شماره ملی" title="national id requires only numbers">
-                    </div>
-                </div>
 
                 <div class="gray-row row">
                     <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
@@ -297,19 +217,10 @@
                         <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
                         <span>3-</span><span>خردسال:</span>
 
-
-
                     </div>
                     <select name="gender-3" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
-
-
-
-
-
-
-
 
 
                     </select>
@@ -331,20 +242,10 @@
                         <span class="hidden-mobile" id="infant-8"><i class="fa fa-user fa-child"></i></span>
                         <span>4-</span><span>نوزاد:</span>
 
-
-
                     </div>
                     <select name="gender-4" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
-
-
-
-
-
-
-
-
 
                     </select>
 
@@ -433,13 +334,4 @@
 
 </div>
 
-<script type="text/babel" src="Reserve.js"></script>
-
-
-
 <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
-
-
-
-
-</body></html>
