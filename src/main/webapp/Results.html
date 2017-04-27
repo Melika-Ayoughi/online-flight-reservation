@@ -47,8 +47,8 @@
     </div>
 
     <div class="gray-back row" id="results">
-        <div ng-repeat="flight in flightList">
-            <div ng-repeat="mapSeatClassCapacity in flight.mapSeatClassCapacities">
+        <div ng-repeat="flight in flightList | filter:airlineFilter">
+            <div ng-repeat="mapSeatClassCapacity in flight.mapSeatClassCapacities | filter:seatClassFilter">
                 <form class="results-form">
 
                     <div class="white-section col-md-9 pull-right row-distance">
@@ -114,15 +114,10 @@
             </button>
         </div>
         <div class="beInline">
-            <input class="givenFilter" id="seatClassFilter" placeholder="کلاس صندلی">
+            <input class="givenFilter" ng-model="seatClassFilter.seatClass.name"  placeholder="کلاس صندلی">
         </div>
         <div class="beInline">
-            <input class="givenFilter" id="airlineFilter" placeholder="هواپیمایی">
-        </div>
-        <div class="beInline">
-            <button class="filterButton" ng-click="resultsCtrl.filterSeatClass()">
-                اعمال فیلتر
-            </button>
+            <input class="givenFilter" ng-model="airlineFilter.airlineCode"  placeholder="هواپیمایی">
         </div>
     </div>
 

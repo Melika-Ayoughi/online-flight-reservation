@@ -65,16 +65,9 @@ app.config(function($routeProvider) {
 });
 
 
-
-
-
 app.controller('mainController', function($scope, $http){
     $scope.message = 'main!';
 });
-
-
-
-
 
 app.controller('Home-SearchController', function($scope, $rootScope, $http, $location){
     $scope.message = 'search!';
@@ -149,7 +142,6 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
 
 
     };
-
     $scope.searchRequest = {
         srcCode: 'THR',
         destCode: 'MHD',
@@ -160,55 +152,8 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
     };
 });
 
-
-
-
-
 app.controller('ResultsController', function($scope, $rootScope, $http){
     $scope.message = 'results!';
-    var completeResult;
-    var done = false;
-
-
-    this.setup = function(){
-        document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML;
-        if (!done) {
-            done = true;
-            completeResult = document.getElementById("results");
-            document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML;
-        }
-    };
-
-
-    this.filterSeatClass = function(){
-        document.getElementById("results").innerHTML = completeResult.innerHTML;
-
-        var seatClassName = document.getElementById("seatClassFilter").value;
-        var airlineName = document.getElementById("airlineFilter").value;
-
-        var seatClassFilter = seatClassName.length == 1;
-        var airlineFilter = airlineName.length != 0;
-
-        if (seatClassFilter || airlineFilter) {
-            var finalResultsHtml = "";
-            var elements = document.getElementsByClassName("results-form");
-
-            for(var i = 0; i < elements.length; i++) {
-                var nodes = elements[i].getElementsByClassName("col-md-6 place-middle font-small lbl-color-light-gray pull-right");
-                var node = nodes[0];
-                var tempSeatClass = node.getElementsByTagName("span")[3].innerHTML.replace(/\s/g,'');
-                nodes = elements[i].getElementsByClassName("col-md-3 place-middle font-large lbl-color-black pull-right");
-                node = nodes[0];
-                var tempAirline = (node.innerHTML.match(/\S+/g) || [])[0];
-
-                if((!seatClassFilter || (seatClassName == tempSeatClass)) && (!airlineFilter || (airlineName == tempAirline)))
-                    finalResultsHtml += elements[i].outerHTML;
-            }
-
-            document.getElementById("results").innerHTML = finalResultsHtml;
-        }
-    };
-
 
     this.ascendingCompare = function(a, b){
         var nodes = a.getElementsByClassName("col-md-12 place-middle");
@@ -222,7 +167,6 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
         return priceA - priceB;
     };
 
-
     this.ascendingSortBasedOnPrice = function(){
         var elements = document.getElementsByClassName("results-form");
         elements = Array.prototype.slice.call(elements, 0);
@@ -232,7 +176,6 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
             finalResultsHtml += elements[i].outerHTML;
         document.getElementById("results").innerHTML = finalResultsHtml;
     };
-
 
     this.descendingCompare = function(a, b){
         var nodes = a.getElementsByClassName("col-md-12 place-middle");
@@ -246,7 +189,6 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
         return priceB - priceA;
     };
 
-
     this.descendingSortBasedOnPrice = function(){
         var elements = document.getElementsByClassName("results-form");
         elements = Array.prototype.slice.call(elements, 0);
@@ -256,20 +198,20 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
             finalResultsHtml += elements[i].outerHTML;
         document.getElementById("results").innerHTML = finalResultsHtml;
     };
+
 });
-
-
-
-
 
 app.controller('ReserveController', function($scope, $http){
     $scope.message = 'reserve!';
 });
 
-
-
-
-
 app.controller('TicketsController', function($scope, $http){
     $scope.message = 'tickets!';
 });
+
+
+
+
+
+
+
