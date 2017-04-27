@@ -1,4 +1,3 @@
-
 <header>
     <div class="hidden-xs hidden-sm col-md-2 pull-right"></div>
     <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
@@ -47,63 +46,62 @@
         <div class="hidden-xs hidden-sm col-md-1 pull-right"></div>
     </div>
 
-    <div class="gray-back row" id="results" ng-repeat="flight in flightList">
-        <div ng-repeat="MapSeatClassCapacity in flight.mapSeatClassCapacities">
+    <div class="gray-back row" id="results">
+        <div ng-repeat="flight in flightList">
+            <div ng-repeat="mapSeatClassCapacity in flight.mapSeatClassCapacities">
+                <form class="results-form">
 
-        <form class="results-form">
+                    <div class="white-section col-md-9 pull-right row-distance">
+                        <div class="row">
+                            <div class="col-md-3 place-middle font-large lbl-color-black pull-right">
+                                {{flight.airlineCode + " " + flight.flightNumber}}
+                            </div>
 
-            <div class="white-section col-md-9 pull-right row-distance">
-                <div class="row">
-                    <div class="col-md-3 place-middle font-large lbl-color-black pull-right">
-                        IR 452
+                            <div class="col-md-9 place-middle font-large lbl-color-dark-gray pull-right">
+                                {{flight.srcCode + " " + flight.departureTime + " >> " + flight.destCode + " " + flight.arrivalTime}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 place-middle lbl-color-black pull-right">
+                                <span><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                                <span>{{flight.date}}</span>
+                            </div>
+
+                            <div class="col-md-3 place-middle font-small lbl-color-light-gray pull-right">
+                                <span><i class="fa fa-plane fa-size"></i></span>
+                                <span>{{flight.airplaneModel}}</span>
+
+                            </div>
+
+                            <div class="col-md-6 place-middle font-small lbl-color-light-gray pull-right">
+                                <span><i class="fa fa-suitcase" aria-hidden="true"></i></span>
+                                <span>{{mapSeatClassCapacity.capacity}}</span>
+                                <span>صندلی باقی مانده کلاس</span>
+                                <span>{{mapSeatClassCapacity.seatClass.name}}</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-md-9 place-middle font-large lbl-color-dark-gray pull-right">
-                        THR 1740 >> MHD 1850
+                    <button type="submit" class="price-btn col-md-3 pull-right row-distance">
+                        <div class="col-md-12 place-middle">
 
-                    </div>
-                </div>
+                            <!--*********************************************************************************************************************-->
 
-                <div class="row">
-                    <div class="col-md-3 place-middle lbl-color-black pull-right">
-                        <span><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-                        <span>05Feb</span>
-
-                    </div>
-
-                    <div class="col-md-3 place-middle font-small lbl-color-light-gray pull-right">
-                        <span><i class="fa fa-plane fa-size"></i></span>
-                        <span>M80</span>
-
-                    </div>
-
-                    <div class="col-md-6 place-middle font-small lbl-color-light-gray pull-right">
-                        <span><i class="fa fa-suitcase" aria-hidden="true"></i></span>
-                        <span>8</span>
-                        <span>صندلی باقی مانده کلاس</span>
-                        <span>
-                                Y
-                            </span>
-                    </div>
-                </div>
+                            <span>{{mapSeatClassCapacity.seatClass.adultPrice*1+mapSeatClassCapacity.seatClass.childPrice*1+mapSeatClassCapacity.seatClass.infantPrice*1}}</span>
+                            <span>ریال</span>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="col-md-12 place-middle">
+                            رزرو آنلاین
+                        </div>
+                    </button>
+                </form>
             </div>
-
-            <button type="submit" class="price-btn col-md-3 pull-right row-distance">
-                <div class="col-md-12 place-middle">
-                    <span>3000</span>
-                    <span>ریال</span>
-
-                </div>
-                <br>
-                <br>
-                <div class="col-md-12 place-middle">
-                    رزرو آنلاین
-                </div>
-            </button>
-        </form>
         </div>
     </div>
-
+    
     <div class="filters">
         <div class="beInline">
             <button class="filterSortButton" ng-click="resultsCtrl.ascendingSortBasedOnPrice()">

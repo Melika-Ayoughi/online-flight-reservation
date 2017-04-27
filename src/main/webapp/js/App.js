@@ -65,9 +65,16 @@ app.config(function($routeProvider) {
 });
 
 
+
+
+
 app.controller('mainController', function($scope, $http){
     $scope.message = 'main!';
 });
+
+
+
+
 
 app.controller('Home-SearchController', function($scope, $rootScope, $http, $location){
     $scope.message = 'search!';
@@ -142,6 +149,7 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
 
 
     };
+
     $scope.searchRequest = {
         srcCode: 'THR',
         destCode: 'MHD',
@@ -152,10 +160,15 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
     };
 });
 
+
+
+
+
 app.controller('ResultsController', function($scope, $rootScope, $http){
     $scope.message = 'results!';
     var completeResult;
     var done = false;
+
 
     this.setup = function(){
         document.getElementsByTagName("body")[0].innerHTML = document.getElementsByTagName("body")[0].innerHTML;
@@ -166,7 +179,6 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
         }
     };
 
-    // setup();
 
     this.filterSeatClass = function(){
         document.getElementById("results").innerHTML = completeResult.innerHTML;
@@ -197,6 +209,7 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
         }
     };
 
+
     this.ascendingCompare = function(a, b){
         var nodes = a.getElementsByClassName("col-md-12 place-middle");
         var node = nodes[0];
@@ -209,6 +222,7 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
         return priceA - priceB;
     };
 
+
     this.ascendingSortBasedOnPrice = function(){
         var elements = document.getElementsByClassName("results-form");
         elements = Array.prototype.slice.call(elements, 0);
@@ -218,6 +232,7 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
             finalResultsHtml += elements[i].outerHTML;
         document.getElementById("results").innerHTML = finalResultsHtml;
     };
+
 
     this.descendingCompare = function(a, b){
         var nodes = a.getElementsByClassName("col-md-12 place-middle");
@@ -231,6 +246,7 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
         return priceB - priceA;
     };
 
+
     this.descendingSortBasedOnPrice = function(){
         var elements = document.getElementsByClassName("results-form");
         elements = Array.prototype.slice.call(elements, 0);
@@ -240,21 +256,20 @@ app.controller('ResultsController', function($scope, $rootScope, $http){
             finalResultsHtml += elements[i].outerHTML;
         document.getElementById("results").innerHTML = finalResultsHtml;
     };
-
-
 });
+
+
+
+
 
 app.controller('ReserveController', function($scope, $http){
     $scope.message = 'reserve!';
 });
 
+
+
+
+
 app.controller('TicketsController', function($scope, $http){
     $scope.message = 'tickets!';
 });
-
-
-
-
-
-
-
