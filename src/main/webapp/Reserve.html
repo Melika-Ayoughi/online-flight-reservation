@@ -22,7 +22,7 @@
 </header>
 
 
-<div class="container" ng-controller="ReserveController as reserveController">
+<div class="container" ng-controller="ReserveController as reserveCtrl">
     <div class="heading">
         <div id="search" class="hidden-xs">جستجوی پرواز  &gt;</div>
         <div id="choose" class="hidden-xs">انتخاب پرواز  &gt;</div>
@@ -180,45 +180,44 @@
             مشخصات مسافران غلط وارد شده است! لطفا دوباره پر کنید.
         </div>
 
-        <form id="passenger-form" action="Tickets.do?flight-id=0&amp;flight-number=452&amp;date=05Feb&amp;src-code=THR&amp;dest-code=MHD&amp;airline-code=IR&amp;seat-class=M&amp;adult-count=2&amp;child-count=1&amp;infant-count=1&amp;total-count=4" method="POST" onsubmit="event.preventDefault(); validateForm(4);">
-            <div class="passenger-info-list">
+        <form id="passenger-form" >
+            <div class="passenger-info-list" ng-repeat="passenger in adultPassengerList">
 
                 <div class="gray-row row">
                     <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
 
 
                         <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
-                        <span>1-</span><span>بزرگسال:</span>
+                        <span>{{$index+1}}-</span><span>بزرگسال:</span>
 
                     </div>
-                    <select name="gender-1" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
+                    <select name="gender-1" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
-
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-1" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
+                        <input class="passenger-info" name="name-1" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-1" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
+                        <input class="passenger-info" name="surname-1" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-1" type="text" placeholder="شماره ملی" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-1" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID">
                     </div>
                 </div>
+            </div>
 
-
-
+            <div class="passenger-info-list" ng-repeat="passenger in childPassengerList">
                 <div class="gray-row row">
                     <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
 
 
                         <span class="hidden-mobile"><i class="fa fa-user fa-child"></i></span>
-                        <span>3-</span><span>خردسال:</span>
+                        <span>{{$index+1}}-</span><span>خردسال:</span>
 
                     </div>
-                    <select name="gender-3" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
+                    <select name="gender-3" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
 
@@ -226,41 +225,45 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
+                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
+                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID">
                     </div>
                 </div>
+            </div>
+
+            <div class="passenger-info-list" ng-repeat="passenger in infantPassengerList">
 
                 <div class="gray-row row">
                     <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
 
                         <span class="hidden-mobile" id="infant-8"><i class="fa fa-user fa-child"></i></span>
-                        <span>4-</span><span>نوزاد:</span>
+                        <span>{{$index+1}}-</span><span>نوزاد:</span>
 
                     </div>
-                    <select name="gender-4" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle">
+                    <select name="gender-4" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
 
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only">
+                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only">
+                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers">
+                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID">
                     </div>
                 </div>
-
             </div>
+
+
 
             <div class="button-row">
                 <div class="hidden-xs hidden-sm hidden-md hidden-lg">9</div>
@@ -284,7 +287,7 @@
     <div class="filterButtons" id="setPassengerCounts">
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
             <span class="inline">تعداد بزرگسالان</span>
-            <select name="تعداد بزرگسالان" id="adultCount" class="filterInput">
+            <select name="تعداد بزرگسالان" id="adultCount" class="filterInput" ng-model="adultCount">
                 <option value="0">۰</option>
                 <option value="1">۱</option>
                 <option value="2">۲</option>
@@ -299,7 +302,7 @@
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
             <span class="inline">تعداد خردسالان</span>
-            <select name="تعداد کودکان" id="childCount" class="filterInput">
+            <select name="تعداد کودکان" id="childCount" class="filterInput" ng-model="childCount">
                 <option value="0">۰</option>
                 <option value="1">۱</option>
                 <option value="2">۲</option>
@@ -314,7 +317,7 @@
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
             <span class="inline">تعداد نوزادان</span>
-            <select name="تعداد خردسالان" id="infantCount" class="filterInput">
+            <select name="تعداد خردسالان" id="infantCount" class="filterInput" ng-model="infantCount">
                 <option value="0">۰</option>
                 <option value="1">۱</option>
                 <option value="2">۲</option>
@@ -328,8 +331,10 @@
             </select>
         </div>
         <div class="col-xs-6 col-sm-12 col-md-3  place-middle">
-            <button class="applyFilters" onclick="update()">اعمال فیلتر ها</button>
+            <button class="applyFilters" ng-click="reserveCtrl.refreshPassengerLists()">اعمال فیلتر ها</button>
         </div>
+
+        <div>adult: {{adultCount}} child: {{childCount}} infant: {{infantCount}} adult list: {{adultPassengerList}}</div>
     </div>
 
 </div>

@@ -285,13 +285,121 @@ app.controller('ResultsController', function($scope, $rootScope, $http, $locatio
 
 
 app.controller('ReserveController', function($scope, $http, $rootScope){
+    localRef = this;
+
     $scope.message = 'reserve!';
     $scope.flight = $rootScope.chosenFlight;
     $scope.seatClass = $rootScope.chosenSeatClass;
 
-    $scope.adultCount = $rootScope.adultCount;
-    $scope.childCount = $rootScope.childCount;
-    $scope.infantCount = $rootScope.infantCount;
+    $scope.adultCount = $rootScope.passengerInfo.adultCount;
+    $scope.childCount = $rootScope.passengerInfo.childCount;
+    $scope.infantCount = $rootScope.passengerInfo.infantCount;
+
+    $scope.adultPassengerList = [];
+    $scope.childPassengerList = [];
+    $scope.infantPassengerList = [];
+
+    for ( let index=0; index<$scope.adultCount; index++ ) {
+        $scope.adultPassengerList.push(
+            {
+                firstName: "",
+                lastName: "",
+                gender: "",
+                nationalID: ""
+        });
+    }
+
+    for ( let index=0; index<$scope.childCount; index++ ) {
+        $scope.childPassengerList.push(
+            {
+                firstName: "",
+                lastName: "",
+                gender: "",
+                nationalID: ""
+            });
+    }
+
+    for ( let index=0; index<$scope.infantCount; index++ ) {
+        $scope.infantPassengerList.push(
+            {
+                firstName: "",
+                lastName: "",
+                gender: "",
+                nationalID: ""
+            });
+    }
+
+
+    this.refreshPassengerLists = function(){
+        console.log("in refreshpassengerList");
+        localRef.refreshAdultPassenger();
+        localRef.refreshChildPassenger();
+        localRef.refreshInfantPassenger();
+    };
+
+    this.refreshAdultPassenger = function() {
+        if($scope.adultPassengerList.length > $scope.adultCount) {
+            $scope.adultPassengerList.pop();
+            localRef.refreshAdultPassenger();
+        }
+        else if($scope.adultPassengerList.length < $scope.adultCount) {
+            (function () {
+                $scope.adultPassengerList.push(
+                    {
+                        firstName: "",
+                        lastName: "",
+                        gender: "",
+                        nationalID: ""
+                    }
+                );
+                localRef.refreshAdultPassenger();
+            })();
+
+        }
+    };
+
+
+    this.refreshChildPassenger = function() {
+        if($scope.childPassengerList.length > $scope.childCount) {
+            $scope.childPassengerList.pop();
+            localRef.refreshChildPassenger();
+        }
+        else if($scope.childPassengerList.length < $scope.childCount) {
+            (function () {
+                $scope.childPassengerList.push(
+                    {
+                        firstName: "",
+                        lastName: "",
+                        gender: "",
+                        nationalID: ""
+                    }
+                );
+                localRef.refreshChildPassenger();
+            })();
+
+        }
+    };
+
+    this.refreshInfantPassenger = function() {
+        if($scope.infantPassengerList.length > $scope.infantCount) {
+            $scope.infantPassengerList.pop();
+            localRef.refreshInfantPassenger();
+        }
+        else if($scope.infantPassengerList.length < $scope.infantCount) {
+            (function () {
+                $scope.infantPassengerList.push(
+                    {
+                        firstName: "",
+                        lastName: "",
+                        gender: "",
+                        nationalID: ""
+                    }
+                );
+                localRef.refreshInfantPassenger();
+            })();
+
+        }
+    };
 
 });
 
