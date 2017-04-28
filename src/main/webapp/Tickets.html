@@ -40,18 +40,19 @@
         </div>
     </div>
 
+<div ng-repeat="ticket in ticketList">
     <div class="gray-ticket-box">
         <div class="ticket-rows row-1-4 place-middle-label">
             شماره بلیت
         </div>
         <div class="ticket-rows row-1-4 place-middle-value">
-            <b>۲۰۰۴۲۴۱۵</b>
+            <b>{{ticket.ticketNo}}</b>
         </div>
         <div class="ticket-rows row-1-4 place-middle-label">
             کد مرجع
         </div>
         <div class="ticket-rows row-1-4 place-middle-value">
-            <b>۲۳۴۱۰۰۳</b>
+            <b>{{ticket.referenceCode}}</b>
         </div>
 
         <hr>
@@ -60,19 +61,20 @@
             نام
         </div>
         <div class="ticket-rows row-1-4 place-middle-value">
-            MR Adult Iranpour
+            {{ticket.gender+" "+ticket.firstName+" "+ticket.surname}}
         </div>
         <div class="ticket-rows row-1-12 place-middle-label">
             پرواز
         </div>
         <div class="ticket-rows row-1-6 place-middle-value">
-            معراج ۲۸۰۲
+{{ticket.airlineCode}}
         </div>
         <div class="ticket-rows row-1-6 place-middle-value">
-            کلاس اقتصادی
+            <span>کلاس </span>
+            <span>{{ticket.seatClassName}}</span>
         </div>
         <div class="ticket-rows row-1-4 place-middle-value">
-            بوئینگ MD83
+            {{ticket.airplaneModel}}
         </div>
 
         <hr>
@@ -94,91 +96,24 @@
         </div>
         <!----------------------------------------------------------->
         <div class="ticket-rows row-1-6 place-middle-label white-box">
-            تهران
+            {{ticket.originCode}}
         </div>
         <div class="ticket-rows row-1-6 place-middle-label white-box">
-            مشهد
+            {{ticket.destinationCode}}
         </div>
         <div class="ticket-rows row-1-3 place-middle-label white-box">
-            دوشنبه ۲۵/۱۱/۱۳۹۵
+            {{ticket.date}}
         </div>
         <div class="ticket-rows row-1-6 place-middle-label white-box">
-            ۱۵:۱۵
+            {{ticket.departureTime}}
         </div>
         <div class="ticket-rows row-1-6 place-middle-label white-box">
-            ۱۶:۳۵
+            {{ticket.arrivalTime}}
         </div>
     </div>
+</div>
 
-    <div class="gray-ticket-box">
-        <div class="ticket-rows row-1-4 place-middle-label">
-            شماره بلیت
-        </div>
-        <div class="ticket-rows row-1-4 place-middle-value">
-            <b>۲۰۰۴۲۴۱۵</b>
-        </div>
-        <div class="ticket-rows row-1-4 place-middle-label">
-            کد مرجع
-        </div>
-        <div class="ticket-rows row-1-4 place-middle-value">
-            <b>۲۳۴۱۰۰۳</b>
-        </div>
 
-        <hr>
-        <!----------------------------------------------------------->
-        <div class="ticket-rows row-1-12 place-middle-label">
-            نام
-        </div>
-        <div class="ticket-rows row-1-4 place-middle-value">
-            MR Adult Iranpour
-        </div>
-        <div class="ticket-rows row-1-12 place-middle-label">
-            پرواز
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-value">
-            معراج ۲۸۰۲
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-value">
-            کلاس اقتصادی
-        </div>
-        <div class="ticket-rows row-1-4 place-middle-value">
-            بوئینگ MD83
-        </div>
-
-        <hr>
-        <!----------------------------------------------------------->
-        <div class="ticket-rows row-1-6 place-middle-label hidden-mobile">
-            از
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-label hidden-mobile">
-            به
-        </div>
-        <div class="ticket-rows row-1-3 place-middle-label hidden-mobile">
-            تاریخ
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-label hidden-mobile">
-            خروج
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-label hidden-mobile">
-            ورود
-        </div>
-        <!----------------------------------------------------------->
-        <div class="ticket-rows row-1-6 place-middle-label white-box">
-            تهران
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-label white-box">
-            مشهد
-        </div>
-        <div class="ticket-rows row-1-3 place-middle-label white-box">
-            دوشنبه ۲۵/۱۱/۱۳۹۵
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-label white-box">
-            ۱۵:۱۵
-        </div>
-        <div class="ticket-rows row-1-6 place-middle-label white-box">
-            ۱۶:۳۵
-        </div>
-    </div>
 
     <!--<div>{{tickets}}</div>-->
     <!--<div>{{tickets[0].firstName+" "+tickets[0].surname+" "+tickets[0].referenceCode+" "+tickets[0].ticketNo+" "}}</div>-->
