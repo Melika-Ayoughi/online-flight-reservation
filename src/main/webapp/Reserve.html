@@ -185,25 +185,21 @@
 
                 <div class="gray-row row">
                     <div class="col-xs-6 col-sm-6 col-md-2 pull-right place-middle">
-
-
                         <span class="hidden-mobile"><i class="fa fa-user fa-male"></i></span>
                         <span>{{$index+1}}-</span><span>بزرگسال:</span>
-
                     </div>
-                    <select name="gender-1" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender">
+                    <select name="gender-1" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender" required>
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
                     </select>
-
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-1" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName">
+                        <input class="passenger-info" name="name-1" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName" ng-minlength="2" regex="/^[a-zA-Z]*$/">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-1" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName">
+                        <input class="passenger-info" name="surname-1" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName" ng-minlength="2" regex="/^[a-zA-Z]*$/">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-1" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID">
+                        <input class="passenger-info" name="id-1" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID" ng-minlength="10" ng-maxlength="10" regex="^[0-9]*$">
                     </div>
                 </div>
             </div>
@@ -225,13 +221,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="childPassengerList[$index].firstName">
+                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="childPassengerList[$index].firstName" ng-minlength="2">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="childPassengerList[$index].lastName">
+                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="childPassengerList[$index].lastName" ng-minlength="2">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="childPassengerList[$index].nationalID">
+                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="childPassengerList[$index].nationalID" ng-minlength="10" ng-maxlength="10">
                     </div>
                 </div>
             </div>
@@ -252,13 +248,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="infantPassengerList[$index].firstName">
+                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="infantPassengerList[$index].firstName" ng-minlength="2">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="infantPassengerList[$index].lastName">
+                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="infantPassengerList[$index].lastName" ng-minlength="2">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="infantPassengerList[$index].nationalID">
+                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="infantPassengerList[$index].nationalID" ng-minlength="10" ng-maxlength="10">
                     </div>
                 </div>
             </div>
