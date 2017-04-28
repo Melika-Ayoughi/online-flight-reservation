@@ -465,11 +465,11 @@ nav ul ul li {
 
 /* ----------------------------------------------------  ---------------------------------------------------- */
 
-input.ng-invalid {
+input.ng-invalid:focus {
     background-color:lightpink;
 }
 
-input.ng-valid {
+input.ng-valid:focus {
     background-color:lightgreen;
 }
 
