@@ -75,73 +75,73 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
 
     this.searchFlights = function(){
 
-        // $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$rootScope.searchRequest).then(
-        //     function (response) {
-        //         $rootScope.flightList = response.data;
-        //         $location.path('/Results');
-        //     });
+        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$rootScope.searchRequest).then(
+            function (response) {
+                $rootScope.flightList = response.data;
+                $location.path('/Results');
+            });
 
 
-        //just for testing
-        $rootScope.flightList = [{
-          "mapSeatClassCapacities": [{
-              "seatClass": {
-                  "name": "Y",
-                  "infantPrice": 1000,
-                  "adultPrice": 3000,
-                  "childPrice": 2000,
-                  "airlineCode": "IR",
-                  "originCode": "THR",
-                  "destinationCode": "MHD"
-              },
-              "capacity": 8
-          }, {
-              "seatClass": {
-                  "name": "M",
-                  "infantPrice": 2000,
-                  "adultPrice": 4000,
-                  "childPrice": 3000,
-                  "airlineCode": "IR",
-                  "originCode": "THR",
-                  "destinationCode": "MHD"
-              },
-              "capacity": 9
-          }],
-          "departureTime": "1740",
-          "arrivalTime": "1850",
-          "airplaneModel": "M80",
-          "flightNumber": "452",
-          "destCode": "MHD",
-          "srcCode": "THR",
-          "airlineCode": "IR",
-          "flightId": 0,
-          "date": "05Feb"
-      }, {
-          "mapSeatClassCapacities": [{
-              "seatClass": {
-                  "name": "F",
-                  "infantPrice": 1000,
-                  "adultPrice": 3000,
-                  "childPrice": 2000,
-                  "airlineCode": "IR",
-                  "originCode": "THR",
-                  "destinationCode": "MHD"
-              },
-              "capacity": 9
-          }],
-          "departureTime": "0730",
-          "arrivalTime": "0840",
-          "airplaneModel": "351",
-          "flightNumber": "822",
-          "destCode": "MHD",
-          "srcCode": "THR",
-          "airlineCode": "IR",
-          "flightId": 1,
-          "date": "05Feb"
-      }];
-
-
-        $location.path('/Results');
+      //   //just for testing
+      //   $rootScope.flightList = [{
+      //     "mapSeatClassCapacities": [{
+      //         "seatClass": {
+      //             "name": "Y",
+      //             "infantPrice": 1000,
+      //             "adultPrice": 3000,
+      //             "childPrice": 2000,
+      //             "airlineCode": "IR",
+      //             "originCode": "THR",
+      //             "destinationCode": "MHD"
+      //         },
+      //         "capacity": 8
+      //     }, {
+      //         "seatClass": {
+      //             "name": "M",
+      //             "infantPrice": 2000,
+      //             "adultPrice": 4000,
+      //             "childPrice": 3000,
+      //             "airlineCode": "IR",
+      //             "originCode": "THR",
+      //             "destinationCode": "MHD"
+      //         },
+      //         "capacity": 9
+      //     }],
+      //     "departureTime": "1740",
+      //     "arrivalTime": "1850",
+      //     "airplaneModel": "M80",
+      //     "flightNumber": "452",
+      //     "destCode": "MHD",
+      //     "srcCode": "THR",
+      //     "airlineCode": "IR",
+      //     "flightId": 0,
+      //     "date": "05Feb"
+      // }, {
+      //     "mapSeatClassCapacities": [{
+      //         "seatClass": {
+      //             "name": "F",
+      //             "infantPrice": 1000,
+      //             "adultPrice": 3000,
+      //             "childPrice": 2000,
+      //             "airlineCode": "IR",
+      //             "originCode": "THR",
+      //             "destinationCode": "MHD"
+      //         },
+      //         "capacity": 9
+      //     }],
+      //     "departureTime": "0730",
+      //     "arrivalTime": "0840",
+      //     "airplaneModel": "351",
+      //     "flightNumber": "822",
+      //     "destCode": "MHD",
+      //     "srcCode": "THR",
+      //     "airlineCode": "IR",
+      //     "flightId": 1,
+      //     "date": "05Feb"
+      // }];
+      //
+      //
+      //   $location.path('/Results');
 
 
 
@@ -235,64 +235,65 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
     this.getTickets = function () {
 
 
-        // $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/ticketService/getTickets',$scope.ticketRequest).then(
-        //     function (response) {
-        //         $rootScope.ticketList = response.data;
-        //         $location.path('/Tickets');
-        //     });
+        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/ticketService/getTickets',$scope.ticketRequest).then(
+            function (response) {
+                $rootScope.ticketList = response.data;
+                $location.path('/Tickets');
+            });
 
-        //just for testing
-        $rootScope.ticketList = [{
-            "firstName": "mm",
-            "surname": "mm",
-            "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
-            "ticketNo": "192f34a9-b8bc-0320-f997-e09b03db1f60",
-            "originCode": "THR",
-            "destinationCode": "MHD",
-            "airlineCode": "IR",
-            "flightNo": "452",
-            "seatClassName": "Y",
-            "date": "05Feb",
-            "departureTime": "1740",
-            "arrivalTime": "1850",
-            "airplaneModel": "M80",
-            "type": "adult",
-            "gender": "Mrs."
-        }, {
-            "firstName": "kk",
-            "surname": "kk",
-            "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
-            "ticketNo": "03ed98c9-397f-d2e9-40cf-d0ccbd91696b",
-            "originCode": "THR",
-            "destinationCode": "MHD",
-            "airlineCode": "IR",
-            "flightNo": "452",
-            "seatClassName": "Y",
-            "date": "05Feb",
-            "departureTime": "1740",
-            "arrivalTime": "1850",
-            "airplaneModel": "M80",
-            "type": "child",
-            "gender": "Mr."
-        }, {
-            "firstName": "kk",
-            "surname": "pp",
-            "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
-            "ticketNo": "84094528-3e63-6aa1-9bbf-04223fc9c203",
-            "originCode": "THR",
-            "destinationCode": "MHD",
-            "airlineCode": "IR",
-            "flightNo": "452",
-            "seatClassName": "Y",
-            "date": "05Feb",
-            "departureTime": "1740",
-            "arrivalTime": "1850",
-            "airplaneModel": "M80",
-            "type": "infant",
-            "gender": "Mrs."
-        }];
-
-        $location.path('/Tickets');
+        //
+        // //just for testing
+        // $rootScope.ticketList = [{
+        //     "firstName": "mm",
+        //     "surname": "mm",
+        //     "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
+        //     "ticketNo": "192f34a9-b8bc-0320-f997-e09b03db1f60",
+        //     "originCode": "THR",
+        //     "destinationCode": "MHD",
+        //     "airlineCode": "IR",
+        //     "flightNo": "452",
+        //     "seatClassName": "Y",
+        //     "date": "05Feb",
+        //     "departureTime": "1740",
+        //     "arrivalTime": "1850",
+        //     "airplaneModel": "M80",
+        //     "type": "adult",
+        //     "gender": "Mrs."
+        // }, {
+        //     "firstName": "kk",
+        //     "surname": "kk",
+        //     "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
+        //     "ticketNo": "03ed98c9-397f-d2e9-40cf-d0ccbd91696b",
+        //     "originCode": "THR",
+        //     "destinationCode": "MHD",
+        //     "airlineCode": "IR",
+        //     "flightNo": "452",
+        //     "seatClassName": "Y",
+        //     "date": "05Feb",
+        //     "departureTime": "1740",
+        //     "arrivalTime": "1850",
+        //     "airplaneModel": "M80",
+        //     "type": "child",
+        //     "gender": "Mr."
+        // }, {
+        //     "firstName": "kk",
+        //     "surname": "pp",
+        //     "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
+        //     "ticketNo": "84094528-3e63-6aa1-9bbf-04223fc9c203",
+        //     "originCode": "THR",
+        //     "destinationCode": "MHD",
+        //     "airlineCode": "IR",
+        //     "flightNo": "452",
+        //     "seatClassName": "Y",
+        //     "date": "05Feb",
+        //     "departureTime": "1740",
+        //     "arrivalTime": "1850",
+        //     "airplaneModel": "M80",
+        //     "type": "infant",
+        //     "gender": "Mrs."
+        // }];
+        //
+        // $location.path('/Tickets');
 
     };
 
