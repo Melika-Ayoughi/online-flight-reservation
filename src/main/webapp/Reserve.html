@@ -103,12 +103,12 @@
 
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    <span>{{passengerInfo.adultCount}}</span>
+                    <span>{{searchRequest.adultCount}}</span>
                     <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
                     <span>
-                    {{passengerInfo.adultCount*seatClass.adultPrice}}
+                    {{searchRequest.adultCount*seatClass.adultPrice}}
                     </span>
                     <span>ریال</span>
 
@@ -126,12 +126,12 @@
 
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    <span>{{passengerInfo.childCount}}</span>
+                    <span>{{searchRequest.childCount}}</span>
                     <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
                     <span>
-                    {{passengerInfo.childCount*seatClass.childPrice}}
+                    {{searchRequest.childCount*seatClass.childPrice}}
                     </span>
                     <span>ریال</span>
 
@@ -147,11 +147,11 @@
 
                 </div>
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
-                    <span>{{passengerInfo.infantCount}}</span>
+                    <span>{{searchRequest.infantCount}}</span>
                     <span>نفر</span>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    <span>{{passengerInfo.infantCount*seatClass.infantPrice}}</span>
+                    <span>{{searchRequest.infantCount*seatClass.infantPrice}}</span>
                     <span>ریال</span>
 
 
@@ -166,7 +166,7 @@
                 <div class="hidden-xs col-sm-4 col-md-2 pull-right">
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-2 pull-right">
-                    <span>{{passengerInfo.infantCount*seatClass.infantPrice + passengerInfo.childCount*seatClass.childPrice + passengerInfo.adultCount*seatClass.adultPrice}}</span>
+                    <span>{{searchRequest.infantCount*seatClass.infantPrice + searchRequest.childCount*seatClass.childPrice + searchRequest.adultCount*seatClass.adultPrice}}</span>
                     <span>ریال</span>
 
                 </div>
@@ -281,7 +281,7 @@
     <div class="filterButtons" id="setPassengerCounts">
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
             <span class="inline">تعداد بزرگسالان</span>
-            <select name="تعداد بزرگسالان" id="adultCount" class="filterInput" ng-model="adultCount">
+            <select name="تعداد بزرگسالان" id="adultCount" class="filterInput" ng-model="searchRequest.adultCount">
                 <option value="0">۰</option>
                 <option value="1">۱</option>
                 <option value="2">۲</option>
@@ -296,7 +296,7 @@
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
             <span class="inline">تعداد خردسالان</span>
-            <select name="تعداد کودکان" id="childCount" class="filterInput" ng-model="childCount">
+            <select name="تعداد کودکان" id="childCount" class="filterInput" ng-model="searchRequest.childCount">
                 <option value="0">۰</option>
                 <option value="1">۱</option>
                 <option value="2">۲</option>
@@ -311,7 +311,7 @@
         </div>
         <div class="col-xs-6 col-sm-4 col-md-3  place-middle">
             <span class="inline">تعداد نوزادان</span>
-            <select name="تعداد خردسالان" id="infantCount" class="filterInput" ng-model="infantCount">
+            <select name="تعداد خردسالان" id="infantCount" class="filterInput" ng-model="searchRequest.infantCount">
                 <option value="0">۰</option>
                 <option value="1">۱</option>
                 <option value="2">۲</option>
@@ -328,7 +328,7 @@
             <button class="applyFilters" ng-click="reserveCtrl.refreshPassengerLists()">اعمال فیلتر ها</button>
         </div>
 
-        <div>adult: {{adultCount}} child: {{childCount}} infant: {{infantCount}} adult list: {{adultPassengerList}} child list: {{childPassengerList}} infant list: {{infantPassengerList}}</div>
+        <div>adult: {{searchRequest.adultCount}} child: {{searchRequest.childCount}} infant: {{searchRequest.infantCount}} adult list: {{adultPassengerList}} child list: {{childPassengerList}} infant list: {{infantPassengerList}}</div>
     </div>
 
 </div>

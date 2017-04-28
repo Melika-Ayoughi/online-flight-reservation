@@ -74,9 +74,6 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
     $rootScope.flightList = [];
 
     this.searchFlights = function(){
-        $rootScope.passengerInfo.adultCount = $rootScope.searchRequest.adultCount;
-        $rootScope.passengerInfo.childCount = $rootScope.searchRequest.childCount;
-        $rootScope.passengerInfo.infantCount = $rootScope.searchRequest.infantCount;
 
         // $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$rootScope.searchRequest).then(
         //     function (response) {
@@ -158,11 +155,6 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
         infantCount: 1
     };
 
-    $rootScope.passengerInfo = {
-        adultCount: 1,
-        childCount: 1,
-        infantCount: 1
-    }
 });
 
 app.controller('ResultsController', function($scope, $rootScope, $http, $location){
@@ -195,17 +187,17 @@ app.controller('ResultsController', function($scope, $rootScope, $http, $locatio
 
     this.ascendingSortBasedOnPrice = function(){
         $scope.myValueFunction = function(flightSeatClass) {
-            return flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice * $rootScope.passengerInfo.adultCount
-                + flightSeatClass.mapSeatClassCapacity.seatClass.childPrice * $rootScope.passengerInfo.childCount
-                + flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice * $rootScope.passengerInfo.infantCount;
+            return flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice * $rootScope.searchRequest.adultCount
+                + flightSeatClass.mapSeatClassCapacity.seatClass.childPrice * $rootScope.searchRequest.childCount
+                + flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice * $rootScope.searchRequest.infantCount;
         };
     };
 
     this.descendingSortBasedOnPrice = function(){
         $scope.myValueFunction = function(flightSeatClass) {
-            return -(flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice * $rootScope.passengerInfo.adultCount
-            + flightSeatClass.mapSeatClassCapacity.seatClass.childPrice * $rootScope.passengerInfo.childCount
-            + flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice * $rootScope.passengerInfo.infantCount);
+            return -(flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice * $rootScope.searchRequest.adultCount
+            + flightSeatClass.mapSeatClassCapacity.seatClass.childPrice * $rootScope.searchRequest.childCount
+            + flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice * $rootScope.searchRequest.infantCount);
         };
     };
 
@@ -218,9 +210,9 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
     $scope.flight = $rootScope.chosenFlight;
     $scope.seatClass = $rootScope.chosenSeatClass;
 
-    $scope.adultCount = $rootScope.passengerInfo.adultCount;
-    $scope.childCount = $rootScope.passengerInfo.childCount;
-    $scope.infantCount = $rootScope.passengerInfo.infantCount;
+    // $scope.adultCount = $rootScope.passengerInfo.adultCount;
+    // $scope.childCount = $rootScope.passengerInfo.childCount;
+    // $scope.infantCount = $rootScope.passengerInfo.infantCount;
 
     $scope.adultPassengerList = [];
     $scope.childPassengerList = [];
@@ -306,7 +298,7 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
 
 
 
-    for ( let index=0; index<$scope.adultCount; index++ ) {
+    for ( let index=0; index<$rootScope.searchRequest.adultCount; index++ ) {
         $scope.adultPassengerList.push(
             {
                 firstName: "",
@@ -316,7 +308,7 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
         });
     }
 
-    for ( let index=0; index<$scope.childCount; index++ ) {
+    for ( let index=0; index<$rootScope.searchRequest.childCount; index++ ) {
         $scope.childPassengerList.push(
             {
                 firstName: "",
@@ -326,7 +318,7 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
             });
     }
 
-    for ( let index=0; index<$scope.infantCount; index++ ) {
+    for ( let index=0; index<$rootScope.searchRequest.infantCount; index++ ) {
         $scope.infantPassengerList.push(
             {
                 firstName: "",
@@ -345,11 +337,11 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
     };
 
     this.refreshAdultPassenger = function() {
-        if($scope.adultPassengerList.length > $scope.adultCount) {
+        if($scope.adultPassengerList.length > $rootScope.searchRequest.adultCount) {
             $scope.adultPassengerList.pop();
             localRef.refreshAdultPassenger();
         }
-        else if($scope.adultPassengerList.length < $scope.adultCount) {
+        else if($scope.adultPassengerList.length < $rootScope.searchRequest.adultCount) {
             (function () {
                 $scope.adultPassengerList.push(
                     {
@@ -367,11 +359,11 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
 
 
     this.refreshChildPassenger = function() {
-        if($scope.childPassengerList.length > $scope.childCount) {
+        if($scope.childPassengerList.length > $rootScope.searchRequest.childCount) {
             $scope.childPassengerList.pop();
             localRef.refreshChildPassenger();
         }
-        else if($scope.childPassengerList.length < $scope.childCount) {
+        else if($scope.childPassengerList.length < $rootScope.searchRequest.childCount) {
             (function () {
                 $scope.childPassengerList.push(
                     {
@@ -388,11 +380,11 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
     };
 
     this.refreshInfantPassenger = function() {
-        if($scope.infantPassengerList.length > $scope.infantCount) {
+        if($scope.infantPassengerList.length > $rootScope.searchRequest.infantCount) {
             $scope.infantPassengerList.pop();
             localRef.refreshInfantPassenger();
         }
-        else if($scope.infantPassengerList.length < $scope.infantCount) {
+        else if($scope.infantPassengerList.length < $rootScope.searchRequest.infantCount) {
             (function () {
                 $scope.infantPassengerList.push(
                     {

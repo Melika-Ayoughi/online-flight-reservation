@@ -131,13 +131,8 @@
                     <input type="submit" value="جستجو" ng-click="homeCtrl.searchFlights()" ng-disabled="myForm.$invalid">
                 </div>
 
-                <div> {{flightList[0].srcCode}}</div>
-                <div> {{flightList[0].airlineCode}}</div>
-                <div> {{flightList[1].srcCode}}</div>
-                <div> {{flightList[1].airlineCode}}</div>
-                <div>{{passengerInfo.infantCount}}</div>
-                <div>{{passengerInfo.childCount}}</div>
-                <div>{{passengerInfo.adultCount}}</div>
+                <div>from:{{searchRequest.srcCode}} to: {{searchRequest.destCode}} date: {{searchRequest.date}}</div>
+                <div>adultcount: {{searchRequest.adultCount}} childCount: {{searchRequest.childCount}} infantCount: {{searchRequest.infantCount}}</div>
             </form>
         </div>
         <div class="day-logo">

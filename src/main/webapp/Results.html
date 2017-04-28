@@ -85,9 +85,9 @@
 
                 <button type="submit" class="price-btn col-md-3 pull-right row-distance" data-ng-click="resultsCtrl.loadReservePage(flightSeatClass.flight, flightSeatClass.mapSeatClassCapacity.seatClass)">
                     <div class="col-md-12 place-middle">
-                        <span>{{flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice*passengerInfo.adultCount
-                                +flightSeatClass.mapSeatClassCapacity.seatClass.childPrice*passengerInfo.childCount
-                                +flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice*passengerInfo.infantCount}}</span>
+                        <span>{{flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice*searchRequest.adultCount
+                                +flightSeatClass.mapSeatClassCapacity.seatClass.childPrice*searchRequest.childCount
+                                +flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice*searchRequest.infantCount}}</span>
                         <span>ریال</span>
                     </div>
                     <br>
@@ -99,6 +99,7 @@
             </form>
         </div>
     </div>
+
 
     <div class="filters">
         <div class="beInline">
