@@ -157,10 +157,12 @@ a {
 }
 
 .givenFilter{
+    margin-top: 1.5%;
+    margin-bottom: 1%;
+    width: 24%;
     display: inline;
-    height: 20px;
     text-align: center;
-    font-size: x-small;
+    font-size: small;
 }
 
 .beInline{

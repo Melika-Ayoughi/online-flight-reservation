@@ -37,7 +37,7 @@
         <div class="hidden-xs col-sm-2 col-md-3 pull-right"></div>
         <div class="col-xs-6 col-sm-5 col-md-4 pull-right">
             <div class="number-of-flights">
-                <span> 4 </span>
+                <span> {{flightSeatClassList.length}} </span>
                 <span>پرواز </span>
                 <span class="hidden-xs hidden-sm">با مشخصات دلخواه شما  </span>
                 <span>پیدا شد</span>
@@ -46,62 +46,60 @@
         <div class="hidden-xs hidden-sm col-md-1 pull-right"></div>
     </div>
 
+
     <div class="gray-back row" id="results">
-        <div ng-repeat="flight in flightList | filter:airlineFilter">
-            <div ng-repeat="mapSeatClassCapacity in flight.mapSeatClassCapacities | filter:seatClassFilter">
-                <form class="results-form">
+        <div ng-repeat="flightSeatClass in flightSeatClassList | filter:airlineFilter | filter:seatClassFilter | orderBy:myValueFunction">
+            <form class="results-form">
 
-                    <div class="white-section col-md-9 pull-right row-distance">
-                        <div class="row">
-                            <div class="col-md-3 place-middle font-large lbl-color-black pull-right">
-                                {{flight.airlineCode + " " + flight.flightNumber}}
-                            </div>
-
-                            <div class="col-md-9 place-middle font-large lbl-color-dark-gray pull-right">
-                                {{flight.srcCode + " " + flight.departureTime + " >> " + flight.destCode + " " + flight.arrivalTime}}
-                            </div>
+                <div class="white-section col-md-9 pull-right row-distance">
+                    <div class="row">
+                        <div class="col-md-3 place-middle font-large lbl-color-black pull-right">
+                            {{flightSeatClass.flight.airlineCode + " " + flightSeatClass.flight.flightNumber}}
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-3 place-middle lbl-color-black pull-right">
-                                <span><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-                                <span>{{flight.date}}</span>
-                            </div>
-
-                            <div class="col-md-3 place-middle font-small lbl-color-light-gray pull-right">
-                                <span><i class="fa fa-plane fa-size"></i></span>
-                                <span>{{flight.airplaneModel}}</span>
-
-                            </div>
-
-                            <div class="col-md-6 place-middle font-small lbl-color-light-gray pull-right">
-                                <span><i class="fa fa-suitcase" aria-hidden="true"></i></span>
-                                <span>{{mapSeatClassCapacity.capacity}}</span>
-                                <span>صندلی باقی مانده کلاس</span>
-                                <span>{{mapSeatClassCapacity.seatClass.name}}</span>
-                            </div>
+                        <div class="col-md-9 place-middle font-large lbl-color-dark-gray pull-right">
+                            {{flightSeatClass.flight.srcCode + " " + flightSeatClass.flight.departureTime + " >> " + flightSeatClass.flight.destCode + " " + flightSeatClass.flight.arrivalTime}}
                         </div>
                     </div>
 
-                    <button type="submit" class="price-btn col-md-3 pull-right row-distance" data-ng-click="resultsCtrl.loadReservePage(flight, mapSeatClassCapacity.seatClass)">
-                        <div class="col-md-12 place-middle">
-
-                            <!--*********************************************************************************************************************-->
-
-                            <span>{{mapSeatClassCapacity.seatClass.adultPrice*1+mapSeatClassCapacity.seatClass.childPrice*1+mapSeatClassCapacity.seatClass.infantPrice*1}}</span>
-                            <span>ریال</span>
+                    <div class="row">
+                        <div class="col-md-3 place-middle lbl-color-black pull-right">
+                            <span><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+                            <span>{{flightSeatClass.flight.date}}</span>
                         </div>
-                        <br>
-                        <br>
-                        <div class="col-md-12 place-middle">
-                            رزرو آنلاین
+
+                        <div class="col-md-3 place-middle font-small lbl-color-light-gray pull-right">
+                            <span><i class="fa fa-plane fa-size"></i></span>
+                            <span>{{flightSeatClass.flight.airplaneModel}}</span>
+
                         </div>
-                    </button>
-                </form>
-            </div>
+
+                        <div class="col-md-6 place-middle font-small lbl-color-light-gray pull-right">
+                            <span><i class="fa fa-suitcase" aria-hidden="true"></i></span>
+                            <span>{{flightSeatClass.mapSeatClassCapacity.capacity}}</span>
+                            <span>صندلی باقی مانده کلاس</span>
+                            <span>{{flightSeatClass.mapSeatClassCapacity.seatClass.name}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="price-btn col-md-3 pull-right row-distance" data-ng-click="resultsCtrl.loadReservePage(flightSeatClass.flight, flightSeatClass.mapSeatClassCapacity.seatClass)">
+                    <div class="col-md-12 place-middle">
+                        <span>{{flightSeatClass.mapSeatClassCapacity.seatClass.adultPrice*passengerInfo.adultCount
+                                +flightSeatClass.mapSeatClassCapacity.seatClass.childPrice*passengerInfo.childCount
+                                +flightSeatClass.mapSeatClassCapacity.seatClass.infantPrice*passengerInfo.infantCount}}</span>
+                        <span>ریال</span>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-md-12 place-middle">
+                        رزرو آنلاین
+                    </div>
+                </button>
+            </form>
         </div>
     </div>
-    
+
     <div class="filters">
         <div class="beInline">
             <button class="filterSortButton" ng-click="resultsCtrl.ascendingSortBasedOnPrice()">
@@ -114,13 +112,12 @@
             </button>
         </div>
         <div class="beInline">
-            <input class="givenFilter" ng-model="seatClassFilter.seatClass.name"  placeholder="کلاس صندلی">
+            <input class="givenFilter" ng-model="seatClassFilter.mapSeatClassCapacity.seatClass.name"  placeholder="کلاس صندلی">
         </div>
         <div class="beInline">
-            <input class="givenFilter" ng-model="airlineFilter.airlineCode"  placeholder="هواپیمایی">
+            <input class="givenFilter" ng-model="airlineFilter.flight.airlineCode"  placeholder="هواپیمایی">
         </div>
     </div>
-
 </div>
 
 <div>
