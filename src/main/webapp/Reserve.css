@@ -51,7 +51,9 @@ input:focus {
     border-color: darkred;
     /*color: darkred;*/
 }
+
 /* --------------------------------------------------- classes -------------------------------------------------- */
+
 .heading {
     background-color: #686CA7;
     color: white;
@@ -419,7 +421,9 @@ nav ul ul li {
 .username-dropdown:hover .dropbtn {
     color: #686CA7;
 }
+
 /* ---------------------------------------------------- buttons ---------------------------------------------------- */
+
 .button-row{
     /*width: 100%;*/
     /*direction: ltr !important;*/
@@ -458,3 +462,14 @@ nav ul ul li {
     background-color: #3D4067;
     /*display: inline-block;*/
 }
+
+/* ----------------------------------------------------  ---------------------------------------------------- */
+
+input.ng-invalid {
+    background-color:lightpink;
+}
+
+input.ng-valid {
+    background-color:lightgreen;
+}
+

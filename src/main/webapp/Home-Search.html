@@ -27,7 +27,7 @@
                 <button class="clicked-buttons" id="one-way">یک طرفه</button>
                 <button class="clicked-buttons" id="two-way">رفت و برگشت</button>
             </div>
-            <form class="search-form" data-ng-controller="Home-SearchController as homeCtrl">
+            <form class="search-form" data-ng-controller="Home-SearchController as homeCtrl" name="myForm">
                 <div class="form-line">
                     <div class="airplane-logo">
                         <i class="fa fa-plane fa-size"></i>
@@ -72,7 +72,7 @@
                             <i class="fa fa-user fa-male"></i>
                         </div>
                         <div class="age-count">
-                            <select name="adult-count" class="num-count" ng-model="searchRequest.adultCount">
+                            <select name="adult-count" class="num-count" ng-model="searchRequest.adultCount" required>
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -92,7 +92,7 @@
                             <i class="fa fa-user fa-child"></i>
                         </div>
                         <div class="age-count">
-                            <select name="child-count" class="num-count" ng-model="searchRequest.childCount">
+                            <select name="child-count" class="num-count" ng-model="searchRequest.childCount" required>
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -112,7 +112,7 @@
                             <i class="fa fa-user fa-child"></i>
                         </div>
                         <div class="age-count">
-                            <select name="infant-count" class="num-count" ng-model="searchRequest.infantCount">
+                            <select name="infant-count" class="num-count" ng-model="searchRequest.infantCount" required>
                                 <option value="1">۱</option>
                                 <option value="2">۲</option>
                                 <option value="3">۳</option>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class = "search-button">
-                    <input type="submit" value="جستجو" ng-click="homeCtrl.searchFlights()">
+                    <input type="submit" value="جستجو" ng-click="homeCtrl.searchFlights()" ng-disabled="myForm.$invalid">
                 </div>
 
                 <div> {{flightList[0].srcCode}}</div>
