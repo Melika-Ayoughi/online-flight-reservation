@@ -22,25 +22,38 @@ public class ticketService {
 
 //    public Response getTickets(searchRequest searchRequest/*, SeatClass seatClass, Flight flight*/, ArrayList<PassengerVO> adultPassengerList, ArrayList<PassengerVO> childPassengerList, ArrayList<PassengerVO> infantPassengerList) throws IOException {
 
-//
-//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-//
-//        adultPassengerList.addAll(childPassengerList);
-//        adultPassengerList.addAll(infantPassengerList);
-//
-//
-//        Reservation reservation = new Reservation(flight.getSrcCode(), flight.getDestCode(),
-//                flight.getDate(), flight.getAirlineCode(), flight.getFlightNumber(), seatClass.getName().toString(),
-//                searchRequest.getAdultCount().toString(),searchRequest.getChildCount().toString(),searchRequest.getInfantCount().toString(), adultPassengerList);
-//
-//
-//
 
-//        Reservation finalReservation = AkbarTicket.getAkbarTicket().reserve(reservation);
-//
-//        ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().finalize(finalReservation.getToken());
-//
-//        return Response.status(200).entity(ticketBeans).build();
-        return Response.status(200).entity(ticketRequest).build();
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+
+        ArrayList<PassengerVO> passengerList = ticketRequest.getAdultPassengerList();
+        passengerList.addAll(ticketRequest.getChildPassengerList());
+        passengerList.addAll(ticketRequest.getInfantPassengerList());
+
+        ArrayList<Passenger> passengers = new ArrayList<Passenger>();
+        for(PassengerVO passengerVO : passengerList){
+            passengers.add(new Passenger(passengerVO.getFirstName(), passengerVO.getLastName()
+            , passengerVO.getNationalID(), passengerVO.getGender()));
+        }
+
+
+        Reservation reservation = new Reservation(ticketRequest.getSearchRequest().getSrcCode()
+                , ticketRequest.getSearchRequest().getDestCode()
+                , ticketRequest.getSearchRequest().getDate()
+                , ticketRequest.getAirlineCode()
+                , ticketRequest.getFlightNumber()
+                , ticketRequest.getSeatClass()
+                , ticketRequest.getSearchRequest().getAdultCount().toString()
+                , ticketRequest.getSearchRequest().getChildCount().toString()
+                , ticketRequest.getSearchRequest().getInfantCount().toString()
+                , passengers);
+
+
+
+
+        Reservation finalReservation = AkbarTicket.getAkbarTicket().reserve(reservation);
+
+        ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().finalize(finalReservation.getToken());
+
+        return Response.status(200).entity(ticketBeans).build();
     }
 }
