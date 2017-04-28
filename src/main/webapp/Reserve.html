@@ -217,7 +217,7 @@
                         <span>{{$index+1}}-</span><span>خردسال:</span>
 
                     </div>
-                    <select name="gender-3" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender">
+                    <select name="gender-3" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="childPassengerList[$index].gender">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
 
@@ -225,13 +225,13 @@
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName">
+                        <input class="passenger-info" name="name-3" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="childPassengerList[$index].firstName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName">
+                        <input class="passenger-info" name="surname-3" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="childPassengerList[$index].lastName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID">
+                        <input class="passenger-info" name="id-3" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="childPassengerList[$index].nationalID">
                     </div>
                 </div>
             </div>
@@ -245,20 +245,20 @@
                         <span>{{$index+1}}-</span><span>نوزاد:</span>
 
                     </div>
-                    <select name="gender-4" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="adultPassengerList[$index].gender">
+                    <select name="gender-4" class="col-xs-6 col-sm-6 col-md-1 pull-right place-middle" ng-model="infantPassengerList[$index].gender">
                         <option value="Mrs.">خانم</option>
                         <option value="Mr.">آقای</option>
 
                     </select>
 
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="adultPassengerList[$index].firstName">
+                        <input class="passenger-info" name="name-4" type="text" placeholder="نام(انگلیسی)" title="first name with characters only" ng-model="infantPassengerList[$index].firstName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="adultPassengerList[$index].lastName">
+                        <input class="passenger-info" name="surname-4" type="text" placeholder="نام خانوادگی(انگلیسی)" title="last name with characters only" ng-model="infantPassengerList[$index].lastName">
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-3 pull-right place-middle">
-                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="adultPassengerList[$index].nationalID">
+                        <input class="passenger-info" name="id-4" type="text" placeholder="شماره ملی" title="national id requires only numbers" ng-model="infantPassengerList[$index].nationalID">
                     </div>
                 </div>
             </div>
@@ -275,7 +275,7 @@
                     </button>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <button class="bottom-page-btn" id="pay-button">
+                    <button class="bottom-page-btn" id="pay-button" data-ng-click="reserveCtrl.getTickets()">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  &gt;</span>
                     </button>
@@ -334,7 +334,7 @@
             <button class="applyFilters" ng-click="reserveCtrl.refreshPassengerLists()">اعمال فیلتر ها</button>
         </div>
 
-        <div>adult: {{adultCount}} child: {{childCount}} infant: {{infantCount}} adult list: {{adultPassengerList}}</div>
+        <div>adult: {{adultCount}} child: {{childCount}} infant: {{infantCount}} adult list: {{adultPassengerList}} child list: {{childPassengerList}} infant list: {{infantPassengerList}}</div>
     </div>
 
 </div>

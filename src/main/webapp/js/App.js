@@ -72,20 +72,19 @@ app.controller('mainController', function($scope, $http){
 app.controller('Home-SearchController', function($scope, $rootScope, $http, $location){
     $scope.message = 'search!';
     $rootScope.flightList = [];
-    // localThis = this;
 
     this.searchFlights = function(){
-        $rootScope.passengerInfo.adultCount = $scope.searchRequest.adultCount;
-        $rootScope.passengerInfo.childCount = $scope.searchRequest.childCount;
-        $rootScope.passengerInfo.infantCount = $scope.searchRequest.infantCount;
+        $rootScope.passengerInfo.adultCount = $rootScope.searchRequest.adultCount;
+        $rootScope.passengerInfo.childCount = $rootScope.searchRequest.childCount;
+        $rootScope.passengerInfo.infantCount = $rootScope.searchRequest.infantCount;
 
-        // $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$scope.searchRequest).then(
-        //     function (response) {
-        //         $scope.flightList = response.data;
-        //         $location.path('/Results');
-        //     });
+        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$rootScope.searchRequest).then(
+            function (response) {
+                $rootScope.flightList = response.data;
+                $location.path('/Results');
+            });
 
-
+/*
         //just for testing
         $rootScope.flightList = [{
           "mapSeatClassCapacities": [{
@@ -143,11 +142,14 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
           "flightId": 1,
           "date": "05Feb"
       }];
+
+
         $location.path('/Results');
+ */
 
 
     };
-    $scope.searchRequest = {
+    $rootScope.searchRequest = {
         srcCode: 'THR',
         destCode: 'MHD',
         date: '05Feb',
@@ -221,7 +223,7 @@ app.controller('ResultsController', function($scope, $rootScope, $http, $locatio
 
 });
 
-app.controller('ReserveController', function($scope, $http, $rootScope){
+app.controller('ReserveController', function($scope, $http, $rootScope, $location){
     localRef = this;
 
     $scope.message = 'reserve!';
@@ -235,6 +237,35 @@ app.controller('ReserveController', function($scope, $http, $rootScope){
     $scope.adultPassengerList = [];
     $scope.childPassengerList = [];
     $scope.infantPassengerList = [];
+
+    $rootScope.ticketList = [];
+
+    $scope.searchRequest = $rootScope.searchRequest;
+
+    $scope.ticketRequest = {
+        searchRequest: $scope.searchRequest,
+        seatClass : $scope.seatClass.name,
+        airlineCode : $scope.flight.airlineCode,
+        flightNumber : $scope.flight.flightNumber,
+        adultPassengerList: $scope.adultPassengerList,
+        childPassengerList: $scope.childPassengerList,
+        infantPassengerList: $scope.infantPassengerList
+    };
+
+    this.getTickets = function () {
+
+
+        // /*, $scope.seatClass, $scope.flight*/, $scope.adultPassengerList/*, $scope.childPassengerList, $scope.infantPassengerList*/
+
+
+        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/ticketService/getTickets',$scope.ticketRequest).then(
+            function (response) {
+                $rootScope.ticketList = response.data;
+                $location.path('/Tickets');
+            });
+    };
+
+
 
     for ( let index=0; index<$scope.adultCount; index++ ) {
         $scope.adultPassengerList.push(
@@ -340,8 +371,12 @@ app.controller('ReserveController', function($scope, $http, $rootScope){
 
 });
 
-app.controller('TicketsController', function($scope, $http){
+app.controller('TicketsController', function($scope, $rootScope){
+
     $scope.message = 'tickets!';
+
+    $scope.tickets = $rootScope.ticketList;
+
 });
 
 

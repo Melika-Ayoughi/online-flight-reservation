@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <!-- Bootstrap -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <title>بلیت مسافران</title>
-    <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
-    <link rel="stylesheet" type="text/css" href="Tickets.css">
-
-
-    <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <meta name="description" content="enter information">
-    <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
-    <meta name="author" content="Melika Ayoughi, Ali Iman">
-</head>
-<body>
 <header>
     <div class="brand-logo">
         <img src="Images/LogoBlack.png" alt="">اکبر تیکت
@@ -33,7 +13,8 @@
     </div>
     <br> <br> <br>
 </header>
-<div class="container">
+
+<div class="container" data-ng-controller="TicketsController as ticketsCtrl">
     <div class="heading">
         <div id="search" class="hidden-xs">جستجوی پرواز  ></div>
         <div id="choose" class="hidden-xs">انتخاب پرواز  ></div>
@@ -199,9 +180,10 @@
         </div>
     </div>
 
+    <!--<div>{{tickets}}</div>-->
+    <!--<div>{{tickets[0].firstName+" "+tickets[0].surname+" "+tickets[0].referenceCode+" "+tickets[0].ticketNo+" "}}</div>-->
 </div>
+
 <div>
     <footer>ملیکا عیوقی، علی ایمان | دانشکده فنی دانشگاه تهران، بهار ۱۳۹۶</footer>
 </div>
-</body>
-</html>
