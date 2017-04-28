@@ -269,7 +269,7 @@
                     </button>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
-                    <button class="bottom-page-btn" id="pay-button" data-ng-click="reserveCtrl.getTickets()" ng-disabled="myForm.$invalid">
+                    <button class="bottom-page-btn" id="pay-button" data-ng-click="reserveCtrl.getTickets()" ng-class="{'disabledClass': myForm.$invalid}" ng-disabled="myForm.$invalid">
                         <span>پرداخت</span>
                         <span class="hidden-xs hidden-sm"> و ثبت نهایی  &gt;</span>
                     </button>

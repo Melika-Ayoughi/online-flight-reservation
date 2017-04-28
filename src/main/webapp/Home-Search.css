@@ -511,3 +511,7 @@ input.ng-invalid:focus {
 input.ng-valid:focus {
     background-color:lightgreen;
 }
+
+.disabledClass {
+    background-color: lightpink !important;
+}

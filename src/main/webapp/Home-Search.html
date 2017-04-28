@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class = "search-button">
-                    <input type="submit" value="جستجو" ng-click="homeCtrl.searchFlights()" ng-disabled="myForm.$invalid">
+                    <input type="submit" value="جستجو" ng-click="homeCtrl.searchFlights()" ng-class="{'disabledClass': myForm.$invalid}" ng-disabled="myForm.$invalid">
                 </div>
 
                 <div>from:{{searchRequest.srcCode}} to: {{searchRequest.destCode}} date: {{searchRequest.date}}</div>
