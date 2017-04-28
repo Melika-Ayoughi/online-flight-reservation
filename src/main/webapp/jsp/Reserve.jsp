@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <script src="http://code.jquery.com/jquery.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Optional theme -->
@@ -28,11 +28,11 @@
 
     <title>ورود اطلاعات مسافران</title>
 
-    <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
-    <link rel="stylesheet" type="text/css" href="Reserve.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Reset.css">
+    <link rel="stylesheet" type="text/css" href="../Reserve.css">
 
 
-    <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <meta name="description" content="enter information">
     <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
     <meta name="author" content="Melika Ayoughi, Ali Iman">
@@ -294,7 +294,7 @@
             <div class="hidden-xs hidden-sm col-md-4 pull-right"></div>
             <div class="col-xs-6 col-sm-6 col-md-4 pull-right place-middle">
                 <button class="bottom-page-btn" id="reject-button">
-                    <a href="Home-Search.html">انصراف</a>
+                    <a href="../Home-Search.html">انصراف</a>
                     <%--<span>انصراف</span>--%>
                 </button>
             </div>
@@ -361,7 +361,7 @@
 
 </div>
 
-<script type="text/babel" src="Reserve.js"></script>
+<script type="text/babel" src="../Reserve.js"></script>
 
 <%@include file="footer.jsp" %>
 

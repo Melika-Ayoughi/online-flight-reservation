@@ -12,11 +12,11 @@
 <head>
     <meta charset="utf-8">
     <title>جستجوی بلیت</title>
-    <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
-    <link rel="stylesheet" type="text/css" href="Home-Search.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Reset.css">
+    <link rel="stylesheet" type="text/css" href="../Home-Search.css">
 
 
-    <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <meta name="description" content="ticket booking">
     <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
     <meta name="author" content="Melika Ayoughi, Ali Iman">
@@ -24,7 +24,7 @@
 <body>
 <div class="heading">
     <div class="brand-logo">
-        <img src="Images/LogoWhite.png" alt="">
+        <img src="../Images/LogoWhite.png" alt="">
         اکبر تیکت
         &reg;
     </div>
@@ -181,14 +181,14 @@
 </div>
 <div class="day-logo">
     <div class="slide-show">
-        <img src="Images/HomeSlideShow/8.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/7.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/6.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/5.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/4.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/3.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/2.png" alt="" class="image">
-        <img src="Images/HomeSlideShow/1.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/8.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/7.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/6.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/5.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/4.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/3.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/2.png" alt="" class="image">
+        <img src="../Images/HomeSlideShow/1.png" alt="" class="image">
     </div>
     <span class="cheap-text">سفر ارزان و آسان با اکبر تیکت</span>
 </div>

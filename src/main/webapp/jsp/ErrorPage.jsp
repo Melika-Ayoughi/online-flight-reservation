@@ -15,14 +15,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <title>صفحه ی خطا</title>
-    <link rel="stylesheet" type="text/css" href="CSS-Reset.css">
-    <link rel="stylesheet" type="text/css" href="ErrorPage.css">
+    <link rel="stylesheet" type="text/css" href="../CSS-Reset.css">
+    <link rel="stylesheet" type="text/css" href="../ErrorPage.css">
 
 
-    <link rel="stylesheet" href="Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../Fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <meta name="description" content="enter information">
     <meta name="keywords" content="ticket, book, booking, from, to, akbarticket">
     <meta name="author" content="Melika Ayoughi, Ali Iman">
