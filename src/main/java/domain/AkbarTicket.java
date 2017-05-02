@@ -11,10 +11,13 @@ import org.apache.log4j.Logger;
  */
 public class AkbarTicket {
     private static AkbarTicket akbarTicket;
-    private FlightProvider flightProvider;
-    private FlightRepo flightRepo;
+    private InformationProvider informationProvider;
+    private TicketIssuer ticketIssuer;
+
+//    private FlightRepo flightRepo;
     private ReserveRepo reserveRepo;
-    private SeatClassRepo seatClassRepo;
+//    private SeatClassRepo seatClassRepo;
+
     private final Logger logger = Logger.getLogger(AkbarTicket.class);
 
 
@@ -22,28 +25,38 @@ public class AkbarTicket {
     public static AkbarTicket getAkbarTicket() throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
-            // Default provider
-            akbarTicket.flightProvider = new CA1HelperServer("178.62.207.47", 8081);
-            akbarTicket.flightRepo = FlightRepo.getFlightRepo();
+            // Default informationProvider and ticketIssuer
+            OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
+            akbarTicket.informationProvider = onlineFlightProvider;
+            akbarTicket.ticketIssuer = onlineFlightProvider;
+
+//            akbarTicket.flightRepo = FlightRepo.getFlightRepo();
             akbarTicket.reserveRepo = ReserveRepo.getReserveRepo();
-            akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
+//            akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
+
             akbarTicket.logger.debug("Singleton akbarTicket construction");
         }
         return akbarTicket;
     }
 
 
-    public void setFlightProvider(FlightProvider flightProvider) {
-        this.flightProvider = flightProvider;
+    public void setInformationProvider(InformationProvider informationProvider) {
+        this.informationProvider = informationProvider;
+    }
+
+
+    public void setTicketIssuer(TicketIssuer ticketIssuer) {
+        this.ticketIssuer = ticketIssuer;
     }
 
 
     private SeatClass setSeatClassPrices(SeatClass seatClass) throws IOException {
-        PriceValueObject priceValueObject = flightProvider.getPricesList(seatClass);
+        PriceValueObject priceValueObject = informationProvider.getPricesList(seatClass);
         seatClass.setAdultPrice(priceValueObject.adultPrice);
         seatClass.setChildPrice(priceValueObject.childPrice);
         seatClass.setInfantPrice(priceValueObject.infantPrice);
-        return seatClassRepo.store(seatClass);
+//        return seatClassRepo.store(seatClass);
+        return seatClass;
     }
 
 
@@ -83,17 +96,19 @@ public class AkbarTicket {
         return copiedFlights;
     }
 
+
     private ArrayList<Flight> search(String originCode, String destCode, String date) throws IOException {
-        ArrayList<Flight> flights = flightProvider.getFlightsList(originCode, destCode, date);
+        ArrayList<Flight> flights = informationProvider.getFlightsList(originCode, destCode, date);
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
                 mapSeatClassCapacity.setSeatClass(setSeatClassPrices(mapSeatClassCapacity.getSeatClass()));
-        ArrayList<Flight> flightArrayList = new ArrayList<Flight>();
-        for(Flight flight : flights)
-            flightArrayList.add(flightRepo.store(flight));
-        flights.clear();
+//        ArrayList<Flight> flightArrayList = new ArrayList<Flight>();
+//        for(Flight flight : flights)
+//            flightArrayList.add(flightRepo.store(flight));
+//        flights.clear();
         logger.debug("SRCH "+originCode+" "+destCode+" "+date);
-        return flightArrayList;
+//        return flightArrayList;
+        return flights;
     }
 
     public ArrayList<Flight> search(String originCode, String destCode, String date,
@@ -106,12 +121,15 @@ public class AkbarTicket {
 
 
     public Reservation reserve (Reservation reservation) throws IOException {
-        ReserveValueObject reserveValueObject = flightProvider.doReservation(reservation);
+        ReserveValueObject reserveValueObject = ticketIssuer.doReservation(reservation);
         reservation.setToken(reserveValueObject.token);
         reservation.setTotalPrice(reserveValueObject.adultPrice, reserveValueObject.childPrice, reserveValueObject.infantPrice);
+
         reservation = reserveRepo.store(reservation);
-        Flight flight = searchFlight(reservation.getAirlineCode(), reservation.getFlightNumber(), reservation.getDate(),
-                                                                    reservation.getSrcCode(), reservation.getDestCode());
+        //  informationProvider.getFlight uses CA1HelperServer
+        Flight flight = informationProvider.getFlight(reservation.getSrcCode(), reservation.getDestCode(),
+                                            reservation.getDate(), reservation.getAirlineCode(), reservation.getFlightNumber());
+
         logger.info("RES "+reservation.getToken()+" "+reservation.getAdultCount()
                 +" "+reservation.getChildCount()+" "+reservation.getInfantCount()+" "+flight.getFlightId());
         return reservation;
@@ -125,7 +143,7 @@ public class AkbarTicket {
             /*     no such reservation. should write some kind of error    */
             return null;
         }
-        FinalizeValueObject finalizeValueObject = flightProvider.doFinalization(reservation);
+        FinalizeValueObject finalizeValueObject = ticketIssuer.doFinalization(reservation);
         reservation.setReferenceCode(finalizeValueObject.referenceCode);
         reservation.setTicketNumbersList(finalizeValueObject.ticketNoList);
         logger.info("FINRES "+reservation.getToken()+" "+reservation.getReferenceCode()+" "+reservation.getTotalPrice());

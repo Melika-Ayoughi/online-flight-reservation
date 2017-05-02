@@ -15,8 +15,6 @@ public class Main {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
 
-        Gson gson = new Gson();
-        System.out.println(gson.toJson(flights));
 
         System.out.println(flights.size());
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();

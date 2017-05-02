@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Ali_Iman on 3/1/17.
  */
-public abstract class OnlineFlightProvider implements FlightProvider {
+public abstract class OnlineFlightProvider implements FlightProvider, InformationProvider, TicketIssuer {
     protected Socket helperServerSocket;
     protected BufferedReader inHelperServer;
     protected PrintWriter outHelperServer;
@@ -24,6 +24,7 @@ public abstract class OnlineFlightProvider implements FlightProvider {
 
     public abstract ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) throws IOException;
     public abstract PriceValueObject getPricesList(SeatClass seatClass) throws IOException;
+    public abstract Flight getFlight(String originCode, String destinationCode, String date, String airlineCode, String flightNumber) throws IOException;
     public abstract ReserveValueObject doReservation(Reservation reservation) throws IOException;
     public abstract FinalizeValueObject doFinalization(Reservation reservation) throws IOException;
 }
