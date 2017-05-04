@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Date;
+
 /**
  * Created by Ali_Iman on 2/10/17.
  */
@@ -11,6 +13,7 @@ public class SeatClass {
     private String originCode;
     private String destinationCode;
     private String airlineCode;
+    private Date lastUpdateDate;
 
     public SeatClass(Character name, String originCode, String destinationCode, String airlineCode) {
         this.name = name;
@@ -27,6 +30,9 @@ public class SeatClass {
     }
     public void setInfantPrice(int infantPrice) {
         this.infantPrice = infantPrice;
+    }
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public Character getName() {
@@ -49,6 +55,9 @@ public class SeatClass {
     }
     public Integer getInfantPrice() {
         return infantPrice;
+    }
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
     public boolean equals(SeatClass seatClass) {

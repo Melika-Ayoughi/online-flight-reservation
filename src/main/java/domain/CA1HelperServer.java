@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -73,7 +74,7 @@ public class CA1HelperServer extends OnlineFlightProvider {
                 seatClassCapacity = chars[1]=='C' ? 0 : chars[1]=='A' ? 9 : Character.getNumericValue(chars[1]);
                 mapSeatClassCapacities.add(new MapSeatClassCapacity(new SeatClass(seatClassName, srcCode, destCode, airlineCode), seatClassCapacity));
             }
-            flights.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, mapSeatClassCapacities));
+            flights.add(new Flight(airlineCode, flightNo, date, srcCode, destCode, depTime, arrTime, planeModel, new Date(), mapSeatClassCapacities));
         }
         return flights;
     }
@@ -99,16 +100,8 @@ public class CA1HelperServer extends OnlineFlightProvider {
         Integer childPrice = Integer.parseInt(pricesFields.get(1));
         Integer infantPrice = Integer.parseInt(pricesFields.get(2));
 
+        seatClass.setLastUpdateDate(new Date());
         return new PriceValueObject(adultPrice, childPrice, infantPrice);
-    }
-
-
-    public Flight getFlight(String originCode, String destinationCode, String date, String airlineCode, String flightNumber) throws IOException {
-        ArrayList<Flight> flights = this.getFlightsList(originCode, destinationCode, date);
-        for(Flight flight : flights)
-            if(flight.getAirlineCode().equals(airlineCode) && flight.getFlightNumber().equals(flightNumber))
-                return flight;
-        return null;
     }
 
 
