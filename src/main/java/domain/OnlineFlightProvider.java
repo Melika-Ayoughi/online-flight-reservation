@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Ali_Iman on 3/1/17.
  */
-public abstract class OnlineFlightProvider implements FlightProvider {
+public abstract class OnlineFlightProvider implements InformationProvider, TicketIssuer {
     protected Socket helperServerSocket;
     protected BufferedReader inHelperServer;
     protected PrintWriter outHelperServer;

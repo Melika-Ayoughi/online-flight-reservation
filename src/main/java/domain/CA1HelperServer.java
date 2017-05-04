@@ -103,6 +103,15 @@ public class CA1HelperServer extends OnlineFlightProvider {
     }
 
 
+    public Flight getFlight(String originCode, String destinationCode, String date, String airlineCode, String flightNumber) throws IOException {
+        ArrayList<Flight> flights = this.getFlightsList(originCode, destinationCode, date);
+        for(Flight flight : flights)
+            if(flight.getAirlineCode().equals(airlineCode) && flight.getFlightNumber().equals(flightNumber))
+                return flight;
+        return null;
+    }
+
+
     public ReserveValueObject doReservation(Reservation reservation) throws IOException {
         String resRequest = "RES " + reservation.getSrcCode() + " " + reservation.getDestCode() + " " +
                                      reservation.getDate() + " " + reservation.getAirlineCode() + " " +
