@@ -9,5 +9,4 @@ import java.util.ArrayList;
 public interface InformationProvider {
     ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) throws IOException;
     PriceValueObject getPricesList(SeatClass seatClass) throws IOException;
-    Flight getFlight(String originCode, String destinationCode, String date, String airlineCode, String flightNumber) throws IOException;
 }
