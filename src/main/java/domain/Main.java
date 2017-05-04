@@ -15,7 +15,6 @@ public class Main {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
 
-
         System.out.println(flights.size());
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
         passengers.add(new Passenger("Ali","Iman", "0912425", "male"));
@@ -28,7 +27,7 @@ public class Main {
         ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();
         ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
-        Flight flight1 = akbarTicket.searchFlight("IR","822", "05Feb", "THR", "MHD");
+        Flight flight1 = akbarTicket.searchFlight("THR","MHD", "05Feb", "IR", "822");
         System.out.println(reservation.getTotalPrice());
     }
 }

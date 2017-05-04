@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Ali_Iman on 2/10/17.
@@ -15,17 +16,19 @@ public class Flight {
     private String arrivalTime;
     private String airplaneModel;
     private Integer flightId;
+    private Date lastUpdateDate;
     private ArrayList<MapSeatClassCapacity> mapSeatClassCapacities;
 
-    public Flight(String airlineCode, String flightNumber, String date, String srcCode, String destCode, String departureTime, String arrrivalTime, String airplaneModel, ArrayList<MapSeatClassCapacity> mapSeatClassCapacities) {
+    public Flight(String airlineCode, String flightNumber, String date, String srcCode, String destCode, String departureTime, String arrivalTime, String airplaneModel, Date lastUpdateDate, ArrayList<MapSeatClassCapacity> mapSeatClassCapacities) {
         this.airlineCode = airlineCode;
         this.flightNumber = flightNumber;
         this.date = date;
         this.srcCode = srcCode;
         this.destCode = destCode;
         this.departureTime = departureTime;
-        this.arrivalTime = arrrivalTime;
+        this.arrivalTime = arrivalTime;
         this.airplaneModel = airplaneModel;
+        this.lastUpdateDate = lastUpdateDate;
         this.mapSeatClassCapacities = mapSeatClassCapacities;
     }
 
@@ -58,6 +61,9 @@ public class Flight {
     }
     public Integer getFlightId() {
         return flightId;
+    }
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
     }
 
     public void setDepartureTime(String departureTime) {

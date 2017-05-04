@@ -47,7 +47,7 @@ public class AkbarTicket {
     private Flight copyFlight(Flight flight) {
         Flight copy = new Flight(flight.getAirlineCode(), flight.getFlightNumber(), flight.getDate(), flight.getSrcCode(),
                 flight.getDestCode(), flight.getDepartureTime(), flight.getArrivalTime(), flight.getAirplaneModel(),
-                flight.getMapSeatClassCapacities());
+                flight.getLastUpdateDate(), flight.getMapSeatClassCapacities());
         copy.setFlightId(flight.getFlightId());
         ArrayList<MapSeatClassCapacity> copyMapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
         for (MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())

@@ -25,9 +25,9 @@ public class ReserveServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            Flight flight = AkbarTicket.getAkbarTicket().searchFlight(request.getParameter("airline-code"),
-                    request.getParameter("flight-number"), request.getParameter("date"),
-                    request.getParameter("src-code"), request.getParameter("dest-code"));
+            Flight flight = AkbarTicket.getAkbarTicket().searchFlight(request.getParameter("src-code"),
+                    request.getParameter("dest-code"), request.getParameter("date"),
+                    request.getParameter("airline-code"), request.getParameter("flight-number"));
 
             SeatClass seatClass = null;
 
