@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+    <Resource name="jdbc/testdb"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="SA"
+              password=""
+              driverClassName="org.hsqldb.jdbcDriver"
+              url="jdbc:hsqldb:hsql://localhost/testdb"
+              maxActive="8"
+              maxIdle="4"
+    />
+</Context>
