@@ -7,8 +7,7 @@ import java.util.ArrayList;
  */
 public interface FlightRepository {
     void storeFlight(Flight flight);
-    Flight getFlight(String airlineCode, String flightNumber, String date, String srcCode, String destCode);
     ArrayList<Flight> searchFlights(String date, String srcCode, String destCode);
     void updateFlight(Flight flight);
-
+//    Flight getFlight(String airlineCode, String flightNumber, String date, String srcCode, String destCode);
 }
