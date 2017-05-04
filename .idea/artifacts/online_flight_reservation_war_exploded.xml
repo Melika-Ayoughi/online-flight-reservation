@@ -30,6 +30,7 @@
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.7.1" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-xc:1.7.1" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
+          <element id="library" level="project" name="Maven: org.hsqldb:hsqldb:2.4.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
