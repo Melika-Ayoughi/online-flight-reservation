@@ -3,6 +3,7 @@ package domain;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -13,23 +14,48 @@ import java.util.ArrayList;
 public class FlightDAO implements FlightRepository {
     private Logger logger = Logger.getLogger(FlightDAO.class);
 
-    //it's better to have store flights so we could use prepared statements
-    public void storeFlight(Flight flight) {
+    public void storeFlights(ArrayList<Flight> flights) {
         DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
-        String query = "INSERT INTO \"PUBLIC\".\"FLIGHTS\"\n" +
-                "( \"AIRLINECODE\", \"FLIGHTNUMBER\", \"DATE\", \"SRCCODE\", \"DESTCODE\", \"DEPARTURETIME\", \"ARRIVALTIME\", \"AIRPLANEMODEL\", \"LASTUPDATEDATE\" )\n" +
-                "VALUES ('"+flight.getAirlineCode()+"', '"+flight.getFlightNumber()+"', '"+flight.getDate()+"', '"+flight.getSrcCode()+"', '"+flight.getDestCode()+"', '"+flight.getDepartureTime()+"', '"+flight.getArrivalTime()+"', '"+flight.getAirplaneModel()+"', CURRENT_TIMESTAMP)";
 
 
         try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+
+            PreparedStatement insertFlightPreparedStatement = connection.prepareStatement("INSERT INTO \"PUBLIC\".\"FLIGHTS\"\n" +
+                    "( \"AIRLINECODE\", \"FLIGHTNUMBER\", \"DATE\", \"SRCCODE\", \"DESTCODE\", \"DEPARTURETIME\", \"ARRIVALTIME\", \"AIRPLANEMODEL\", \"LASTUPDATEDATE\" )\n" +
+                    "VALUES (?,?,?,?,?,?,?,?,?)");
+//            PreparedStatement insertSeatClassPreparedStatement = connection.prepareStatement("");
+//            PreparedStatement insertMapFlightSeatClassPreparedStatement = connection.prepareStatement("");
+
+            for (Flight flight : flights) {
+               insertFlightPreparedStatement.setString(1,flight.getAirlineCode());
+               insertFlightPreparedStatement.setString(2,flight.getFlightNumber());
+               insertFlightPreparedStatement.setString(3,flight.getDate());
+               insertFlightPreparedStatement.setString(4,flight.getSrcCode());
+               insertFlightPreparedStatement.setString(5,flight.getDestCode());
+               insertFlightPreparedStatement.setString(6,flight.getDepartureTime());
+               insertFlightPreparedStatement.setString(7,flight.getArrivalTime());
+               insertFlightPreparedStatement.setString(8,flight.getAirplaneModel());
+               insertFlightPreparedStatement.setString(9,"CURRENT_TIMESTAMP");
+
+               insertFlightPreparedStatement.executeUpdate();
+
+//                for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities()){
+//
+//                }
+            }
+
+
+//
+//
+//            Statement statement = connection.createStatement();
+//            statement.executeUpdate(query);
 
             logger.debug("Flight is inserted into Flights table.logger");
             System.out.println("Flight is inserted into Flights table.");
-            statement.close();
+            insertFlightPreparedStatement.close();
+//            statement.close();
             dbConnection.closeConnection(connection);
 
         } catch (SQLException e) {
