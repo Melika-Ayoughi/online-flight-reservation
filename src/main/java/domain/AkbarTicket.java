@@ -44,7 +44,15 @@ public class AkbarTicket {
     public void setTicketIssuer(TicketIssuer ticketIssuer) {
         this.ticketIssuer = ticketIssuer;
     }
-
+    public void setReserveRepository(ReserveRepository reserveRepository) {
+        this.reserveRepository = reserveRepository;
+    }
+    public void setFlightRepository(FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+    }
+    public void setSeatClassRepository(SeatClassRepository seatClassRepository) {
+        this.seatClassRepository = seatClassRepository;
+    }
 
     private Flight copyFlight(Flight flight) {
         Flight copy = new Flight(flight.getAirlineCode(), flight.getFlightNumber(), flight.getDate(), flight.getSrcCode(),

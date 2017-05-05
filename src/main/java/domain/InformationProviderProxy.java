@@ -30,7 +30,7 @@ public class InformationProviderProxy implements InformationProvider {
             return flights;
         }
         long minutesPassed = ((new Date()).getTime()-flights.get(0).getLastUpdateDate().getTime())/(60 * 1000 * 60);
-        if(minutesPassed > timeToLive) {
+        if(minutesPassed >= timeToLive) {
             flights = informationProvider.getFlightsList(originCode, destinationCode, date);
             for(Flight flight : flights)
                 flightRepository.updateFlight(flight);
@@ -52,7 +52,7 @@ public class InformationProviderProxy implements InformationProvider {
             return priceValueObject;
         }
         long minutesPassed = ((new Date()).getTime()-seatClass.getLastUpdateDate().getTime())/(60 * 1000 * 60);
-        if(minutesPassed > timeToLive) {
+        if(minutesPassed >= timeToLive) {
             PriceValueObject priceValueObject = informationProvider.getPricesList(seatClass);
             seatClass.setAdultPrice(priceValueObject.adultPrice);
             seatClass.setChildPrice(priceValueObject.childPrice);
