@@ -67,6 +67,10 @@ public class FlightDAO implements FlightRepository {
         return null;
     }
 
+    public void storeFlights(ArrayList<Flight> flights) {
+
+    }
+
     public ArrayList<Flight> searchFlights(String date, String srcCode, String destCode) {
 
         return null;

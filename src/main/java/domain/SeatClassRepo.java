@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Ali_Iman on 3/3/17.
  */
-public class SeatClassRepo {
+public class SeatClassRepo implements SeatClassRepository {
     private static SeatClassRepo seatClassRepo;
     private ArrayList<SeatClass> seatClasses;
 
@@ -18,40 +18,33 @@ public class SeatClassRepo {
         return seatClassRepo;
     }
 
-    public ArrayList<SeatClass> getSeatClasses() {
-        return seatClasses;
-    }
 
-    private SeatClass get(SeatClass seatClass) {
-        for(SeatClass seatClassEntry : seatClasses)
-            if(seatClassEntry.equals(seatClass))
+    public void storeSeatClass(SeatClass seatClass) {
+        seatClasses.add(seatClass);
+        return;
+    }
+    public SeatClass getSeatClass(Character name, String originCode, String destinationCode, String airlineCode) {
+        for(SeatClass seatClassEntry : seatClasses) {
+            if(seatClassEntry.getName().equals(name) && seatClassEntry.getOriginCode().equals(originCode) &&
+                seatClassEntry.getDestinationCode().equals(destinationCode) && seatClassEntry.getAirlineCode().equals(airlineCode))
                 return seatClassEntry;
+        }
         return null;
     }
-
-    private boolean alreadyExists(SeatClass seatClass) {
-        for(SeatClass seatClassEntry : seatClasses)
-            if(seatClassEntry.equals(seatClass))
-                return true;
-        return false;
+    public void updateSeatClass(SeatClass seatClass) {
+        for(SeatClass seatClassEntry : seatClasses) {
+            if(seatClassEntry.equals(seatClass)) {
+               seatClassEntry.setAdultPrice(seatClass.getAdultPrice());
+               seatClassEntry.setChildPrice(seatClass.getChildPrice());
+               seatClassEntry.setInfantPrice(seatClass.getInfantPrice());
+               seatClassEntry.setLastUpdateDate(seatClass.getLastUpdateDate());
+               return;
+            }
+        }
+        return;
     }
 
-    private SeatClass update(SeatClass seatClass) {
-        SeatClass seatClassEntry = get(seatClass);
-        seatClassEntry.setAdultPrice(seatClass.getAdultPrice());
-        seatClassEntry.setChildPrice(seatClass.getChildPrice());
-        seatClassEntry.setInfantPrice(seatClass.getInfantPrice());
-        return  seatClassEntry;
-    }
-
-    private SeatClass add(SeatClass seatClass) {
-        seatClasses.add(seatClass);
-        return seatClass;
-    }
-
-    public SeatClass store(SeatClass seatClass) {
-        if (alreadyExists(seatClass))
-            return update(seatClass);
-        return add(seatClass);
+    public ArrayList<SeatClass> getSeatClasses() {
+        return seatClasses;
     }
 }
