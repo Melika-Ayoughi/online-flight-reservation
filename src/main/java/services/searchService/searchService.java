@@ -29,7 +29,8 @@ public class searchService {
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
 
         FlightDAO flightDAO = new FlightDAO();
-        flightDAO.storeFlights(flights);
+        flightDAO.searchFlights("05Feb","THR","MHD");
+//        flightDAO.storeFlights(flights);
 
 
 //        DBConnection dbConnection = DBConnection.getDbConnection();

@@ -99,4 +99,21 @@ public class Flight {
                 return mapSeatClassCapacity.getCapacity();
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "airlineCode='" + airlineCode + '\'' +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", date='" + date + '\'' +
+                ", srcCode='" + srcCode + '\'' +
+                ", destCode='" + destCode + '\'' +
+                ", departureTime='" + departureTime + '\'' +
+                ", arrivalTime='" + arrivalTime + '\'' +
+                ", airplaneModel='" + airplaneModel + '\'' +
+                ", flightId=" + flightId +
+                ", lastUpdateDate=" + lastUpdateDate +
+                ", mapSeatClassCapacities=" + mapSeatClassCapacities +
+                '}';
+    }
 }

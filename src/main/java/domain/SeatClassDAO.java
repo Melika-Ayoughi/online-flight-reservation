@@ -12,10 +12,6 @@ public class SeatClassDAO implements SeatClassRepository {
         return null;
     }
 
-    public SeatClass getSeatClass(String name, String originCode, String destinationCode, String airlineCode) {
-        return null;
-    }
-
     public void updateSeatClass(SeatClass seatClass) {
 
     }
