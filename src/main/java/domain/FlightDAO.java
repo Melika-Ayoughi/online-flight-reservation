@@ -105,7 +105,73 @@ public class FlightDAO implements FlightRepository {
     }
 
     public Flight getFlight(String airlineCode, String flightNumber, String date, String srcCode, String destCode) {
-        return null;
+
+        Flight resultFlight = null;
+
+        DBConnection dbConnection = DBConnection.getDbConnection();
+        Connection connection = dbConnection.getConnection();
+
+        String query = "SELECT * FROM \"PUBLIC\".\"FLIGHTS\"\n" +
+                "where airlineCode='IR' and flightNumber='452' and date='05Feb' and srcCode='THR' and destCode='MHD'";
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if(resultSet.next()){
+                System.out.println("flight: "+resultSet.getInt(1)+resultSet.getString(2)+","+resultSet.getString(3)+","+
+                        resultSet.getString(4)+","+resultSet.getString(5)+","+
+                        resultSet.getString(6)+","+ resultSet.getString(7)+","+
+                        resultSet.getString(8)+","+resultSet.getString(9)+","+
+                        resultSet.getTimestamp(10));
+
+                String mapseatclasscapacityquery = "SELECT * FROM \"PUBLIC\".\"MAPFLIGHTSEATCLASS\" m, \"PUBLIC\".\"SEATCLASSES\" s\n" +
+                        "where m.flightId="+resultSet.getInt(1)+" and m.seatclassid = s.seatClassId";
+
+                Statement joinstatement = connection.createStatement();
+                ResultSet joinResultSet = joinstatement.executeQuery(mapseatclasscapacityquery);
+
+                ArrayList<MapSeatClassCapacity> mapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
+
+                while (joinResultSet.next()){
+                    System.out.println("join results: "+joinResultSet.getInt(1)+","+joinResultSet.getInt(2)+","+
+                            joinResultSet.getInt(3)+","+joinResultSet.getString(5)+","+
+                            joinResultSet.getInt(6)+","+joinResultSet.getInt(7)+","+joinResultSet.getInt(8)+","+
+                            joinResultSet.getString(9)+","+joinResultSet.getString(10)+","+joinResultSet.getString(11)+","+
+                            joinResultSet.getTimestamp(12));
+
+                    SeatClass seatClass = new SeatClass(joinResultSet.getString(5).charAt(0),joinResultSet.getString(9),
+                            joinResultSet.getString(10),joinResultSet.getString(11));
+
+                    seatClass.setInfantPrice(joinResultSet.getInt(8));
+                    seatClass.setChildPrice(joinResultSet.getInt(7));
+                    seatClass.setAdultPrice(joinResultSet.getInt(6));
+
+
+                    seatClass.setLastUpdateDate(joinResultSet.getTimestamp(12));
+
+                    mapSeatClassCapacities.add(new MapSeatClassCapacity(seatClass,joinResultSet.getInt(3)));
+                    System.out.println("--------------------------------");
+                }
+
+                resultFlight = new Flight(resultSet.getString(2),resultSet.getString(3),
+                        resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getString(6), resultSet.getString(7),
+                        resultSet.getString(8),resultSet.getString(9),
+                        resultSet.getDate(10),mapSeatClassCapacities);
+
+                joinResultSet.close();
+                joinstatement.close();
+            }
+            resultSet.close();
+            statement.close();
+            dbConnection.closeConnection(connection);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return resultFlight;
+
     }
 
     public ArrayList<Flight> searchFlights(String date, String srcCode, String destCode) {
@@ -174,7 +240,6 @@ public class FlightDAO implements FlightRepository {
 
             }
 
-
             System.out.println("resultsflights: "+resultFlights);
             resultSet.close();
             statement.close();
@@ -183,6 +248,9 @@ public class FlightDAO implements FlightRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        if(resultFlights.size()==0)
+            return null;
 
         return  resultFlights;
 

@@ -54,4 +54,7 @@ public class FlightRepo implements FlightRepository{
     public ArrayList<Flight> getFlights() {
         return flightsList;
     }
+    public void setFlightsList(ArrayList<Flight> flightsList) {
+        this.flightsList = flightsList;
+    }
 }

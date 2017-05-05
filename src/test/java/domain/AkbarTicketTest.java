@@ -20,6 +20,9 @@ public class AkbarTicketTest {
         akbarTicket.setReserveRepository(ReserveRepo.getReserveRepo());
         akbarTicket.setFlightRepository(FlightRepo.getFlightRepo());
         akbarTicket.setSeatClassRepository(SeatClassRepo.getSeatClassRepo());
+        ReserveRepo.getReserveRepo().setReservationsList(new ArrayList<Reservation>());
+        FlightRepo.getFlightRepo().setFlightsList(new ArrayList<Flight>());
+        SeatClassRepo.getSeatClassRepo().setSeatClassesList(new ArrayList<SeatClass>());
     }
 
     @After

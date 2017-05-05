@@ -25,11 +25,13 @@ public class searchService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getFlights(searchRequest searchReq) throws IOException {
 
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-        ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
+//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+//        ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
+//
+//        FlightDAO flightDAO = new FlightDAO();
+//        flightDAO.getFlight("airlinecode","flightnumber", "date", "srcCode","destCode");
 
-        FlightDAO flightDAO = new FlightDAO();
-        flightDAO.searchFlights("05Feb","THR","MHD");
+//        flightDAO.searchFlights("05Feb","THR","MHD");
 //        flightDAO.storeFlights(flights);
 
 
@@ -58,8 +60,8 @@ public class searchService {
 //        }
 
 
-//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-//        ArrayList<Flight> flightsList = akbarTicket.search(searchReq.getSrcCode(), searchReq.getDestCode(),searchReq.getDate(),searchReq.getAdultCount(),searchReq.getChildCount(),searchReq.getInfantCount());
-        return Response.status(200).entity(searchReq).build();
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        ArrayList<Flight> flightsList = akbarTicket.search(searchReq.getSrcCode(), searchReq.getDestCode(),searchReq.getDate(),searchReq.getAdultCount(),searchReq.getChildCount(),searchReq.getInfantCount());
+        return Response.status(200).entity(flightsList).build();
     }
 }

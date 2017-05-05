@@ -47,4 +47,7 @@ public class SeatClassRepo implements SeatClassRepository {
     public ArrayList<SeatClass> getSeatClasses() {
         return seatClassesList;
     }
+    public void setSeatClassesList(ArrayList<SeatClass> seatClassesList) {
+        this.seatClassesList = seatClassesList;
+    }
 }
