@@ -2,10 +2,7 @@ package domain;
 
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +34,7 @@ public class FlightDAO implements FlightRepository {
                insertFlightPreparedStatement.setString(6,flight.getDepartureTime());
                insertFlightPreparedStatement.setString(7,flight.getArrivalTime());
                insertFlightPreparedStatement.setString(8,flight.getAirplaneModel());
-               insertFlightPreparedStatement.setString(9,"CURRENT_TIMESTAMP");
+               insertFlightPreparedStatement.setTimestamp(9,new Timestamp(System.currentTimeMillis()));
 
                insertFlightPreparedStatement.executeUpdate();
 
@@ -65,10 +62,6 @@ public class FlightDAO implements FlightRepository {
 
     public Flight getFlight(String airlineCode, String flightNumber, String date, String srcCode, String destCode) {
         return null;
-    }
-
-    public void storeFlights(ArrayList<Flight> flights) {
-
     }
 
     public ArrayList<Flight> searchFlights(String date, String srcCode, String destCode) {
