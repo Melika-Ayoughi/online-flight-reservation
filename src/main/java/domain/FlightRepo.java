@@ -7,13 +7,13 @@ import java.util.ArrayList;
  */
 public class FlightRepo implements FlightRepository{
     private static FlightRepo flightRepo;
-    private ArrayList<Flight> flights;
+    private ArrayList<Flight> flightsList;
 
     private FlightRepo() { }
     public static FlightRepo getFlightRepo() {
         if(flightRepo == null) {
             flightRepo = new FlightRepo();
-            flightRepo.flights = new ArrayList<Flight>();
+            flightRepo.flightsList = new ArrayList<Flight>();
         }
         return flightRepo;
     }
@@ -21,14 +21,14 @@ public class FlightRepo implements FlightRepository{
 
     public void storeFlights(ArrayList<Flight> flights) {
         for(Flight flight : flights) {
-            flight.setFlightId(flights.size());
-            flights.add(flight);
+            flight.setFlightId(flightsList.size());
+            flightsList.add(flight);
         }
         return;
     }
     public ArrayList<Flight> searchFlights(String date, String srcCode, String destCode) {
         ArrayList<Flight> flights = new ArrayList<Flight>();
-        for(Flight flightEntry : flights)
+        for(Flight flightEntry : flightsList)
             if(flightEntry.getDate().equals(date) &&
                     flightEntry.getSrcCode().equals(srcCode) && flightEntry.getDestCode().equals(destCode))
                 flights.add(flightEntry);
@@ -37,7 +37,7 @@ public class FlightRepo implements FlightRepository{
         return flights;
     }
     public void updateFlight(Flight flight) {
-        for(Flight flightEntry : flights) {
+        for(Flight flightEntry : flightsList) {
             if (flightEntry.equals(flight)) {
                 flightEntry.setArrivalTime(flight.getArrivalTime());
                 flightEntry.setDepartureTime(flight.getDepartureTime());
@@ -52,6 +52,6 @@ public class FlightRepo implements FlightRepository{
     }
 
     public ArrayList<Flight> getFlights() {
-        return flights;
+        return flightsList;
     }
 }

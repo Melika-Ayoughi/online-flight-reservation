@@ -7,24 +7,24 @@ import java.util.ArrayList;
  */
 public class SeatClassRepo implements SeatClassRepository {
     private static SeatClassRepo seatClassRepo;
-    private ArrayList<SeatClass> seatClasses;
+    private ArrayList<SeatClass> seatClassesList;
 
     private SeatClassRepo() { }
     public static SeatClassRepo getSeatClassRepo() {
         if(seatClassRepo == null) {
             seatClassRepo = new SeatClassRepo();
-            seatClassRepo.seatClasses = new ArrayList<SeatClass>();
+            seatClassRepo.seatClassesList = new ArrayList<SeatClass>();
         }
         return seatClassRepo;
     }
 
 
     public void storeSeatClass(SeatClass seatClass) {
-        seatClasses.add(seatClass);
+        seatClassesList.add(seatClass);
         return;
     }
     public SeatClass getSeatClass(Character name, String originCode, String destinationCode, String airlineCode) {
-        for(SeatClass seatClassEntry : seatClasses) {
+        for(SeatClass seatClassEntry : seatClassesList) {
             if(seatClassEntry.getName().equals(name) && seatClassEntry.getOriginCode().equals(originCode) &&
                 seatClassEntry.getDestinationCode().equals(destinationCode) && seatClassEntry.getAirlineCode().equals(airlineCode))
                 return seatClassEntry;
@@ -32,7 +32,7 @@ public class SeatClassRepo implements SeatClassRepository {
         return null;
     }
     public void updateSeatClass(SeatClass seatClass) {
-        for(SeatClass seatClassEntry : seatClasses) {
+        for(SeatClass seatClassEntry : seatClassesList) {
             if(seatClassEntry.equals(seatClass)) {
                seatClassEntry.setAdultPrice(seatClass.getAdultPrice());
                seatClassEntry.setChildPrice(seatClass.getChildPrice());
@@ -45,6 +45,6 @@ public class SeatClassRepo implements SeatClassRepository {
     }
 
     public ArrayList<SeatClass> getSeatClasses() {
-        return seatClasses;
+        return seatClassesList;
     }
 }

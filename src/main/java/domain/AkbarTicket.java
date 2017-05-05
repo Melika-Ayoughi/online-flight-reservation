@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 public class AkbarTicket {
     private static AkbarTicket akbarTicket;
     private InformationProvider informationProvider;
+    private InformationProvider immediateInformationProvider;
     private TicketIssuer ticketIssuer;
     private ReserveRepository reserveRepository;
     private FlightRepository flightRepository;
@@ -23,14 +24,18 @@ public class AkbarTicket {
     public static AkbarTicket getAkbarTicket() throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
-            // Default informationProvider and ticketIssuer
             OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
-            akbarTicket.informationProvider = onlineFlightProvider;
-            akbarTicket.ticketIssuer = onlineFlightProvider;
+
             akbarTicket.reserveRepository = ReserveRepo.getReserveRepo();
+            akbarTicket.flightRepository = FlightRepo.getFlightRepo();
+            akbarTicket.seatClassRepository = SeatClassRepo.getSeatClassRepo();
+
+            akbarTicket.immediateInformationProvider = new InformationProviderProxy(onlineFlightProvider, 0,
+                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.informationProvider = new InformationProviderProxy(onlineFlightProvider, 30,
+                                                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.ticketIssuer = onlineFlightProvider;
             akbarTicket.logger.debug("Singleton akbarTicket construction");
-//            akbarTicket.flightRepo = FlightRepo.getFlightRepo();
-//            akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
         }
         return akbarTicket;
     }
@@ -41,6 +46,15 @@ public class AkbarTicket {
     }
     public void setTicketIssuer(TicketIssuer ticketIssuer) {
         this.ticketIssuer = ticketIssuer;
+    }
+    public void setReserveRepository(ReserveRepository reserveRepository) {
+        this.reserveRepository = reserveRepository;
+    }
+    public void setFlightRepository(FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+    }
+    public void setSeatClassRepository(SeatClassRepository seatClassRepository) {
+        this.seatClassRepository = seatClassRepository;
     }
 
 
@@ -55,8 +69,6 @@ public class AkbarTicket {
         copy.setMapSeatClassCapacities(copyMapSeatClassCapacities);
         return copy;
     }
-
-
     private ArrayList<Flight> getAppropriateFlights (ArrayList<Flight> flights, Integer passengersCount) {
         ArrayList<Flight> copiedFlights = new ArrayList<Flight>();
         for (Flight flight : flights)
@@ -79,53 +91,68 @@ public class AkbarTicket {
         flightArrayList.clear();
         return copiedFlights;
     }
+    private SeatClass setSeatClassPrices(SeatClass seatClass, InformationProvider infoProvider) throws IOException {
+        PriceValueObject priceValueObject = infoProvider.getPricesList(seatClass);
+        seatClass.setAdultPrice(priceValueObject.adultPrice);
+        seatClass.setChildPrice(priceValueObject.childPrice);
+        seatClass.setInfantPrice(priceValueObject.infantPrice);
+        return seatClass;
+    }
+    private ArrayList<Flight> search(String originCode, String destCode, String date, InformationProvider infoProvider) throws IOException {
+        ArrayList<Flight> flights = infoProvider.getFlightsList(originCode, destCode, date);
+        for(Flight flight : flights)
+            for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
+                mapSeatClassCapacity.setSeatClass(setSeatClassPrices(mapSeatClassCapacity.getSeatClass(), infoProvider));
+        logger.debug("SRCH "+originCode+" "+destCode+" "+date);
+        return flights;
+    }
 
 
-    public ArrayList<Flight> search(String originCode, String destCode, String date,
-                                    Integer adultCount, Integer childCount, Integer infantCount) throws IOException {
-        ArrayList<Flight> flightArrayList = search(originCode, destCode, date);
+    private SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode, InformationProvider infoProvider) throws IOException {
+        SeatClass seatClass = new SeatClass(name, orgCode, destCode, airlineCode);
+        seatClass = setSeatClassPrices(seatClass, infoProvider);
+        logger.debug("searchSeatClass "+seatClass.getName()+" "+seatClass.getOriginCode()+" "+seatClass.getDestinationCode()+" "
+                +seatClass.getAirlineCode()+" "+seatClass.getAdultPrice());
+        return seatClass;
+    }
+    private ArrayList<Flight> search(String originCode, String destCode, String date, Integer adultCount,
+                                     Integer childCount, Integer infantCount, InformationProvider infoProvider) throws IOException {
+        ArrayList<Flight> flightArrayList = search(originCode, destCode, date, infoProvider);
         Integer passengersCount = adultCount + childCount + infantCount;
         logger.info("SRCH "+originCode+" "+destCode+" "+date+" "+adultCount+" "+childCount+" "+infantCount);
         return getAppropriateFlights(flightArrayList, passengersCount);
     }
-
-
-    public Flight searchFlight (String srcCode, String destCode, String date, String airlineCode, String flightNumber) throws IOException {
-        ArrayList<Flight> flights = search(srcCode, destCode, date);
+    private Flight searchFlight (String srcCode, String destCode, String date, String airlineCode,
+                                 String flightNumber, InformationProvider infoProvider) throws IOException {
+        ArrayList<Flight> flights = search(srcCode, destCode, date, infoProvider);
         for(Flight flight : flights)
             if(flight.getAirlineCode().equals(airlineCode) && flight.getFlightNumber().equals(flightNumber))
                 return flight;
         return null;
     }
 
-
     public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) throws IOException {
-        SeatClass seatClass = new SeatClass(name, orgCode, destCode, airlineCode);
-        seatClass = setSeatClassPrices(seatClass);
-        logger.debug("searchSeatClass "+seatClass.getName()+" "+seatClass.getOriginCode()+" "+seatClass.getDestinationCode()+" "
-                +seatClass.getAirlineCode()+" "+seatClass.getAdultPrice());
-        return seatClass;
+        return searchSeatClass(name, orgCode, destCode, airlineCode, informationProvider);
+    }
+    public SeatClass immidiateSearchSeatClass (Character name, String orgCode, String destCode, String airlineCode) throws IOException {
+        return searchSeatClass(name, orgCode, destCode, airlineCode, immediateInformationProvider);
     }
 
-
-    private SeatClass setSeatClassPrices(SeatClass seatClass) throws IOException {
-        PriceValueObject priceValueObject = informationProvider.getPricesList(seatClass);
-        seatClass.setAdultPrice(priceValueObject.adultPrice);
-        seatClass.setChildPrice(priceValueObject.childPrice);
-        seatClass.setInfantPrice(priceValueObject.infantPrice);
-        return seatClass;
+    public ArrayList<Flight> search(String originCode, String destCode, String date, Integer adultCount,
+                                    Integer childCount, Integer infantCount) throws IOException {
+        return search(originCode, destCode, date, adultCount, childCount, infantCount, informationProvider);
+    }
+    public ArrayList<Flight> immidiateSearch(String originCode, String destCode, String date, Integer adultCount,
+                                    Integer childCount, Integer infantCount) throws IOException {
+        return search(originCode, destCode, date, adultCount, childCount, infantCount, immediateInformationProvider);
     }
 
-
-    private ArrayList<Flight> search(String originCode, String destCode, String date) throws IOException {
-        ArrayList<Flight> flights = informationProvider.getFlightsList(originCode, destCode, date);
-        for(Flight flight : flights)
-            for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
-                mapSeatClassCapacity.setSeatClass(setSeatClassPrices(mapSeatClassCapacity.getSeatClass()));
-        logger.debug("SRCH "+originCode+" "+destCode+" "+date);
-        return flights;
+    public Flight searchFlight (String srcCode, String destCode, String date, String airlineCode, String flightNumber) throws IOException {
+        return searchFlight(srcCode, destCode, date, airlineCode, flightNumber, informationProvider);
     }
-
+    public Flight immidiateSearchFlight (String srcCode, String destCode, String date, String airlineCode, String flightNumber) throws IOException {
+        return searchFlight(srcCode, destCode, date, airlineCode, flightNumber, immediateInformationProvider);
+    }
 
     public Reservation reserve (Reservation reservation) throws IOException {
         ReserveValueObject reserveValueObject = ticketIssuer.doReservation(reservation);
@@ -140,7 +167,6 @@ public class AkbarTicket {
                 +" "+reservation.getChildCount()+" "+reservation.getInfantCount()+" "+flight.getFlightId());
         return reservation;
     }
-
 
     public ArrayList<TicketBean> finalize (String token) throws IOException {
         Reservation reservation = reserveRepository.getReservationByToken(token);
