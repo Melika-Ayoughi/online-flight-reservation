@@ -1,8 +1,8 @@
 package domain;
 
 import java.io.*;
-import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Ali_Iman on 5/4/17.
@@ -23,11 +23,44 @@ public class InformationProviderProxy implements InformationProvider {
 
 
     public ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) throws IOException {
-        return null;
+        ArrayList<Flight> flights = flightRepository.searchFlights(date, originCode, destinationCode);
+        if (flights == null) {
+            flights = informationProvider.getFlightsList(originCode, destinationCode, date);
+            for(Flight flight : flights)
+                flightRepository.storeFlight(flight);
+            return flights;
+        }
+        long minutesPassed = ((new Date()).getTime()-flights.get(0).getLastUpdateDate().getTime())/(60 * 1000 * 60);
+        if(minutesPassed > timeToLive) {
+            flights = informationProvider.getFlightsList(originCode, destinationCode, date);
+            for(Flight flight : flights)
+                flightRepository.updateFlight(flight);
+            return flights;
+        }
+        return flights;
     }
 
 
-    public PriceValueObject getPricesList(SeatClass seatClass) throws IOException {
-        return null;
+    public PriceValueObject getPricesList(SeatClass inputSeatClass) throws IOException {
+        SeatClass seatClass = seatClassRepository.getSeatClass(inputSeatClass.getName(), inputSeatClass.getOriginCode(),
+                                                    inputSeatClass.getDestinationCode(), inputSeatClass.getAirlineCode());
+        if (seatClass == null) {
+            PriceValueObject priceValueObject = informationProvider.getPricesList(inputSeatClass);
+            inputSeatClass.setAdultPrice(priceValueObject.adultPrice);
+            inputSeatClass.setChildPrice(priceValueObject.childPrice);
+            inputSeatClass.setInfantPrice(priceValueObject.infantPrice);
+            seatClassRepository.storeSeatClass(inputSeatClass);
+            return priceValueObject;
+        }
+        long minutesPassed = ((new Date()).getTime()-seatClass.getLastUpdateDate().getTime())/(60 * 1000 * 60);
+        if(minutesPassed > timeToLive) {
+            PriceValueObject priceValueObject = informationProvider.getPricesList(seatClass);
+            seatClass.setAdultPrice(priceValueObject.adultPrice);
+            seatClass.setChildPrice(priceValueObject.childPrice);
+            seatClass.setInfantPrice(priceValueObject.infantPrice);
+            seatClassRepository.updateSeatClass(seatClass);
+            return priceValueObject;
+        }
+        return (new PriceValueObject(seatClass.getAdultPrice(), seatClass.getChildPrice(), seatClass.getInfantPrice()));
     }
 }

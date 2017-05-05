@@ -5,6 +5,6 @@ package domain;
  */
 public interface SeatClassRepository {
     void storeSeatClass(SeatClass seatClass);
-    SeatClass getSeatClass(String name, String originCode, String destinationCode, String airlineCode);
+    SeatClass getSeatClass(Character name, String originCode, String destinationCode, String airlineCode);
     void updateSeatClass(SeatClass seatClass);
 }
