@@ -8,24 +8,24 @@ import java.util.List;
  */
 public class ReserveRepo implements ReserveRepository {
     private static ReserveRepo reserveRepo;
-    private ArrayList<Reservation> reservations;
+    private ArrayList<Reservation> reservationsList;
 
     private ReserveRepo() { }
     public static ReserveRepo getReserveRepo() {
         if(reserveRepo == null) {
             reserveRepo = new ReserveRepo();
-            reserveRepo.reservations = new ArrayList<Reservation>();
+            reserveRepo.reservationsList = new ArrayList<Reservation>();
         }
         return reserveRepo;
     }
 
 
     public void storeReservation(Reservation reservation) {
-        reservations.add(reservation);
+        reservationsList.add(reservation);
         return;
     }
     public Reservation getReservationByToken(String token) {
-        for (Reservation reservationEntry : reservations)
+        for (Reservation reservationEntry : reservationsList)
             if(reservationEntry.getToken().equals(token))
                 return reservationEntry;
         return null;
@@ -35,6 +35,6 @@ public class ReserveRepo implements ReserveRepository {
     }
 
     public ArrayList<Reservation> getReservations() {
-        return reservations;
+        return reservationsList;
     }
 }

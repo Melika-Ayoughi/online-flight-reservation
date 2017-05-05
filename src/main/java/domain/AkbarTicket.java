@@ -23,14 +23,16 @@ public class AkbarTicket {
     public static AkbarTicket getAkbarTicket() throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
+            akbarTicket.reserveRepository = ReserveRepo.getReserveRepo();
+            akbarTicket.flightRepository = FlightRepo.getFlightRepo();
+            akbarTicket.seatClassRepository = SeatClassRepo.getSeatClassRepo();
             // Default informationProvider and ticketIssuer
             OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
-            akbarTicket.informationProvider = onlineFlightProvider;
+//          akbarTicket.informationProvider = onlineFlightProvider;
+            akbarTicket.informationProvider = new InformationProviderProxy(onlineFlightProvider, 30,
+                                                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
             akbarTicket.ticketIssuer = onlineFlightProvider;
-            akbarTicket.reserveRepository = ReserveRepo.getReserveRepo();
             akbarTicket.logger.debug("Singleton akbarTicket construction");
-//            akbarTicket.flightRepo = FlightRepo.getFlightRepo();
-//            akbarTicket.seatClassRepo = SeatClassRepo.getSeatClassRepo();
         }
         return akbarTicket;
     }

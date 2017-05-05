@@ -60,6 +60,7 @@ public class InformationProviderProxy implements InformationProvider {
             seatClassRepository.updateSeatClass(seatClass);
             return priceValueObject;
         }
+        inputSeatClass.setLastUpdateDate(seatClass.getLastUpdateDate());
         return (new PriceValueObject(seatClass.getAdultPrice(), seatClass.getChildPrice(), seatClass.getInfantPrice()));
     }
 }

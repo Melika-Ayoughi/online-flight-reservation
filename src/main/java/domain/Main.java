@@ -17,9 +17,9 @@ public class Main {
 
         System.out.println(flights.size());
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
-        passengers.add(new Passenger("Ali","Iman", "0912425", "male"));
-        passengers.add(new Passenger("Melika","Ayoughi", "0939763", "female"));
-        passengers.add(new Passenger("Hope","Vanished", "0919224", "female"));
+        passengers.add(new Passenger("Ali","Iman", "0912425489", "male"));
+        passengers.add(new Passenger("Melika","Ayoughi", "0939763600", "female"));
+        passengers.add(new Passenger("Hope","Vanished", "0919224123", "female"));
         Reservation reservation = new Reservation("THR", "MHD", "05Feb", "IR", "452", "Y", "1", "1", "1", passengers);
         reservation = akbarTicket.reserve(reservation);
         ArrayList<Flight> flights2 = akbarTicket.search("THR", "MHD", "05Feb", 2, 1, 0);
