@@ -26,8 +26,6 @@ public class FlightRepo implements FlightRepository{
         }
         return;
     }
-
-
     public ArrayList<Flight> searchFlights(String date, String srcCode, String destCode) {
         ArrayList<Flight> flights = new ArrayList<Flight>();
         for(Flight flightEntry : flights)
@@ -38,17 +36,22 @@ public class FlightRepo implements FlightRepository{
             return null;
         return flights;
     }
-
-
     public void updateFlight(Flight flight) {
-        for(Flight flightEntry : flights)
-            if(flightEntry.equals(flight)) {
+        for(Flight flightEntry : flights) {
+            if (flightEntry.equals(flight)) {
                 flightEntry.setArrivalTime(flight.getArrivalTime());
                 flightEntry.setDepartureTime(flight.getDepartureTime());
                 flightEntry.setAirplaneModel(flight.getAirplaneModel());
-                for(Integer i=0; i<flightEntry.getMapSeatClassCapacities().size(); i++)
+                flightEntry.setLastUpdateDate(flight.getLastUpdateDate());
+                for (Integer i = 0; i < flightEntry.getMapSeatClassCapacities().size(); i++)
                     flightEntry.getMapSeatClassCapacities().get(i).setCapacity(flight.getMapSeatClassCapacities().get(i).getCapacity());
+                return;
             }
+        }
         return;
+    }
+
+    public ArrayList<Flight> getFlights() {
+        return flights;
     }
 }

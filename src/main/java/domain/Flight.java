@@ -81,6 +81,9 @@ public class Flight {
     public void setFlightId(Integer flightId) {
         this.flightId = flightId;
     }
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
 
     public boolean equals(Flight flight) {
         if(this.airlineCode.equals(flight.airlineCode) &&

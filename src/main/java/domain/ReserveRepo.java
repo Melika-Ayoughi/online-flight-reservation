@@ -10,7 +10,6 @@ public class ReserveRepo implements ReserveRepository {
     private static ReserveRepo reserveRepo;
     private ArrayList<Reservation> reservations;
 
-
     private ReserveRepo() { }
     public static ReserveRepo getReserveRepo() {
         if(reserveRepo == null) {
@@ -18,9 +17,6 @@ public class ReserveRepo implements ReserveRepository {
             reserveRepo.reservations = new ArrayList<Reservation>();
         }
         return reserveRepo;
-    }
-    public ArrayList<Reservation> getReservations() {
-        return reservations;
     }
 
 
@@ -36,5 +32,9 @@ public class ReserveRepo implements ReserveRepository {
     }
     public void updateReservation(Reservation reservation) {
         return;
+    }
+
+    public ArrayList<Reservation> getReservations() {
+        return reservations;
     }
 }
