@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="jdbc:hsqldb:hsql://localhost/testdb">
+  <database-model serializer="dbm" rdbms="HSQLDB" format-version="4.0">
+    <root id="1"/>
+    <database id="2" parent="1" name="PUBLIC">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="INFORMATION_SCHEMA"/>
+    <schema id="4" parent="2" name="PUBLIC">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="5" parent="2" name="SYSTEM_LOBS"/>
+    <table id="6" parent="4" name="FLIGHTS"/>
+    <table id="7" parent="4" name="MAPFLIGHTSEATCLASS"/>
+    <table id="8" parent="4" name="MAPPASSENGERRESERVATION"/>
+    <table id="9" parent="4" name="PASSENGERS"/>
+    <table id="10" parent="4" name="RESERVATIONS"/>
+    <table id="11" parent="4" name="SEATCLASSES"/>
+    <table id="12" parent="4" name="TICKETNUMBERS"/>
+    <table id="13" parent="4" name="USERS"/>
+    <column id="14" parent="6" name="FLIGHTID">
+      <Position>1</Position>
+      <DataType>INTEGER(32)|4</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="15" parent="6" name="AIRLINECODE">
+      <Position>2</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="16" parent="6" name="FLIGHTNUMBER">
+      <Position>3</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="17" parent="6" name="DATE">
+      <Position>4</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="18" parent="6" name="SRCCODE">
+      <Position>5</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="6" name="DESTCODE">
+      <Position>6</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="20" parent="6" name="DEPARTURETIME">
+      <Position>7</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="21" parent="6" name="ARRIVALTIME">
+      <Position>8</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="22" parent="6" name="AIRPLANEMODEL">
+      <Position>9</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="23" parent="6" name="LASTUPDATEDATE">
+      <Position>10</Position>
+      <DataType>TIMESTAMP(26)|93</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="24" parent="6" name="SYS_IDX_SYS_CT_10433_10434">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>AIRLINECODE
+FLIGHTNUMBER
+DATE
+SRCCODE
+DESTCODE</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="25" parent="6" name="SYS_PK_10132">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>FLIGHTID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="26" parent="7" name="FLIGHTID">
+      <Position>1</Position>
+      <DataType>INTEGER(32)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="7" name="SEATCLASSID">
+      <Position>2</Position>
+      <DataType>INTEGER(32)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="7" name="CAPACITY">
+      <Position>3</Position>
+      <DataType>INTEGER(32)|4</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="29" parent="7" name="SYS_PK_10377">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>FLIGHTID
+SEATCLASSID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="30" parent="7" name="SYS_FK_10205">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>FLIGHTID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>FLIGHTS</RefTableName>
+      <RefKeyName>SYS_PK_10132</RefKeyName>
+      <RefColNames>FLIGHTID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="31" parent="7" name="SYS_FK_10207">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>SEATCLASSID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>SEATCLASSES</RefTableName>
+      <RefKeyName>SYS_PK_10168</RefKeyName>
+      <RefColNames>SEATCLASSID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="32" parent="8" name="PASSENGERID">
+      <Position>1</Position>
+      <DataType>VARCHAR(10)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="8" name="RESERVATIONID">
+      <Position>2</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <foreign-key id="34" parent="8" name="SYS_FK_10319">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>PASSENGERID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>PASSENGERS</RefTableName>
+      <RefKeyName>SYS_PK_10257</RefKeyName>
+      <RefColNames>NATIONALID</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <foreign-key id="35" parent="8" name="SYS_FK_10321">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>RESERVATIONID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>RESERVATIONS</RefTableName>
+      <RefKeyName>SYS_PK_10280</RefKeyName>
+      <RefColNames>TOKEN</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="36" parent="9" name="FIRSTNAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="9" name="SURNAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="9" name="NATIONALID">
+      <Position>3</Position>
+      <DataType>VARCHAR(10)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="9" name="GENDER">
+      <Position>4</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="40" parent="9" name="SYS_PK_10257">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>NATIONALID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="41" parent="10" name="TOKEN">
+      <Position>1</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="10" name="SRCCODE">
+      <Position>2</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="10" name="DESTCODE">
+      <Position>3</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="10" name="DATE">
+      <Position>4</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="10" name="AIRLINECODE">
+      <Position>5</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="10" name="FLIGHTNUMBER">
+      <Position>6</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="10" name="SEATCLASSNAME">
+      <Position>7</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="10" name="ADULTCOUNT">
+      <Position>8</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="49" parent="10" name="CHILDCOUNT">
+      <Position>9</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="10" name="INFANTCOUNT">
+      <Position>10</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="51" parent="10" name="TOTALPRICE">
+      <Position>11</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <column id="52" parent="10" name="REFERENCECODE">
+      <Position>12</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+    </column>
+    <key id="53" parent="10" name="SYS_PK_10280">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TOKEN</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="54" parent="11" name="SEATCLASSID">
+      <Position>1</Position>
+      <DataType>INTEGER(32)|4</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="55" parent="11" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(1)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="11" name="ADULTPRICE">
+      <Position>3</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <column id="57" parent="11" name="CHILDPRICE">
+      <Position>4</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <column id="58" parent="11" name="INFANTPRICE">
+      <Position>5</Position>
+      <DataType>INTEGER(32)|4</DataType>
+    </column>
+    <column id="59" parent="11" name="ORIGINCODE">
+      <Position>6</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="11" name="DESTINATIONCODE">
+      <Position>7</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="11" name="AIRLINECODE">
+      <Position>8</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="62" parent="11" name="LASTUPDATEDATE">
+      <Position>9</Position>
+      <DataType>TIMESTAMP(26)|93</DataType>
+    </column>
+    <index id="63" parent="11" name="SYS_IDX_SYS_CT_10464_10465">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>NAME
+ORIGINCODE
+DESTINATIONCODE
+AIRLINECODE</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="64" parent="11" name="SYS_PK_10168">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>SEATCLASSID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="65" parent="12" name="TICKETNUMBER">
+      <Position>1</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="66" parent="12" name="RESERVATIONID">
+      <Position>2</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="67" parent="12" name="SYS_PK_10349">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>TICKETNUMBER
+RESERVATIONID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="68" parent="12" name="SYS_FK_10348">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>RESERVATIONID</ColNames>
+      <RefSchemaName>PUBLIC</RefSchemaName>
+      <RefTableName>RESERVATIONS</RefTableName>
+      <RefKeyName>SYS_PK_10280</RefKeyName>
+      <RefColNames>TOKEN</RefColNames>
+      <OnDelete>no-action</OnDelete>
+      <OnUpdate>no-action</OnUpdate>
+    </foreign-key>
+    <column id="69" parent="13" name="USERNAME">
+      <Position>1</Position>
+      <DataType>VARCHAR(10)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="13" name="PASSWORD">
+      <Position>2</Position>
+      <DataType>VARCHAR(100)|12</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="71" parent="13" name="SYS_PK_10099">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>USERNAME</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>
