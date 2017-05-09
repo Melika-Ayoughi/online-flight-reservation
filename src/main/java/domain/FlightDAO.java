@@ -175,7 +175,36 @@ public class FlightDAO implements FlightRepository {
     }
 
     public void updateFlight(Flight flight) {
+        Connection connection = dbConnection.getConnection();
+        Flight searchedFlight = getFlight(flight.getAirlineCode(), flight.getFlightNumber(), flight.getDate(), flight.getSrcCode(), flight.getDestCode());
 
+        if (searchedFlight!=null){
+            String query = "UPDATE \"PUBLIC\".\"FLIGHTS\" SET arrivaltime='"+flight.getArrivalTime()+"', departuretime='"+flight.getDepartureTime()+"', airplanemodel='"+flight.getAirplaneModel()+"', lastupdatedate=CURRENT_TIMESTAMP\n" +
+                    "where flightid="+searchedFlight.getFlightId();
+
+            try {
+                Statement statement = connection.createStatement();
+                int updateFlightResult = statement.executeUpdate(query);
+
+                logger.debug(updateFlightResult+" rows in Flight table were updated.");
+
+                PreparedStatement updateCapacityPrepared = connection.prepareStatement("UPDATE \"PUBLIC\".\"MAPFLIGHTSEATCLASS\" SET capacity = ? where flightid=? and seatclassid=?");
+
+                for (MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities()){
+                    updateCapacityPrepared.setInt(1,mapSeatClassCapacity.getCapacity());
+                    updateCapacityPrepared.setInt(2,searchedFlight.getFlightId());
+                    updateCapacityPrepared.setInt(3,getSeatClassIndex(mapSeatClassCapacity.getSeatClass().getName(),
+                            mapSeatClassCapacity.getSeatClass().getOriginCode(), mapSeatClassCapacity.getSeatClass().getDestinationCode(),
+                            mapSeatClassCapacity.getSeatClass().getAirlineCode()));
+                    logger.debug("1 row is ready to be updated in mapflightseatclass");
+                }
+                updateCapacityPrepared.executeUpdate();
+                updateCapacityPrepared.close();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private Flight constructFlightSeatClass(ResultSet flightResultSet) throws SQLException {
@@ -226,6 +255,8 @@ public class FlightDAO implements FlightRepository {
                 flightResultSet.getString(6), flightResultSet.getString(7),
                 flightResultSet.getString(8),flightResultSet.getString(9),
                 flightResultSet.getDate(10),mapSeatClassCapacities);
+
+        resultFlight.setFlightId(flightResultSet.getInt(1));
 
         joinResultSet.close();
         joinstatement.close();
