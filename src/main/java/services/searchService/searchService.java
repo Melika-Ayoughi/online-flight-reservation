@@ -24,40 +24,19 @@ public class searchService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getFlights(searchRequest searchReq) throws IOException {
+/*
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
 
-//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-//        ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
-//
-//        FlightDAO flightDAO = new FlightDAO();
+        DBConnection dbConnection = DBConnectionWithTomcat.getDbConnectionWithTomcat();
+        FlightDAO flightDAO = new FlightDAO(dbConnection);
+        flightDAO.storeFlights(flights);
+*/
+
 //        flightDAO.getFlight("airlinecode","flightnumber", "date", "srcCode","destCode");
 
 //        flightDAO.searchFlights("05Feb","THR","MHD");
-//        flightDAO.storeFlights(flights);
 
-
-//        DBConnection dbConnection = DBConnection.getDbConnection();
-//        Connection con = dbConnection.getConnection();
-//
-//
-//
-//        try {
-//            Statement statement = con.createStatement();
-//            ResultSet resultSet = null;
-//            resultSet = statement.executeQuery
-//                    ("select count(*) from users where username='melika' and password='ayoughi'");
-//
-//            resultSet.next();
-//            boolean result = resultSet.getInt(1) != 0;
-//
-//            System.out.println("results is: "+result);
-//
-//            resultSet.close();
-//            statement.close();
-//            dbConnection.closeConnection(con);
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
 
 
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
