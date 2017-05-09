@@ -9,10 +9,15 @@ import java.util.ArrayList;
  * Created by melikaayoughi on 5/4/17.
  */
 public class FlightDAO implements FlightRepository {
+    DBConnection dbConnection = null;
+
     private Logger logger = Logger.getLogger(FlightDAO.class);
 
+    public FlightDAO(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
+
     public void storeFlights(ArrayList<Flight> flights) {
-        DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
         try {
@@ -108,61 +113,19 @@ public class FlightDAO implements FlightRepository {
 
         Flight resultFlight = null;
 
-        DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
         String query = "SELECT * FROM \"PUBLIC\".\"FLIGHTS\"\n" +
-                "where airlineCode='IR' and flightNumber='452' and date='05Feb' and srcCode='THR' and destCode='MHD'";
+                "where airlineCode='"+airlineCode+"' and flightNumber='"+flightNumber+"' and date='"+date+"' and srcCode='"+srcCode+"' and destCode='"+destCode+"'";
 
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             if(resultSet.next()){
-                System.out.println("flight: "+resultSet.getInt(1)+resultSet.getString(2)+","+resultSet.getString(3)+","+
-                        resultSet.getString(4)+","+resultSet.getString(5)+","+
-                        resultSet.getString(6)+","+ resultSet.getString(7)+","+
-                        resultSet.getString(8)+","+resultSet.getString(9)+","+
-                        resultSet.getTimestamp(10));
-
-                String mapseatclasscapacityquery = "SELECT * FROM \"PUBLIC\".\"MAPFLIGHTSEATCLASS\" m, \"PUBLIC\".\"SEATCLASSES\" s\n" +
-                        "where m.flightId="+resultSet.getInt(1)+" and m.seatclassid = s.seatClassId";
-
-                Statement joinstatement = connection.createStatement();
-                ResultSet joinResultSet = joinstatement.executeQuery(mapseatclasscapacityquery);
-
-                ArrayList<MapSeatClassCapacity> mapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
-
-                while (joinResultSet.next()){
-                    System.out.println("join results: "+joinResultSet.getInt(1)+","+joinResultSet.getInt(2)+","+
-                            joinResultSet.getInt(3)+","+joinResultSet.getString(5)+","+
-                            joinResultSet.getInt(6)+","+joinResultSet.getInt(7)+","+joinResultSet.getInt(8)+","+
-                            joinResultSet.getString(9)+","+joinResultSet.getString(10)+","+joinResultSet.getString(11)+","+
-                            joinResultSet.getTimestamp(12));
-
-                    SeatClass seatClass = new SeatClass(joinResultSet.getString(5).charAt(0),joinResultSet.getString(9),
-                            joinResultSet.getString(10),joinResultSet.getString(11));
-
-                    seatClass.setInfantPrice(joinResultSet.getInt(8));
-                    seatClass.setChildPrice(joinResultSet.getInt(7));
-                    seatClass.setAdultPrice(joinResultSet.getInt(6));
-
-
-                    seatClass.setLastUpdateDate(joinResultSet.getTimestamp(12));
-
-                    mapSeatClassCapacities.add(new MapSeatClassCapacity(seatClass,joinResultSet.getInt(3)));
-                    System.out.println("--------------------------------");
-                }
-
-                resultFlight = new Flight(resultSet.getString(2),resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getString(8),resultSet.getString(9),
-                        resultSet.getDate(10),mapSeatClassCapacities);
-
-                joinResultSet.close();
-                joinstatement.close();
+                resultFlight = constructFlightSeatClass(resultSet);
             }
+
             resultSet.close();
             statement.close();
             dbConnection.closeConnection(connection);
@@ -178,7 +141,6 @@ public class FlightDAO implements FlightRepository {
 
         ArrayList<Flight> resultFlights = new ArrayList<Flight>();
 
-        DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
         String query = "SELECT * FROM \"PUBLIC\".\"FLIGHTS\"\n" +
@@ -192,55 +154,11 @@ public class FlightDAO implements FlightRepository {
 
             //for each flight
             while (resultSet.next()) {
-
-                System.out.println("flight: "+resultSet.getInt(1)+resultSet.getString(2)+","+resultSet.getString(3)+","+
-                        resultSet.getString(4)+","+resultSet.getString(5)+","+
-                        resultSet.getString(6)+","+ resultSet.getString(7)+","+
-                        resultSet.getString(8)+","+resultSet.getString(9)+","+
-                        resultSet.getTimestamp(10));
-
-                String mapseatclasscapacityquery = "SELECT * FROM \"PUBLIC\".\"MAPFLIGHTSEATCLASS\" m, \"PUBLIC\".\"SEATCLASSES\" s\n" +
-                        "where m.flightId="+resultSet.getInt(1)+" and m.seatclassid = s.seatClassId";
-
-                Statement joinstatement = connection.createStatement();
-                ResultSet joinResultSet = joinstatement.executeQuery(mapseatclasscapacityquery);
-
-                ArrayList<MapSeatClassCapacity> mapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
-
-                while (joinResultSet.next()){
-                    System.out.println("join results: "+joinResultSet.getInt(1)+","+joinResultSet.getInt(2)+","+
-                            joinResultSet.getInt(3)+","+joinResultSet.getString(5)+","+
-                            joinResultSet.getInt(6)+","+joinResultSet.getInt(7)+","+joinResultSet.getInt(8)+","+
-                            joinResultSet.getString(9)+","+joinResultSet.getString(10)+","+joinResultSet.getString(11)+","+
-                            joinResultSet.getTimestamp(12));
-
-                    SeatClass seatClass = new SeatClass(joinResultSet.getString(5).charAt(0),joinResultSet.getString(9),
-                            joinResultSet.getString(10),joinResultSet.getString(11));
-
-                    seatClass.setAdultPrice(joinResultSet.getInt(6));
-                    seatClass.setChildPrice(joinResultSet.getInt(7));
-                    seatClass.setInfantPrice(joinResultSet.getInt(8));
-                    seatClass.setLastUpdateDate(joinResultSet.getTimestamp(12));
-
-//                    System.out.println(" capacity is: "+joinResultSet.getInt(3));
-
-                    mapSeatClassCapacities.add(new MapSeatClassCapacity(seatClass,joinResultSet.getInt(3)));
-                    System.out.println("--------------------------------");
-                }
-
-
-                resultFlights.add(new Flight(resultSet.getString(2),resultSet.getString(3),
-                        resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7),
-                        resultSet.getString(8),resultSet.getString(9),
-                        resultSet.getDate(10),mapSeatClassCapacities));
-
-                joinResultSet.close();
-                joinstatement.close();
-
+                Flight newFlight = constructFlightSeatClass(resultSet);
+                resultFlights.add(newFlight);
             }
 
-            System.out.println("resultsflights: "+resultFlights);
+            System.out.println("Resulted Flights: "+resultFlights);
             resultSet.close();
             statement.close();
             dbConnection.closeConnection(connection);
@@ -260,12 +178,70 @@ public class FlightDAO implements FlightRepository {
 
     }
 
-    //flightId, FLIGHTS
-    //seatClassId, SEATCLASSES
+    private Flight constructFlightSeatClass(ResultSet flightResultSet) throws SQLException {
+
+        Flight resultFlight = null;
+        Connection connection = dbConnection.getConnection();
+
+        System.out.println("Flight: FlightID: "+flightResultSet.getInt(1)+", AirlineCODE: "+flightResultSet.getString(2)
+                +", Flightnumber: "+ flightResultSet.getString(3)+", date: "+ flightResultSet.getString(4)
+                +", SourceCode: "+flightResultSet.getString(5)+", DestinationCode: "+ flightResultSet.getString(6)
+                +", DepTime: "+flightResultSet.getString(7)+", ArrTime: "+ flightResultSet.getString(8)
+                +", Airplanemodel: "+flightResultSet.getString(9)+", LastUpdateDate: "+ flightResultSet.getTimestamp(10));
+
+        String mapseatclasscapacityquery = "SELECT * FROM \"PUBLIC\".\"MAPFLIGHTSEATCLASS\" m, \"PUBLIC\".\"SEATCLASSES\" s\n" +
+                "where m.flightId="+flightResultSet.getInt(1)+" and m.seatclassid = s.seatClassId";
+
+        Statement joinstatement = connection.createStatement();
+        ResultSet joinResultSet = joinstatement.executeQuery(mapseatclasscapacityquery);
+
+        ArrayList<MapSeatClassCapacity> mapSeatClassCapacities = new ArrayList<MapSeatClassCapacity>();
+
+
+        while (joinResultSet.next()){
+            System.out.println("join results: "+joinResultSet.getInt(1)+","+joinResultSet.getInt(2)+","+
+                    joinResultSet.getInt(3)+","+joinResultSet.getString(5)+","+
+                    joinResultSet.getInt(6)+","+joinResultSet.getInt(7)+","+joinResultSet.getInt(8)+","+
+                    joinResultSet.getString(9)+","+joinResultSet.getString(10)+","+joinResultSet.getString(11)+","+
+                    joinResultSet.getTimestamp(12));
+
+            SeatClass seatClass = new SeatClass(joinResultSet.getString(5).charAt(0),joinResultSet.getString(9),
+                    joinResultSet.getString(10),joinResultSet.getString(11));
+
+            seatClass.setAdultPrice(joinResultSet.getInt(6));
+            seatClass.setChildPrice(joinResultSet.getInt(7));
+            seatClass.setInfantPrice(joinResultSet.getInt(8));
+            seatClass.setLastUpdateDate(joinResultSet.getTimestamp(12));
+
+
+            mapSeatClassCapacities.add(new MapSeatClassCapacity(seatClass,joinResultSet.getInt(3)));
+            System.out.println("SeatClass: AirlineCode: "+seatClass.getAirlineCode()+", OriginCode: "+seatClass.getOriginCode()
+            +", DestCode: "+seatClass.getDestinationCode()+", Name: "+seatClass.getName()
+            +", AdultPrice: "+seatClass.getAdultPrice()+", ChildPrice: "+seatClass.getChildPrice()
+            +", InfantPrice: "+seatClass.getInfantPrice()+", LastUpdate: "+seatClass.getLastUpdateDate());
+        }
+
+        resultFlight = new Flight(flightResultSet.getString(2),flightResultSet.getString(3),
+                flightResultSet.getString(4), flightResultSet.getString(5),
+                flightResultSet.getString(6), flightResultSet.getString(7),
+                flightResultSet.getString(8),flightResultSet.getString(9),
+                flightResultSet.getDate(10),mapSeatClassCapacities);
+
+        joinResultSet.close();
+        joinstatement.close();
+
+        return resultFlight;
+    }
+
+    /**
+     *
+     * @param column is flightId or seatClassId
+     * @param table is FLIGHTS or SEATCLASSES
+     * @return
+     */
     private Integer getLastIndex(String column, String table){
         Integer lastIndex = 0;
 
-        DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
         String query = "SELECT MAX("+column+") FROM \"PUBLIC\".\""+table+"\"";
@@ -295,7 +271,6 @@ public class FlightDAO implements FlightRepository {
     private Integer getSeatClassIndex(Character name, String originCode, String destinationCode, String airlineCode){
         Integer index = 0;
 
-        DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
         String query = "SELECT * FROM \"PUBLIC\".\"SEATCLASSES\"\n" +
@@ -332,7 +307,6 @@ public class FlightDAO implements FlightRepository {
     private Integer getFlightIndex(String airlineCode, String flightNumber, String date, String srcCode, String destCode){
         Integer index = 0;
 
-        DBConnection dbConnection = DBConnection.getDbConnection();
         Connection connection = dbConnection.getConnection();
 
         try{
