@@ -110,4 +110,10 @@ public class SeatClassDAO implements SeatClassRepository {
         return index;
     }
 
+    public boolean seatClassExists(Character name, String originCode, String destinationCode, String airlineCode){
+        if(getSeatClassIndex(name,originCode,destinationCode,airlineCode)==0)
+            return false;
+        return true;
+    }
+
 }
