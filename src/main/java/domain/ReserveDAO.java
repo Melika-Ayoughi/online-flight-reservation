@@ -64,6 +64,9 @@ public class ReserveDAO implements ReserveRepository {
                         reservationResultSet.getString(10));
                 reservation.setToken(token);
                 reservation.setTotalPrice(reservationResultSet.getInt(11));
+                String referenceCode = reservationResultSet.getString(12);
+                if(referenceCode!=null)
+                    reservation.setReferenceCode(referenceCode);
 
                 String getPassengerIdByTokenQuery = "SELECT passengerid FROM \"PUBLIC\".\"MAPPASSENGERRESERVATION\" where reservationid='"+token+"' ORDER BY PASSENGERINDEX";
 
@@ -79,6 +82,19 @@ public class ReserveDAO implements ReserveRepository {
                 }
                 reservation.setPassengerList(passengerList);
 
+                String getTicketsQuery = "SELECT ticketnumber FROM \"PUBLIC\".\"TICKETNUMBERS\" where reservationid='"+token+"' ORDER BY ticketindex";
+                Statement statement2 = connection.createStatement();
+                ResultSet ticketNumbersResultSet = statement2.executeQuery(getTicketsQuery);
+
+                ArrayList<String> ticketNumberList = new ArrayList<String>();
+                while(ticketNumbersResultSet.next()){
+                    ticketNumberList.add(ticketNumbersResultSet.getString(1));
+                }
+                if(ticketNumberList.size()!=0)
+                    reservation.setTicketNumbersList(ticketNumberList);
+
+                ticketNumbersResultSet.close();
+                statement2.close();
                 passengerIdResuts.close();
                 statement1.close();
                 reservationResultSet.close();
@@ -92,7 +108,34 @@ public class ReserveDAO implements ReserveRepository {
     }
 
     public void updateReservation(Reservation reservation) {
+        Connection connection = dbConnection.getConnection();
+        String query = "UPDATE \"PUBLIC\".\"RESERVATIONS\" SET referencecode='myreferencecode' where token='"+reservation.getToken()+"'";
 
+        try {
+            Statement statement = connection.createStatement();
+            int updatereservationresult = statement.executeUpdate(query);
+            logger.debug(updatereservationresult+" rows were updated in reservation table");
+
+            String preparedQuery = "INSERT INTO \"PUBLIC\".\"TICKETNUMBERS\"\n" +
+                    "( \"TICKETNUMBER\", \"RESERVATIONID\", \"TICKETINDEX\" )\n" +
+                    "VALUES (?,?,?)";
+            PreparedStatement insertticketNumbers = connection.prepareStatement(preparedQuery);
+
+            for(int i =0; i<reservation.getTicketNumbersList().size(); i++){
+                insertticketNumbers.setString(1,reservation.getTicketNumbersList().get(i));
+                insertticketNumbers.setString(2,reservation.getToken());
+                insertticketNumbers.setInt(3,i);
+
+                insertticketNumbers.executeUpdate();
+                logger.debug("1 row was inserted into ticketnumbers table");
+            }
+
+            insertticketNumbers.close();
+            statement.close();
+            dbConnection.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
