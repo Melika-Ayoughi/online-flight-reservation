@@ -108,6 +108,10 @@ public class Reservation {
         return;
     }
 
+    public void setTotalPrice(Integer totalPrice){
+        this.totalPrice = totalPrice;
+    }
+
     public Integer getTotalPrice() {
         return totalPrice;
     }

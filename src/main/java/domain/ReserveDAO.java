@@ -3,6 +3,7 @@ package domain;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by melikaayoughi on 5/4/17.
@@ -49,7 +50,47 @@ public class ReserveDAO implements ReserveRepository {
     }
 
     public Reservation getReservationByToken(String token) {
-        return null;
+        Reservation reservation = null;
+        Connection connection = dbConnection.getConnection();
+        String query="SELECT * FROM \"PUBLIC\".\"RESERVATIONS\" where token='"+token+"'";
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet reservationResultSet = statement.executeQuery(query);
+
+            if(reservationResultSet.next()){
+                reservation = new Reservation(reservationResultSet.getString(2), reservationResultSet.getString(3),
+                        reservationResultSet.getString(4), reservationResultSet.getString(5),
+                        reservationResultSet.getString(6), reservationResultSet.getString(7),
+                        reservationResultSet.getString(8), reservationResultSet.getString(9),
+                        reservationResultSet.getString(10));
+                reservation.setToken(token);
+                reservation.setTotalPrice(reservationResultSet.getInt(11));
+
+                String getPassengerIdByTokenQuery = "SELECT passengerid FROM \"PUBLIC\".\"MAPPASSENGERRESERVATION\" where reservationid='"+token+"'";
+
+                Statement statement1 = connection.createStatement();
+                ResultSet passengerIdResuts = statement1.executeQuery(getPassengerIdByTokenQuery);
+
+                ArrayList<Passenger> passengerList = new ArrayList<Passenger>();
+                while(passengerIdResuts.next()){
+                    Passenger passenger = getPassengerById(passengerIdResuts.getString(1));
+                    if(passenger!=null){
+                        passengerList.add(passenger);
+                    }
+                }
+                reservation.setPassengerList(passengerList);
+
+                passengerIdResuts.close();
+                statement1.close();
+                reservationResultSet.close();
+                statement.close();
+                dbConnection.closeConnection(connection);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservation;
     }
 
     public void updateReservation(Reservation reservation) {
@@ -106,5 +147,30 @@ public class ReserveDAO implements ReserveRepository {
             e.printStackTrace();
         }
         return passengerNationalId;
+    }
+
+    private Passenger getPassengerById(String passengerId){
+        Passenger passenger = null;
+        Connection connection = dbConnection.getConnection();
+
+        String query ="SELECT * FROM \"PUBLIC\".\"PASSENGERS\" where nationalid="+passengerId;
+
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet getPassengerResult = statement.executeQuery(query);
+
+            if(getPassengerResult.next()){
+                passenger = new Passenger(getPassengerResult.getString(1), getPassengerResult.getString(2),
+                        getPassengerResult.getString(3),getPassengerResult.getString(4));
+            }
+
+            getPassengerResult.close();
+            statement.close();
+            dbConnection.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return passenger;
     }
 }
