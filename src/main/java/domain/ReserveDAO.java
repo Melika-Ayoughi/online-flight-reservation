@@ -18,7 +18,6 @@ public class ReserveDAO implements ReserveRepository {
 
     public void storeReservation(Reservation reservation) {
         Connection connection = dbConnection.getConnection();
-
         String query="INSERT INTO \"PUBLIC\".\"RESERVATIONS\"\n" +
                 "( \"TOKEN\", \"SRCCODE\", \"DESTCODE\", \"DATE\", \"AIRLINECODE\", \"FLIGHTNUMBER\", \"SEATCLASSNAME\", \"ADULTCOUNT\", \"CHILDCOUNT\", \"INFANTCOUNT\", \"TOTALPRICE\" )\n" +
                 "VALUES ( '"+reservation.getToken()+"', '"+reservation.getSrcCode()+"', '"+reservation.getDestCode()+"', '"+reservation.getDate()+"', '"+reservation.getAirlineCode()+"', '"+reservation.getFlightNumber()+"', '"+reservation.getSeatClassName()+"', '"+reservation.getAdultCount()+"', '"+reservation.getChildCount()+"', '"+ reservation.getInfantCount()+"',"+reservation.getTotalPrice()+")";
@@ -29,12 +28,13 @@ public class ReserveDAO implements ReserveRepository {
             logger.debug(insertReservationResult+" rows were inserted into reservation table without reference code");
 
             PreparedStatement insertmapPassengerReservation = connection.prepareStatement("INSERT INTO \"PUBLIC\".\"MAPPASSENGERRESERVATION\"\n" +
-                    "( \"PASSENGERID\", \"RESERVATIONID\" ) VALUES (?,?)");
+                    "( \"PASSENGERID\", \"RESERVATIONID\", \"PASSENGERINDEX\") VALUES (?,?,?)");
 
-            for(Passenger passenger : reservation.getPassengerList()){
-                String passegerId = storePassenger(passenger);
+            for(int i=0; i<reservation.getPassengerList().size(); i++){
+                String passegerId = storePassenger(reservation.getPassengerList().get(i));
                 insertmapPassengerReservation.setString(1,passegerId);
                 insertmapPassengerReservation.setString(2,reservation.getToken());
+                insertmapPassengerReservation.setInt(3, i);
 
                 insertmapPassengerReservation.executeUpdate();
             }
@@ -45,8 +45,6 @@ public class ReserveDAO implements ReserveRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public Reservation getReservationByToken(String token) {
@@ -67,7 +65,7 @@ public class ReserveDAO implements ReserveRepository {
                 reservation.setToken(token);
                 reservation.setTotalPrice(reservationResultSet.getInt(11));
 
-                String getPassengerIdByTokenQuery = "SELECT passengerid FROM \"PUBLIC\".\"MAPPASSENGERRESERVATION\" where reservationid='"+token+"'";
+                String getPassengerIdByTokenQuery = "SELECT passengerid FROM \"PUBLIC\".\"MAPPASSENGERRESERVATION\" where reservationid='"+token+"' ORDER BY PASSENGERINDEX";
 
                 Statement statement1 = connection.createStatement();
                 ResultSet passengerIdResuts = statement1.executeQuery(getPassengerIdByTokenQuery);
