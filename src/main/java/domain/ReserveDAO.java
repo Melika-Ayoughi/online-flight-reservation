@@ -64,7 +64,9 @@ public class ReserveDAO implements ReserveRepository {
                         reservationResultSet.getString(10));
                 reservation.setToken(token);
                 reservation.setTotalPrice(reservationResultSet.getInt(11));
-                reservation.setReferenceCode(reservationResultSet.getString(12));
+                String referenceCode = reservationResultSet.getString(12);
+                if(referenceCode!=null)
+                    reservation.setReferenceCode(referenceCode);
 
                 String getPassengerIdByTokenQuery = "SELECT passengerid FROM \"PUBLIC\".\"MAPPASSENGERRESERVATION\" where reservationid='"+token+"' ORDER BY PASSENGERINDEX";
 
@@ -88,7 +90,8 @@ public class ReserveDAO implements ReserveRepository {
                 while(ticketNumbersResultSet.next()){
                     ticketNumberList.add(ticketNumbersResultSet.getString(1));
                 }
-                reservation.setTicketNumbersList(ticketNumberList);
+                if(ticketNumberList.size()!=0)
+                    reservation.setTicketNumbersList(ticketNumberList);
 
                 ticketNumbersResultSet.close();
                 statement2.close();
