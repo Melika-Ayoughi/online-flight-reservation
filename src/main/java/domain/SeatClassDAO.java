@@ -1,6 +1,7 @@
 package domain;
 
 import org.apache.log4j.Logger;
+import java.util.Date;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -35,14 +36,24 @@ public class SeatClassDAO implements SeatClassRepository {
             ResultSet resultSet = statement.executeQuery(query);
 
             if(resultSet.next()){
+                String adultPrice, childPrice, infantPrice;
+                Date lastUpdateDate;
+
+                adultPrice = resultSet.getString(3);
+                childPrice = resultSet.getString(4);
+                infantPrice = resultSet.getString(5);
+                lastUpdateDate = resultSet.getTimestamp(9);
+
                 resultSeatClass = new SeatClass(resultSet.getString(2).charAt(0),resultSet.getString(6),
                         resultSet.getString(7),resultSet.getString(8));
-                resultSeatClass.setAdultPrice(Integer.parseInt(resultSet.getString(3)));
-                resultSeatClass.setChildPrice(Integer.parseInt(resultSet.getString(4)));
-                resultSeatClass.setInfantPrice(Integer.parseInt(resultSet.getString(5)));
-                resultSeatClass.setLastUpdateDate(resultSet.getTimestamp(9));
-            }
 
+                if(adultPrice != null) {
+                    resultSeatClass.setAdultPrice(Integer.parseInt(adultPrice));
+                    resultSeatClass.setChildPrice(Integer.parseInt(childPrice));
+                    resultSeatClass.setInfantPrice(Integer.parseInt(infantPrice));
+                    resultSeatClass.setLastUpdateDate(lastUpdateDate);
+                }
+            }
             resultSet.close();
             statement.close();
             dbConnection.closeConnection(connection);

@@ -13,9 +13,16 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) throws IOException {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-        ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
 
-        System.out.println(flights.size());
+//        akbarTicket.setReserveRepository(ReserveRepo.getReserveRepo());
+//        akbarTicket.setFlightRepository(FlightRepo.getFlightRepo());
+//        akbarTicket.setSeatClassRepository(SeatClassRepo.getSeatClassRepo());
+
+        DBConnection dbConnection = new DBConnectionOffline();
+        akbarTicket.setFlightRepository(new FlightDAO(dbConnection));
+        akbarTicket.setSeatClassRepository(new SeatClassDAO(dbConnection));
+
+        ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
         passengers.add(new Passenger("Ali","Iman", "0912425489", "male"));
         passengers.add(new Passenger("Melika","Ayoughi", "0939763600", "female"));

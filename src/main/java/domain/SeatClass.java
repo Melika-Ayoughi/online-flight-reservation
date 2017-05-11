@@ -22,13 +22,13 @@ public class SeatClass {
         this.airlineCode = airlineCode;
     }
 
-    public void setAdultPrice(int adultPrice) {
+    public void setAdultPrice(Integer adultPrice) {
         this.adultPrice = adultPrice;
     }
-    public void setChildPrice(int childPrice) {
+    public void setChildPrice(Integer childPrice) {
         this.childPrice = childPrice;
     }
-    public void setInfantPrice(int infantPrice) {
+    public void setInfantPrice(Integer infantPrice) {
         this.infantPrice = infantPrice;
     }
     public void setLastUpdateDate(Date lastUpdateDate) {

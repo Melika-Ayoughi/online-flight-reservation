@@ -30,6 +30,10 @@ public class AkbarTicket {
             akbarTicket.flightRepository = FlightRepo.getFlightRepo();
             akbarTicket.seatClassRepository = SeatClassRepo.getSeatClassRepo();
 
+            DBConnection dbConnection = new DBConnectionOffline();
+            akbarTicket.flightRepository = new FlightDAO(dbConnection);
+            akbarTicket.seatClassRepository = new SeatClassDAO(dbConnection);
+
             akbarTicket.immediateInformationProvider = new InformationProviderProxy(onlineFlightProvider, 0,
                     akbarTicket.flightRepository, akbarTicket.seatClassRepository);
             akbarTicket.informationProvider = new InformationProviderProxy(onlineFlightProvider, 30,
@@ -43,6 +47,9 @@ public class AkbarTicket {
 
     public void setInformationProvider(InformationProvider informationProvider) {
         this.informationProvider = informationProvider;
+    }
+    public void setImmediateInformationProvider(InformationProvider immediateInformationProvider) {
+        this.immediateInformationProvider = immediateInformationProvider;
     }
     public void setTicketIssuer(TicketIssuer ticketIssuer) {
         this.ticketIssuer = ticketIssuer;
