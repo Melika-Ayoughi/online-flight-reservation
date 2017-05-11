@@ -37,6 +37,10 @@ public class SeatClassDAO implements SeatClassRepository {
             if(resultSet.next()){
                 resultSeatClass = new SeatClass(resultSet.getString(2).charAt(0),resultSet.getString(6),
                         resultSet.getString(7),resultSet.getString(8));
+                resultSeatClass.setAdultPrice(Integer.parseInt(resultSet.getString(3)));
+                resultSeatClass.setChildPrice(Integer.parseInt(resultSet.getString(4)));
+                resultSeatClass.setInfantPrice(Integer.parseInt(resultSet.getString(5)));
+                resultSeatClass.setLastUpdateDate(resultSet.getTimestamp(9));
             }
 
             resultSet.close();

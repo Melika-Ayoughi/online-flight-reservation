@@ -254,7 +254,7 @@ public class FlightDAO implements FlightRepository {
                 flightResultSet.getString(4), flightResultSet.getString(5),
                 flightResultSet.getString(6), flightResultSet.getString(7),
                 flightResultSet.getString(8),flightResultSet.getString(9),
-                flightResultSet.getDate(10),mapSeatClassCapacities);
+                flightResultSet.getTimestamp(10),mapSeatClassCapacities);
 
         resultFlight.setFlightId(flightResultSet.getInt(1));
 
