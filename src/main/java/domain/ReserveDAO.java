@@ -109,7 +109,7 @@ public class ReserveDAO implements ReserveRepository {
 
     public void updateReservation(Reservation reservation) {
         Connection connection = dbConnection.getConnection();
-        String query = "UPDATE \"PUBLIC\".\"RESERVATIONS\" SET referencecode='myreferencecode' where token='"+reservation.getToken()+"'";
+        String query = "UPDATE \"PUBLIC\".\"RESERVATIONS\" SET referencecode='"+reservation.getReferenceCode()+"' where token='"+reservation.getToken()+"'";
 
         try {
             Statement statement = connection.createStatement();
