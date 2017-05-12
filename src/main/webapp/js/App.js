@@ -45,21 +45,25 @@ app.config(function($routeProvider) {
         .when("/Home-Search", {
             templateUrl : "Home-Search.html",
             controller  : "Home-SearchController",
+            controllerAs : "homeCtrl",
             css: "Home-Search.css"
         })
         .when("/Results", {
             templateUrl : "Results.html",
             controller  : "ResultsController",
+            controllerAs : "resultsCtrl",
             css : "Results.css"
         })
         .when("/Reserve", {
             templateUrl : "Reserve.html",
             controller  : "ReserveController",
+            controllerAs : "reserveCtrl",
             css: "Reserve.css"
         })
         .when("/Tickets", {
             templateUrl : "Tickets.html",
             controller  : "TicketsController",
+            controllerAs : "ticketsCtrl",
             css: "Tickets.css"
         });
 });
