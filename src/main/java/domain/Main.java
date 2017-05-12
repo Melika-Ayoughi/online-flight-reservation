@@ -8,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), SearchLogRepo.getSearchLogRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
 
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
@@ -26,6 +26,8 @@ public class Main {
         ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
         Flight flight4 = akbarTicket.immediateLookUp("THR", "MHD", "05Feb", "IR", "822", 'Y');
         ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
+        ArrayList<SearchLog> searchLogsList = SearchLogRepo.getSearchLogRepo().getSearchLogsList();
+        ArrayList<Flight> emptyFlightsList = akbarTicket.search("THR", "MHD", "06Feb", 1, 0, 0);
         System.out.println(reservation.getTotalPrice());
     }
 }

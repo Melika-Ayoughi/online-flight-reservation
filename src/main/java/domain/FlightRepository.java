@@ -9,5 +9,4 @@ public interface FlightRepository {
     void storeFlights(ArrayList<Flight> flights);
     ArrayList<Flight> searchFlights(String date, String srcCode, String destCode);
     void updateFlight(Flight flight);
-//    Flight getFlight(String airlineCode, String flightNumber, String date, String srcCode, String destCode);
 }
