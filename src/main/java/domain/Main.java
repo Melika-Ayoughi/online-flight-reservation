@@ -29,7 +29,8 @@ public class Main {
         passengers.add(new Passenger("Hope","Vanished", "0919224123", "female"));
         Reservation reservation = new Reservation("THR", "MHD", "05Feb", "IR", "452", "Y", "1", "1", "1", passengers);
         reservation = akbarTicket.reserve(reservation);
-        ArrayList<Flight> flights2 = akbarTicket.search("THR", "MHD", "05Feb", 2, 1, 0);
+        ArrayList<Flight> flights2 = akbarTicket.search("MHD", "THR", "06Feb", 1, 0, 0);
+        ArrayList<Flight> flights3 = akbarTicket.search("THR", "MHD", "05Feb", 1, 0, 0);
         ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClasses();
         ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();

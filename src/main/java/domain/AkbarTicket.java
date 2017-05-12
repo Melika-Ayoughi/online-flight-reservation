@@ -31,6 +31,7 @@ public class AkbarTicket {
             akbarTicket.seatClassRepository = SeatClassRepo.getSeatClassRepo();
 
             DBConnection dbConnection = new DBConnectionOffline();
+//            akbarTicket.reserveRepository = new ReserveDAO(dbConnection);
             akbarTicket.flightRepository = new FlightDAO(dbConnection);
             akbarTicket.seatClassRepository = new SeatClassDAO(dbConnection);
 
