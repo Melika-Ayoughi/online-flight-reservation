@@ -26,10 +26,6 @@ public class AkbarTicket {
             akbarTicket = new AkbarTicket();
             OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
 
-            akbarTicket.reserveRepository = ReserveRepo.getReserveRepo();
-            akbarTicket.flightRepository = FlightRepo.getFlightRepo();
-            akbarTicket.seatClassRepository = SeatClassRepo.getSeatClassRepo();
-
             DBConnection dbConnection = new DBConnectionOffline();
             akbarTicket.reserveRepository = new ReserveDAO(dbConnection);
             akbarTicket.flightRepository = new FlightDAO(dbConnection);
@@ -41,6 +37,24 @@ public class AkbarTicket {
                                                     akbarTicket.flightRepository, akbarTicket.seatClassRepository);
             akbarTicket.ticketIssuer = onlineFlightProvider;
             akbarTicket.logger.debug("Singleton akbarTicket construction");
+        }
+        return akbarTicket;
+    }
+    public static AkbarTicket getAkbarTicket(ReserveRepository reserveRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo) throws IOException {
+        if(akbarTicket == null){
+            akbarTicket = new AkbarTicket();
+            OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
+
+            akbarTicket.reserveRepository = reserveRepo;
+            akbarTicket.flightRepository = flightRepo;
+            akbarTicket.seatClassRepository = seatClassRepo;
+
+            akbarTicket.immediateInformationProvider = new InformationProviderProxy(onlineFlightProvider, 0,
+                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.informationProvider = new InformationProviderProxy(onlineFlightProvider, 30,
+                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.ticketIssuer = onlineFlightProvider;
+            akbarTicket.logger.debug("Singleton akbarTicket construction with inputs");
         }
         return akbarTicket;
     }
@@ -108,6 +122,8 @@ public class AkbarTicket {
     }
     private ArrayList<Flight> search(String originCode, String destCode, String date, InformationProvider infoProvider) throws IOException {
         ArrayList<Flight> flights = infoProvider.getFlightsList(originCode, destCode, date);
+        if(flights == null)
+            return (new ArrayList<Flight>());
         for(Flight flight : flights)
             for(MapSeatClassCapacity mapSeatClassCapacity : flight.getMapSeatClassCapacities())
                 mapSeatClassCapacity.setSeatClass(setSeatClassPrices(mapSeatClassCapacity.getSeatClass(), infoProvider));

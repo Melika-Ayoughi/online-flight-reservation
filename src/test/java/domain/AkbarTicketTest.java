@@ -16,10 +16,8 @@ public class AkbarTicketTest {
 
     @Before
     public void setUp() throws Exception {
-        akbarTicket = AkbarTicket.getAkbarTicket();
-        akbarTicket.setReserveRepository(ReserveRepo.getReserveRepo());
-        akbarTicket.setFlightRepository(FlightRepo.getFlightRepo());
-        akbarTicket.setSeatClassRepository(SeatClassRepo.getSeatClassRepo());
+        akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
+
         ReserveRepo.getReserveRepo().setReservationsList(new ArrayList<Reservation>());
         FlightRepo.getFlightRepo().setFlightsList(new ArrayList<Flight>());
         SeatClassRepo.getSeatClassRepo().setSeatClassesList(new ArrayList<SeatClass>());
