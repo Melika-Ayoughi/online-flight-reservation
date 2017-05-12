@@ -201,4 +201,8 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
         }
     };
 
+    this.init = function(){
+        alert("salam");
+    };
+
 });

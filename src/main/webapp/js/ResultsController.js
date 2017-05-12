@@ -12,10 +12,23 @@ app.controller('ResultsController', function($scope, $rootScope, $http, $locatio
 
     this.loadReservePage = function(flight, seatClass){
 
+        $scope.resultRequest = {
+            srcCode: flight.srcCode,
+            destCode: flight.destCode,
+            date: flight.date,
+            airlineCode: flight.airlineCode,
+            flightNumber: flight.flightNumber,
+            seatClassName: seatClass.name
+        };
+
         $rootScope.chosenFlight = flight;
         $rootScope.chosenSeatClass = seatClass;
 
-        $location.path('/Reserve');
+        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/resultService/getImmediateFlightInfo',$scope.resultRequest).then(
+            function (response) {
+                $rootScope.newChosenFlight = response.data;
+                $location.path('/Reserve');
+            });
     };
 
     for(var i = 0; i < $rootScope.flightList.length; i++) {
