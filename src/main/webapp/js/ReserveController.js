@@ -8,11 +8,9 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
 
     $scope.message = 'reserve!';
     $scope.flight = $rootScope.chosenFlight;
+    $scope.newFlight = $rootScope.newChosenFlight;
     $scope.seatClass = $rootScope.chosenSeatClass;
 
-    // $scope.adultCount = $rootScope.passengerInfo.adultCount;
-    // $scope.childCount = $rootScope.passengerInfo.childCount;
-    // $scope.infantCount = $rootScope.passengerInfo.infantCount;
 
     $scope.adultPassengerList = [];
     $scope.childPassengerList = [];
@@ -32,9 +30,27 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
         infantPassengerList: $scope.infantPassengerList
     };
 
+
+    if(($scope.newFlight.arrivalTime != $scope.flight.arrivalTime) || ($scope.newFlight.departureTime != $scope.flight.departureTime) ||
+        ($scope.newFlight.airplaneModel != $scope.flight.airplaneModel)){
+        alert("basic flight information was changed including arrivaltime, departuretime, airplane model");
+        //change original chosen flight to show
+        $scope.flight = $scope.newFlight;
+    }
+
+
+    for(var i=0; i< $scope.newFlight.mapSeatClassCapacities.length; i++){
+        if($scope.newFlight.mapSeatClassCapacities[i].seatClass.name == $scope.seatClass.name){
+            $scope.newChosenMapSeatClass = $scope.newFlight.mapSeatClassCapacities[i];
+        }
+    }
+    if( ($scope.newChosenMapSeatClass.seatClass.adultPrice != $scope.seatClass.adultPrice) || ($scope.newChosenMapSeatClass.seatClass.childPrice != $scope.seatClass.childPrice)
+        || ($scope.newChosenMapSeatClass.seatClass.infantPrice != $scope.seatClass.infantPrice) ){
+        alert("seatclass information containing adultprice, childprice, infantprice changed");
+        $scope.seatClass = $scope.newChosenMapSeatClass.seatClass;
+    }
+
     this.getTickets = function () {
-
-
         $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/ticketService/getTickets',$scope.ticketRequest).then(
             function (response) {
                 $rootScope.ticketList = response.data;
@@ -200,9 +216,4 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
 
         }
     };
-
-    this.init = function(){
-        alert("salam");
-    };
-
 });
