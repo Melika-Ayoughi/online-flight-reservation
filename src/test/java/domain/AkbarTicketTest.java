@@ -41,7 +41,7 @@ public class AkbarTicketTest {
         assertEquals(FlightRepo.getFlightRepo().getFlights().get(0).getMapSeatClassCapacities().size() , 3);
         assertEquals(FlightRepo.getFlightRepo().getFlights().get(1).getMapSeatClassCapacities().size() , 3);
         assertEquals(FlightRepo.getFlightRepo().getFlights().get(0).getFlightId().toString() , "0");
-        assertEquals(SeatClassRepo.getSeatClassRepo().getSeatClasses().size() , 5);
+        assertEquals(SeatClassRepo.getSeatClassRepo().getSeatClassesList().size() , 5);
     }
 
     @Test

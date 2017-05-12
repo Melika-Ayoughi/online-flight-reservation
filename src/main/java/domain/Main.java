@@ -1,10 +1,6 @@
 package domain;
 
-import com.google.gson.Gson;
-
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
@@ -12,8 +8,8 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
-//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
+//        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
 
         ArrayList<Flight> flights = akbarTicket.search("THR", "MHD", "05Feb", 0, 1, 0);
         ArrayList<Passenger> passengers  = new ArrayList<Passenger>();
@@ -24,8 +20,8 @@ public class Main {
         reservation = akbarTicket.reserve(reservation);
         ArrayList<Flight> flights2 = akbarTicket.search("MHD", "THR", "06Feb", 1, 0, 0);
         ArrayList<Flight> flights3 = akbarTicket.search("THR", "MHD", "05Feb", 1, 0, 0);
-        ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClasses();
-        ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();
+        ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClassesList();
+        ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservationsList();
         Flight flight1 = akbarTicket.searchFlight("THR","MHD", "05Feb", "IR", "822");
         ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
         Flight flight4 = akbarTicket.immediateLookUp("THR", "MHD", "05Feb", "IR", "822", 'Y');
