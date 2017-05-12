@@ -27,6 +27,7 @@ public class InformationProviderProxy implements InformationProvider {
         if (flights == null) {
             flights = informationProvider.getFlightsList(originCode, destinationCode, date);
             flightRepository.storeFlights(flights);
+            flights = flightRepository.searchFlights(date, originCode, destinationCode);
             return flights;
         }
         long minutesPassed = (System.currentTimeMillis() - flights.get(0).getLastUpdateDate().getTime()) / (1000 * 60);
@@ -34,6 +35,7 @@ public class InformationProviderProxy implements InformationProvider {
             flights = informationProvider.getFlightsList(originCode, destinationCode, date);
             for(Flight flight : flights)
                 flightRepository.updateFlight(flight);
+            flights = flightRepository.searchFlights(date, originCode, destinationCode);
             return flights;
         }
         return flights;
