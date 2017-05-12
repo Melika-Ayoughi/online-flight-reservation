@@ -37,9 +37,13 @@ public class searchService {
 
 //        flightDAO.searchFlights("05Feb","THR","MHD");
 
+        DBConnection dbConnection = new DBConnectionOffline();
+        ReserveRepository reserveRep = new ReserveDAO(dbConnection);
+        SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
+        FlightRepository flightRep = new FlightDAO(dbConnection);
+        SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
 
-
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep);
         ArrayList<Flight> flightsList = akbarTicket.search(searchReq.getSrcCode(), searchReq.getDestCode(),searchReq.getDate(),searchReq.getAdultCount(),searchReq.getChildCount(),searchReq.getInfantCount());
         return Response.status(200).entity(flightsList).build();
     }

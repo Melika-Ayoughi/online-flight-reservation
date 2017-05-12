@@ -23,7 +23,13 @@ public class ticketService {
 //    public Response getTickets(searchRequest searchRequest/*, SeatClass seatClass, Flight flight*/, ArrayList<PassengerVO> adultPassengerList, ArrayList<PassengerVO> childPassengerList, ArrayList<PassengerVO> infantPassengerList) throws IOException {
 
 
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        DBConnection dbConnection = new DBConnectionOffline();
+        ReserveRepository reserveRep = new ReserveDAO(dbConnection);
+        SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
+        FlightRepository flightRep = new FlightDAO(dbConnection);
+        SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep);
 
         ArrayList<PassengerVO> passengerList = ticketRequest.getAdultPassengerList();
         passengerList.addAll(ticketRequest.getChildPassengerList());

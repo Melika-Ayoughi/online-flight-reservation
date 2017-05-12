@@ -1,7 +1,6 @@
 package services.resultService;
 
-import domain.AkbarTicket;
-import domain.Flight;
+import domain.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -22,7 +21,13 @@ public class resultService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getImmediateFlightInfo(resultRequest resultrequest) throws IOException {
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket();
+        DBConnection dbConnection = new DBConnectionOffline();
+        ReserveRepository reserveRep = new ReserveDAO(dbConnection);
+        SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
+        FlightRepository flightRep = new FlightDAO(dbConnection);
+        SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep);
         Flight flight = akbarTicket.immediateLookUp(resultrequest.getSrcCode(),resultrequest.getDestCode(),
                 resultrequest.getDate(),resultrequest.getAirlineCode(),resultrequest.getFlightNumber(),
                 resultrequest.getSeatClassName());
