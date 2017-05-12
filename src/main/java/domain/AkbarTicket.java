@@ -139,28 +139,26 @@ public class AkbarTicket {
         return null;
     }
 
+
     public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) throws IOException {
         return searchSeatClass(name, orgCode, destCode, airlineCode, informationProvider);
     }
-    public SeatClass immidiateSearchSeatClass (Character name, String orgCode, String destCode, String airlineCode) throws IOException {
-        return searchSeatClass(name, orgCode, destCode, airlineCode, immediateInformationProvider);
-    }
-
     public ArrayList<Flight> search(String originCode, String destCode, String date, Integer adultCount,
                                     Integer childCount, Integer infantCount) throws IOException {
         return search(originCode, destCode, date, adultCount, childCount, infantCount, informationProvider);
     }
-    public ArrayList<Flight> immidiateSearch(String originCode, String destCode, String date, Integer adultCount,
-                                    Integer childCount, Integer infantCount) throws IOException {
-        return search(originCode, destCode, date, adultCount, childCount, infantCount, immediateInformationProvider);
-    }
-
     public Flight searchFlight (String srcCode, String destCode, String date, String airlineCode, String flightNumber) throws IOException {
         return searchFlight(srcCode, destCode, date, airlineCode, flightNumber, informationProvider);
     }
-    public Flight immidiateSearchFlight (String srcCode, String destCode, String date, String airlineCode, String flightNumber) throws IOException {
-        return searchFlight(srcCode, destCode, date, airlineCode, flightNumber, immediateInformationProvider);
+    public Flight immediateLookUp (String srcCode, String destCode, String date, String airlineCode, String flightNumber, Character seatClassName) throws IOException {
+        setSeatClassPrices(new SeatClass(seatClassName, srcCode, destCode, airlineCode), immediateInformationProvider);
+        ArrayList<Flight> flights = immediateInformationProvider.getFlightsList(srcCode, destCode, date);
+        for(Flight flightEntry : flights)
+            if(flightEntry.getAirlineCode().equals(airlineCode) && flightEntry.getFlightNumber().equals(flightNumber))
+                return flightEntry;
+        return null;
     }
+
 
     public Reservation reserve (Reservation reservation) throws IOException {
         ReserveValueObject reserveValueObject = ticketIssuer.doReservation(reservation);
@@ -175,7 +173,6 @@ public class AkbarTicket {
                 +" "+reservation.getChildCount()+" "+reservation.getInfantCount()+" "+flight.getFlightId());
         return reservation;
     }
-
     public ArrayList<TicketBean> finalize (String token) throws IOException {
         Reservation reservation = reserveRepository.getReservationByToken(token);
         if (reservation == null) {

@@ -32,10 +32,11 @@ public class Main {
         ArrayList<Flight> flights2 = akbarTicket.search("MHD", "THR", "06Feb", 1, 0, 0);
         ArrayList<Flight> flights3 = akbarTicket.search("THR", "MHD", "05Feb", 1, 0, 0);
         ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClasses();
-        ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();
         Flight flight1 = akbarTicket.searchFlight("THR","MHD", "05Feb", "IR", "822");
         ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
+        Flight flight4 = akbarTicket.immediateLookUp("THR", "MHD", "05Feb", "IR", "822", 'Y');
+        ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         System.out.println(reservation.getTotalPrice());
     }
 }

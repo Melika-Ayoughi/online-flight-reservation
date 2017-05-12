@@ -51,7 +51,6 @@ public class InformationProviderProxy implements InformationProvider {
             seatClassRepository.storeSeatClass(inputSeatClass);
             return priceValueObject;
         }
-
         Long minutesPassed = null;
         if(seatClass.getAdultPrice() != null)
             minutesPassed = (System.currentTimeMillis()-seatClass.getLastUpdateDate().getTime()) / (1000 * 60);
