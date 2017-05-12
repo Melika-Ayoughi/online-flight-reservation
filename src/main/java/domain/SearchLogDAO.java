@@ -10,11 +10,11 @@ import java.sql.Statement;
 /**
  * Created by melikaayoughi on 5/11/17.
  */
-public class manageLogs {
+public class SearchLogDAO implements SearchLogRepository {
     DBConnection dbConnection = null;
-    private Logger logger = Logger.getLogger(manageLogs.class);
+    private Logger logger = Logger.getLogger(SearchLogDAO.class);
 
-    public manageLogs(DBConnection dbConnection) {
+    public SearchLogDAO(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
 
@@ -37,8 +37,8 @@ public class manageLogs {
 
     }
 
-    public logRecord getLogRecord(String srcCode, String destCode, String date){
-        logRecord logrecord = null;
+    public SearchLog getLogRecord(String srcCode, String destCode, String date){
+        SearchLog logrecord = null;
 
         Connection connection = dbConnection.getConnection();
         String query="SELECT * FROM \"PUBLIC\".\"LOGS\" where srccode='"+srcCode+"' and destcode='"+destCode+"' and date='"+date+"'";
@@ -48,7 +48,7 @@ public class manageLogs {
             ResultSet getLogResultSet = statement.executeQuery(query);
 
             if(getLogResultSet.next()){
-                logrecord = new logRecord(getLogResultSet.getString(1), getLogResultSet.getString(2),
+                logrecord = new SearchLog(getLogResultSet.getString(1), getLogResultSet.getString(2),
                         getLogResultSet.getString(3), getLogResultSet.getTimestamp(4));
             }
 
@@ -61,10 +61,10 @@ public class manageLogs {
         return logrecord;
     }
 
-    public void updateLogRecord(logRecord logrecord){
+    public void updateLogRecord(SearchLog searchLog){
         Connection connection = dbConnection.getConnection();
         String query = "UPDATE \"PUBLIC\".\"LOGS\" SET lastupdatedate=CURRENT_TIMESTAMP where " +
-                "srccode='"+logrecord.getSrcCode()+"' and destcode='"+logrecord.getDestCode()+"' and date='"+logrecord.getDate()+"'";
+                "srccode='"+searchLog.getSrcCode()+"' and destcode='"+searchLog.getDestCode()+"' and date='"+searchLog.getDate()+"'";
 
         try {
             Statement statement = connection.createStatement();

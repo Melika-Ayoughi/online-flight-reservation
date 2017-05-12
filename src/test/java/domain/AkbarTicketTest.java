@@ -16,9 +16,10 @@ public class AkbarTicketTest {
 
     @Before
     public void setUp() throws Exception {
-        akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
+        akbarTicket = AkbarTicket.getAkbarTicket(ReserveRepo.getReserveRepo(), SearchLogRepo.getSearchLogRepo(), FlightRepo.getFlightRepo(), SeatClassRepo.getSeatClassRepo());
 
         ReserveRepo.getReserveRepo().setReservationsList(new ArrayList<Reservation>());
+        SearchLogRepo.getSearchLogRepo().setSearchLogsList(new ArrayList<SearchLog>());
         FlightRepo.getFlightRepo().setFlightsList(new ArrayList<Flight>());
         SeatClassRepo.getSeatClassRepo().setSeatClassesList(new ArrayList<SeatClass>());
     }
@@ -41,7 +42,7 @@ public class AkbarTicketTest {
         assertEquals(FlightRepo.getFlightRepo().getFlights().get(0).getMapSeatClassCapacities().size() , 3);
         assertEquals(FlightRepo.getFlightRepo().getFlights().get(1).getMapSeatClassCapacities().size() , 3);
         assertEquals(FlightRepo.getFlightRepo().getFlights().get(0).getFlightId().toString() , "0");
-        assertEquals(SeatClassRepo.getSeatClassRepo().getSeatClasses().size() , 5);
+        assertEquals(SeatClassRepo.getSeatClassRepo().getSeatClassesList().size() , 5);
     }
 
     @Test

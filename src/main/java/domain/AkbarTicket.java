@@ -11,10 +11,12 @@ import org.apache.log4j.Logger;
  */
 public class AkbarTicket {
     private static AkbarTicket akbarTicket;
+    private OnlineFlightProvider onlineFlightProvider;
     private InformationProvider informationProvider;
     private InformationProvider immediateInformationProvider;
     private TicketIssuer ticketIssuer;
     private ReserveRepository reserveRepository;
+    private SearchLogRepository searchLogRepository;
     private FlightRepository flightRepository;
     private SeatClassRepository seatClassRepository;
     private final Logger logger = Logger.getLogger(AkbarTicket.class);
@@ -24,61 +26,54 @@ public class AkbarTicket {
     public static AkbarTicket getAkbarTicket() throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
-            OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
+            akbarTicket.onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
 
             DBConnection dbConnection = new DBConnectionOffline();
             akbarTicket.reserveRepository = new ReserveDAO(dbConnection);
+            akbarTicket.searchLogRepository = new SearchLogDAO(dbConnection);
             akbarTicket.flightRepository = new FlightDAO(dbConnection);
             akbarTicket.seatClassRepository = new SeatClassDAO(dbConnection);
 
-            akbarTicket.immediateInformationProvider = new InformationProviderProxy(onlineFlightProvider, 0,
-                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
-            akbarTicket.informationProvider = new InformationProviderProxy(onlineFlightProvider, 30,
-                                                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
-            akbarTicket.ticketIssuer = onlineFlightProvider;
+            akbarTicket.immediateInformationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 0,
+                    akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.informationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 30,
+                    akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.ticketIssuer = akbarTicket.onlineFlightProvider;
             akbarTicket.logger.debug("Singleton akbarTicket construction");
         }
         return akbarTicket;
     }
-    public static AkbarTicket getAkbarTicket(ReserveRepository reserveRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo) throws IOException {
+    public static AkbarTicket getAkbarTicket(ReserveRepository reserveRepo, SearchLogRepository searchLogRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo) throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
-            OnlineFlightProvider onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
+            akbarTicket.onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
 
             akbarTicket.reserveRepository = reserveRepo;
+            akbarTicket.searchLogRepository = searchLogRepo;
             akbarTicket.flightRepository = flightRepo;
             akbarTicket.seatClassRepository = seatClassRepo;
 
-            akbarTicket.immediateInformationProvider = new InformationProviderProxy(onlineFlightProvider, 0,
-                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
-            akbarTicket.informationProvider = new InformationProviderProxy(onlineFlightProvider, 30,
-                    akbarTicket.flightRepository, akbarTicket.seatClassRepository);
-            akbarTicket.ticketIssuer = onlineFlightProvider;
+            akbarTicket.immediateInformationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 0,
+                    akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.informationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 30,
+                    akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+            akbarTicket.ticketIssuer = akbarTicket.onlineFlightProvider;
             akbarTicket.logger.debug("Singleton akbarTicket construction with inputs");
         }
+        akbarTicket.updateRepositories(reserveRepo, searchLogRepo, flightRepo, seatClassRepo);
         return akbarTicket;
     }
+    private void updateRepositories(ReserveRepository reserveRepo, SearchLogRepository searchLogRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo) {
+        akbarTicket.reserveRepository = reserveRepo;
+        akbarTicket.searchLogRepository = searchLogRepo;
+        akbarTicket.flightRepository = flightRepo;
+        akbarTicket.seatClassRepository = seatClassRepo;
 
-
-    public void setInformationProvider(InformationProvider informationProvider) {
-        this.informationProvider = informationProvider;
+        akbarTicket.immediateInformationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 0,
+                akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
+        akbarTicket.informationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 30,
+                akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
     }
-    public void setImmediateInformationProvider(InformationProvider immediateInformationProvider) {
-        this.immediateInformationProvider = immediateInformationProvider;
-    }
-    public void setTicketIssuer(TicketIssuer ticketIssuer) {
-        this.ticketIssuer = ticketIssuer;
-    }
-    public void setReserveRepository(ReserveRepository reserveRepository) {
-        this.reserveRepository = reserveRepository;
-    }
-    public void setFlightRepository(FlightRepository flightRepository) {
-        this.flightRepository = flightRepository;
-    }
-    public void setSeatClassRepository(SeatClassRepository seatClassRepository) {
-        this.seatClassRepository = seatClassRepository;
-    }
-
 
     private Flight copyFlight(Flight flight) {
         Flight copy = new Flight(flight.getAirlineCode(), flight.getFlightNumber(), flight.getDate(), flight.getSrcCode(),

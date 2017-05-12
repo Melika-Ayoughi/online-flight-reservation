@@ -10,35 +10,43 @@ import java.util.Date;
 public class InformationProviderProxy implements InformationProvider {
     private InformationProvider informationProvider;
     private Integer timeToLive;
+    private SearchLogRepository searchLogRepository;
     private FlightRepository flightRepository;
     private SeatClassRepository seatClassRepository;
 
-    public InformationProviderProxy(InformationProvider informationProvider, Integer timeToLive,
+    public InformationProviderProxy(InformationProvider informationProvider, Integer timeToLive, SearchLogRepository searchLogRepository,
                                     FlightRepository flightRepository, SeatClassRepository seatClassRepository) {
         this.informationProvider = informationProvider;
         this.timeToLive = timeToLive;
+        this.searchLogRepository = searchLogRepository;
         this.flightRepository = flightRepository;
         this.seatClassRepository = seatClassRepository;
     }
 
 
     public ArrayList<Flight> getFlightsList(String originCode, String destinationCode, String date) throws IOException {
-        ArrayList<Flight> flights = flightRepository.searchFlights(date, originCode, destinationCode);
-        if (flights == null) {
-            flights = informationProvider.getFlightsList(originCode, destinationCode, date);
+        SearchLog searchLog = searchLogRepository.getLogRecord(originCode, destinationCode, date);
+
+        if(searchLog == null) {
+            ArrayList<Flight> flights = informationProvider.getFlightsList(originCode, destinationCode, date);
+            searchLogRepository.storeLogRecord(originCode, destinationCode, date);
             flightRepository.storeFlights(flights);
             flights = flightRepository.searchFlights(date, originCode, destinationCode);
             return flights;
         }
-        long minutesPassed = (System.currentTimeMillis() - flights.get(0).getLastUpdateDate().getTime()) / (1000 * 60);
+
+        long minutesPassed = (System.currentTimeMillis() - searchLog.getLastUpdateDate().getTime()) / (1000 * 60);
         if(minutesPassed >= timeToLive) {
-            flights = informationProvider.getFlightsList(originCode, destinationCode, date);
+            ArrayList<Flight> flights = informationProvider.getFlightsList(originCode, destinationCode, date);
+            searchLog.setLastUpdateDate(new Date());
+            searchLogRepository.updateLogRecord(searchLog);
             for(Flight flight : flights)
                 flightRepository.updateFlight(flight);
             flights = flightRepository.searchFlights(date, originCode, destinationCode);
             return flights;
         }
-        return flights;
+
+        return flightRepository.searchFlights(date, originCode, destinationCode);
     }
 
 

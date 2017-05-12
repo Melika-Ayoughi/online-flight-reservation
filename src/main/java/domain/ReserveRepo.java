@@ -34,7 +34,7 @@ public class ReserveRepo implements ReserveRepository {
         return;
     }
 
-    public ArrayList<Reservation> getReservations() {
+    public ArrayList<Reservation> getReservationsList() {
         return reservationsList;
     }
     public void setReservationsList(ArrayList<Reservation> reservationsList) {
