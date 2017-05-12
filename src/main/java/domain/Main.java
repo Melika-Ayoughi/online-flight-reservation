@@ -34,8 +34,8 @@ public class Main {
         ArrayList<SeatClass> seatClassRepos = SeatClassRepo.getSeatClassRepo().getSeatClasses();
         ArrayList<Flight> flightsRepooo = FlightRepo.getFlightRepo().getFlights();
         ArrayList<Reservation> reservations = ReserveRepo.getReserveRepo().getReservations();
-        ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
         Flight flight1 = akbarTicket.searchFlight("THR","MHD", "05Feb", "IR", "822");
+        ArrayList<TicketBean> ticketBeans = akbarTicket.finalize(reservation.getToken());
         System.out.println(reservation.getTotalPrice());
     }
 }
