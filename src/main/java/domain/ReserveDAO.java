@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class ReserveDAO implements ReserveRepository {
     DBConnection dbConnection = null;
     private Logger logger = Logger.getLogger(ReserveDAO.class);
-
     public ReserveDAO(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
     }
@@ -19,8 +18,8 @@ public class ReserveDAO implements ReserveRepository {
     public void storeReservation(Reservation reservation) {
         Connection connection = dbConnection.getConnection();
         String query="INSERT INTO \"PUBLIC\".\"RESERVATIONS\"\n" +
-                "( \"TOKEN\", \"SRCCODE\", \"DESTCODE\", \"DATE\", \"AIRLINECODE\", \"FLIGHTNUMBER\", \"SEATCLASSNAME\", \"ADULTCOUNT\", \"CHILDCOUNT\", \"INFANTCOUNT\", \"TOTALPRICE\" )\n" +
-                "VALUES ( '"+reservation.getToken()+"', '"+reservation.getSrcCode()+"', '"+reservation.getDestCode()+"', '"+reservation.getDate()+"', '"+reservation.getAirlineCode()+"', '"+reservation.getFlightNumber()+"', '"+reservation.getSeatClassName()+"', '"+reservation.getAdultCount()+"', '"+reservation.getChildCount()+"', '"+ reservation.getInfantCount()+"',"+reservation.getTotalPrice()+")";
+                "( \"TOKEN\", \"SRCCODE\", \"DESTCODE\", \"DATE\", \"AIRLINECODE\", \"FLIGHTNUMBER\", \"SEATCLASSNAME\", \"ADULTCOUNT\", \"CHILDCOUNT\", \"INFANTCOUNT\", \"TOTALPRICE\", \"USERNAME\" )\n" +
+                "VALUES ( '"+reservation.getToken()+"', '"+reservation.getSrcCode()+"', '"+reservation.getDestCode()+"', '"+reservation.getDate()+"', '"+reservation.getAirlineCode()+"', '"+reservation.getFlightNumber()+"', '"+reservation.getSeatClassName()+"', '"+reservation.getAdultCount()+"', '"+reservation.getChildCount()+"', '"+ reservation.getInfantCount()+"',"+reservation.getTotalPrice()+", '"+reservation.getUserName()+"')";
 
         try {
             Statement statement = connection.createStatement();
@@ -46,7 +45,6 @@ public class ReserveDAO implements ReserveRepository {
             e.printStackTrace();
         }
     }
-
     public Reservation getReservationByToken(String token) {
         Reservation reservation = null;
         Connection connection = dbConnection.getConnection();
@@ -61,7 +59,7 @@ public class ReserveDAO implements ReserveRepository {
                         reservationResultSet.getString(4), reservationResultSet.getString(5),
                         reservationResultSet.getString(6), reservationResultSet.getString(7),
                         reservationResultSet.getString(8), reservationResultSet.getString(9),
-                        reservationResultSet.getString(10));
+                        reservationResultSet.getString(10), reservationResultSet.getString("USERNAME"));
                 reservation.setToken(token);
                 reservation.setTotalPrice(reservationResultSet.getInt(11));
                 String referenceCode = reservationResultSet.getString(12);
@@ -106,7 +104,6 @@ public class ReserveDAO implements ReserveRepository {
         }
         return reservation;
     }
-
     public void updateReservation(Reservation reservation) {
         Connection connection = dbConnection.getConnection();
         String query = "UPDATE \"PUBLIC\".\"RESERVATIONS\" SET referencecode='"+reservation.getReferenceCode()+"' where token='"+reservation.getToken()+"'";
@@ -167,7 +164,6 @@ public class ReserveDAO implements ReserveRepository {
         }
         return passengerId;
     }
-
     private String getPassengerId(Passenger passenger){
         String passengerNationalId = null;
 
@@ -189,7 +185,6 @@ public class ReserveDAO implements ReserveRepository {
         }
         return passengerNationalId;
     }
-
     private Passenger getPassengerById(String passengerId){
         Passenger passenger = null;
         Connection connection = dbConnection.getConnection();
@@ -213,5 +208,66 @@ public class ReserveDAO implements ReserveRepository {
             e.printStackTrace();
         }
         return passenger;
+    }
+
+    /*....*/
+    private String getPassengerType (Integer passengerIndex, String adultCount, String childCount) {
+        if (passengerIndex < Integer.parseInt(adultCount))
+            return ("adult");
+        else if (passengerIndex < Integer.parseInt(adultCount)+Integer.parseInt(childCount))
+            return ("child");
+        return ("infant");
+    }
+    private ArrayList<TicketBean> getQueryTicketBeans(String query) {
+        ArrayList<TicketBean> ticketBeans = new ArrayList<TicketBean>();
+        Connection connection = dbConnection.getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                String passengerType = getPassengerType(resultSet.getInt("PASSENGERINDEX"),
+                        resultSet.getString("ADULTCOUNT"), resultSet.getString("CHILDCOUNT"));
+                ticketBeans.add(new TicketBean(resultSet.getString("FIRSTNAME"),
+                        resultSet.getString("SURNAME"), resultSet.getString("REFERENCECODE"),
+                        resultSet.getString("TICKETNUMBER"), resultSet.getString("SRCCODE"),
+                        resultSet.getString("DESTCODE"), resultSet.getString("AIRLINECODE"),
+                        resultSet.getString("FLIGHTNUMBER"), resultSet.getString("SEATCLASSNAME"),
+                        resultSet.getString("DATE"), resultSet.getString("DEPARTURETIME"),
+                        resultSet.getString("ARRIVALTIME"), resultSet.getString("AIRPLANEMODEL"),
+                        passengerType, resultSet.getString("GENDER")));
+            }
+            resultSet.close();
+            statement.close();
+            dbConnection.closeConnection(connection);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ticketBeans;
+    }
+    public ArrayList<TicketBean> getAllTicketBeans() {
+        String query = "SELECT MPR.PASSENGERINDEX, R.ADULTCOUNT, R.CHILDCOUNT, P.FIRSTNAME, P.SURNAME, R.REFERENCECODE, TN.TICKETNUMBER, R.SRCCODE, R.DESTCODE, R.AIRLINECODE, R.FLIGHTNUMBER, R.SEATCLASSNAME, R.DATE, F.DEPARTURETIME, F.ARRIVALTIME, F.AIRPLANEMODEL, P.GENDER FROM \"PUBLIC\".\"TICKETNUMBERS\" TN, \"PUBLIC\".\"RESERVATIONS\" R, \"PUBLIC\".\"FLIGHTS\" F, \"PUBLIC\".\"MAPPASSENGERRESERVATION\" MPR, \"PUBLIC\".\"PASSENGERS\" P WHERE TN.RESERVATIONID = R.TOKEN AND R.SRCCODE = F.SRCCODE AND R.DESTCODE = F.DESTCODE AND R.DATE = F.DATE AND R.AIRLINECODE = F.AIRLINECODE AND F.FLIGHTNUMBER = R.FLIGHTNUMBER AND P.NATIONALID = MPR.PASSENGERID AND MPR.RESERVATIONID = R.TOKEN AND MPR.PASSENGERINDEX = TN.TICKETINDEX";
+        return getQueryTicketBeans(query);
+    }
+    public ArrayList<TicketBean> getUserTicketBeans(String userName) {
+        String query = "SELECT MPR.PASSENGERINDEX, R.ADULTCOUNT, R.CHILDCOUNT, P.FIRSTNAME, P.SURNAME, R.REFERENCECODE, TN.TICKETNUMBER, R.SRCCODE, R.DESTCODE, R.AIRLINECODE, R.FLIGHTNUMBER, R.SEATCLASSNAME, R.DATE, F.DEPARTURETIME, F.ARRIVALTIME, F.AIRPLANEMODEL, P.GENDER FROM \"PUBLIC\".\"TICKETNUMBERS\" TN, \"PUBLIC\".\"RESERVATIONS\" R, \"PUBLIC\".\"FLIGHTS\" F, \"PUBLIC\".\"MAPPASSENGERRESERVATION\" MPR, \"PUBLIC\".\"PASSENGERS\" P, \"PUBLIC\".\"USERS\" U WHERE TN.RESERVATIONID = R.TOKEN AND U.USERNAME = R.USERNAME AND R.SRCCODE = F.SRCCODE AND R.DESTCODE = F.DESTCODE AND R.DATE = F.DATE AND R.AIRLINECODE = F.AIRLINECODE AND F.FLIGHTNUMBER = R.FLIGHTNUMBER AND P.NATIONALID = MPR.PASSENGERID AND MPR.RESERVATIONID = R.TOKEN AND MPR.PASSENGERINDEX = TN.TICKETINDEX AND U.USERNAME = '" + userName + "'";
+        return getQueryTicketBeans(query);
+    }
+    public TicketBean getTicketBean(String ticketId) {
+        ArrayList<TicketBean> ticketBeans = new ArrayList<TicketBean>();
+        String query = "SELECT MPR.PASSENGERINDEX, R.ADULTCOUNT, R.CHILDCOUNT, P.FIRSTNAME, P.SURNAME, R.REFERENCECODE, TN.TICKETNUMBER, R.SRCCODE, R.DESTCODE, R.AIRLINECODE, R.FLIGHTNUMBER, R.SEATCLASSNAME, R.DATE, F.DEPARTURETIME, F.ARRIVALTIME, F.AIRPLANEMODEL, P.GENDER FROM \"PUBLIC\".\"TICKETNUMBERS\" TN, \"PUBLIC\".\"RESERVATIONS\" R, \"PUBLIC\".\"FLIGHTS\" F, \"PUBLIC\".\"MAPPASSENGERRESERVATION\" MPR, \"PUBLIC\".\"PASSENGERS\" P, \"PUBLIC\".\"USERS\" U WHERE  TN.RESERVATIONID = R.TOKEN AND U.USERNAME = R.USERNAME AND R.SRCCODE = F.SRCCODE AND R.DESTCODE = F.DESTCODE AND R.DATE = F.DATE AND R.AIRLINECODE = F.AIRLINECODE AND F.FLIGHTNUMBER = R.FLIGHTNUMBER AND P.NATIONALID = MPR.PASSENGERID AND MPR.RESERVATIONID = R.TOKEN AND MPR.PASSENGERINDEX = TN.TICKETINDEX AND TN.TICKETNUMBER = '" + ticketId + "'";
+        ticketBeans = getQueryTicketBeans(query);
+        if(ticketBeans.size()==0)
+            return null;
+        return  ticketBeans.get(0);
+    }
+    public TicketBean getUserTicketBean(String userName, String ticketId) {
+        ArrayList<TicketBean> ticketBeans = new ArrayList<TicketBean>();
+        String query = "SELECT MPR.PASSENGERINDEX, R.ADULTCOUNT, R.CHILDCOUNT, P.FIRSTNAME, P.SURNAME, R.REFERENCECODE, TN.TICKETNUMBER, R.SRCCODE, R.DESTCODE, R.AIRLINECODE, R.FLIGHTNUMBER, R.SEATCLASSNAME, R.DATE, F.DEPARTURETIME, F.ARRIVALTIME, F.AIRPLANEMODEL, P.GENDER FROM \"PUBLIC\".\"TICKETNUMBERS\" TN, \"PUBLIC\".\"RESERVATIONS\" R, \"PUBLIC\".\"FLIGHTS\" F, \"PUBLIC\".\"MAPPASSENGERRESERVATION\" MPR, \"PUBLIC\".\"PASSENGERS\" P, \"PUBLIC\".\"USERS\" U WHERE  TN.RESERVATIONID = R.TOKEN AND U.USERNAME = R.USERNAME AND R.SRCCODE = F.SRCCODE AND R.DESTCODE = F.DESTCODE AND R.DATE = F.DATE AND R.AIRLINECODE = F.AIRLINECODE AND F.FLIGHTNUMBER = R.FLIGHTNUMBER AND P.NATIONALID = MPR.PASSENGERID AND MPR.RESERVATIONID = R.TOKEN AND MPR.PASSENGERINDEX = TN.TICKETINDEX AND TN.TICKETNUMBER = '" + ticketId + "' AND U.USERNAME = '" + userName + "'";
+        ticketBeans = getQueryTicketBeans(query);
+        if(ticketBeans.size()==0)
+            return null;
+        return  ticketBeans.get(0);
     }
 }

@@ -17,6 +17,7 @@ public class Reservation {
     private String adultCount;
     private String childCount;
     private String infantCount;
+    private String UserName;
 
     private List<Passenger> passengerList = new ArrayList<Passenger>();
 
@@ -35,6 +36,19 @@ public class Reservation {
         this.adultCount = adultCount;
         this.childCount = childCount;
         this.infantCount = infantCount;
+        this.passengerList = passengerList;
+    }
+    public Reservation(String srcCode, String destCode, String date, String airlineCode, String flightNumber, String seatClassName, String adultCount, String childCount, String infantCount, String UserName, List<Passenger> passengerList) {
+        this.srcCode = srcCode;
+        this.destCode = destCode;
+        this.date = date;
+        this.airlineCode = airlineCode;
+        this.flightNumber = flightNumber;
+        this.seatClassName = seatClassName;
+        this.adultCount = adultCount;
+        this.childCount = childCount;
+        this.infantCount = infantCount;
+        this.UserName = UserName;
         this.passengerList = passengerList;
     }
 
@@ -90,15 +104,11 @@ public class Reservation {
     public List<String> getTicketNumbersList() {
         return ticketNumbersList;
     }
-
-    public ArrayList<String> getTickets() {
-        ArrayList<String> tickets = new ArrayList<String>();
-        for(int i=0; i<ticketNumbersList.size(); i++){
-            tickets.add(passengerList.get(i).getFirstname() + " " + passengerList.get(i).getSurname() + " "
-            + referenceCode + " " + ticketNumbersList.get(i) + " " + srcCode + " "
-            + destCode + " " + airlineCode + " " + flightNumber + " " + seatClassName);
-        }
-        return tickets;
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+    public String getUserName() {
+        return UserName;
     }
 
     public void setTotalPrice(Integer adultPrice, Integer childPrice, Integer infantPrice){
@@ -107,13 +117,8 @@ public class Reservation {
                 + infantPrice*Integer.parseInt(infantCount);
         return;
     }
-
     public void setTotalPrice(Integer totalPrice){
         this.totalPrice = totalPrice;
-    }
-
-    public Integer getTotalPrice() {
-        return totalPrice;
     }
 
     public Reservation(String srcCode, String destCode, String date, String airlineCode, String flightNumber, String seatClassName, String adultCount, String childCount, String infantCount) {
@@ -126,6 +131,18 @@ public class Reservation {
         this.adultCount = adultCount;
         this.childCount = childCount;
         this.infantCount = infantCount;
+    }
+    public Reservation(String srcCode, String destCode, String date, String airlineCode, String flightNumber, String seatClassName, String adultCount, String childCount, String infantCount, String UserName) {
+        this.srcCode = srcCode;
+        this.destCode = destCode;
+        this.date = date;
+        this.airlineCode = airlineCode;
+        this.flightNumber = flightNumber;
+        this.seatClassName = seatClassName;
+        this.adultCount = adultCount;
+        this.childCount = childCount;
+        this.infantCount = infantCount;
+        this.UserName = UserName;
     }
 
     public int getTotalPrice(String adultPrice, String childPrice, String infantPrice){

@@ -28,8 +28,9 @@ public class ticketService {
         SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
         FlightRepository flightRep = new FlightDAO(dbConnection);
         SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+        UserRepository userRep = new UserDAO(dbConnection);
 
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep);
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
 
         ArrayList<PassengerVO> passengerList = ticketRequest.getAdultPassengerList();
         passengerList.addAll(ticketRequest.getChildPassengerList());

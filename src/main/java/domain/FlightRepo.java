@@ -57,4 +57,11 @@ public class FlightRepo implements FlightRepository{
     public void setFlightsList(ArrayList<Flight> flightsList) {
         this.flightsList = flightsList;
     }
+    public Flight searchFlight(String airlineCode, String flightNumber, String date, String srcCode, String destCode) {
+        for(Flight flightEntry : flightsList)
+            if(flightEntry.getAirlineCode().equals(airlineCode) && flightEntry.getFlightNumber().equals(flightNumber)
+                    && flightEntry.getDate().equals(date) && flightEntry.getSrcCode().equals(srcCode) && flightEntry.getDestCode().equals(destCode))
+                return flightEntry;
+        return null;
+    }
 }

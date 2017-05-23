@@ -19,6 +19,7 @@ public class AkbarTicket {
     private SearchLogRepository searchLogRepository;
     private FlightRepository flightRepository;
     private SeatClassRepository seatClassRepository;
+    private UserRepository userRepository;
     private final Logger logger = Logger.getLogger(AkbarTicket.class);
 
 
@@ -33,6 +34,7 @@ public class AkbarTicket {
             akbarTicket.searchLogRepository = new SearchLogDAO(dbConnection);
             akbarTicket.flightRepository = new FlightDAO(dbConnection);
             akbarTicket.seatClassRepository = new SeatClassDAO(dbConnection);
+            akbarTicket.userRepository = new UserDAO(dbConnection);
 
             akbarTicket.immediateInformationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 0,
                     akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
@@ -43,7 +45,7 @@ public class AkbarTicket {
         }
         return akbarTicket;
     }
-    public static AkbarTicket getAkbarTicket(ReserveRepository reserveRepo, SearchLogRepository searchLogRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo) throws IOException {
+    public static AkbarTicket getAkbarTicket(ReserveRepository reserveRepo, SearchLogRepository searchLogRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo, UserRepository userRepo) throws IOException {
         if(akbarTicket == null){
             akbarTicket = new AkbarTicket();
             akbarTicket.onlineFlightProvider = new CA1HelperServer("178.62.207.47", 8081);
@@ -52,6 +54,7 @@ public class AkbarTicket {
             akbarTicket.searchLogRepository = searchLogRepo;
             akbarTicket.flightRepository = flightRepo;
             akbarTicket.seatClassRepository = seatClassRepo;
+            akbarTicket.userRepository = userRepo;
 
             akbarTicket.immediateInformationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 0,
                     akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
@@ -60,14 +63,15 @@ public class AkbarTicket {
             akbarTicket.ticketIssuer = akbarTicket.onlineFlightProvider;
             akbarTicket.logger.debug("Singleton akbarTicket construction with inputs");
         }
-        akbarTicket.updateRepositories(reserveRepo, searchLogRepo, flightRepo, seatClassRepo);
+        akbarTicket.updateRepositories(reserveRepo, searchLogRepo, flightRepo, seatClassRepo, userRepo);
         return akbarTicket;
     }
-    private void updateRepositories(ReserveRepository reserveRepo, SearchLogRepository searchLogRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo) {
+    private void updateRepositories(ReserveRepository reserveRepo, SearchLogRepository searchLogRepo, FlightRepository flightRepo, SeatClassRepository seatClassRepo, UserRepository userRepo) {
         akbarTicket.reserveRepository = reserveRepo;
         akbarTicket.searchLogRepository = searchLogRepo;
         akbarTicket.flightRepository = flightRepo;
         akbarTicket.seatClassRepository = seatClassRepo;
+        akbarTicket.userRepository = userRepo;
 
         akbarTicket.immediateInformationProvider = new InformationProviderProxy(akbarTicket.onlineFlightProvider, 0,
                 akbarTicket.searchLogRepository, akbarTicket.flightRepository, akbarTicket.seatClassRepository);
@@ -126,7 +130,6 @@ public class AkbarTicket {
         return flights;
     }
 
-
     private SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode, InformationProvider infoProvider) throws IOException {
         SeatClass seatClass = new SeatClass(name, orgCode, destCode, airlineCode);
         seatClass = setSeatClassPrices(seatClass, infoProvider);
@@ -149,7 +152,6 @@ public class AkbarTicket {
                 return flight;
         return null;
     }
-
 
     public SeatClass searchSeatClass (Character name, String orgCode, String destCode, String airlineCode) throws IOException {
         return searchSeatClass(name, orgCode, destCode, airlineCode, informationProvider);

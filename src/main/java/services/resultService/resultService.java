@@ -26,8 +26,9 @@ public class resultService {
         SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
         FlightRepository flightRep = new FlightDAO(dbConnection);
         SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+        UserRepository userRep = new UserDAO(dbConnection);
 
-        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep);
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
         Flight flight = akbarTicket.immediateLookUp(resultrequest.getSrcCode(),resultrequest.getDestCode(),
                 resultrequest.getDate(),resultrequest.getAirlineCode(),resultrequest.getFlightNumber(),
                 resultrequest.getSeatClassName());
