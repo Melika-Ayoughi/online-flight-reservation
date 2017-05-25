@@ -1,9 +1,19 @@
 package domain;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.Verification;
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import com.sun.org.apache.xml.internal.security.algorithms.JCEMapper;
 import org.apache.log4j.Logger;
 
 /**
@@ -222,5 +232,117 @@ public class AkbarTicket {
                                   reservation.getPassengerType(i)+" "+reservationSeatClass.getPriceForType(reservation.getPassengerType(i)));
         }
         return ticketBeans;
+    }
+
+
+    /*  ************************************    */
+
+    private String createToken (String userName, String role) {
+        String token = null;
+        try {
+            Algorithm algorithmHMAC = Algorithm.HMAC256("Meli");
+            Algorithm algorithmNone = Algorithm.none();
+            JWTCreator.Builder jwtBuilder = JWT.create();
+            jwtBuilder.withClaim("userName", userName);
+            jwtBuilder.withClaim("role", role);
+            jwtBuilder.withIssuedAt(new Date());
+
+            token = jwtBuilder.sign(algorithmNone);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return token;
+    }
+    private UserNameRole verifyToken (String token) {
+        DecodedJWT decodedJWT = null;
+        try {
+            Algorithm algorithmHMAC = Algorithm.HMAC256("Meli");
+            Algorithm algorithmNone = Algorithm.none();
+            JWTVerifier verifier = JWT.require(algorithmNone).acceptExpiresAt(1800).build();
+            decodedJWT = verifier.verify(token);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        } catch (com.auth0.jwt.exceptions.SignatureVerificationException e) {
+            e.printStackTrace();
+            return null;
+        }
+        Claim userNameClaim = decodedJWT.getClaim("userName");
+        Claim roleClaim = decodedJWT.getClaim("role");
+        if(userNameClaim.isNull() || roleClaim.isNull())
+            return null;
+        return new UserNameRole(userNameClaim.asString(), roleClaim.asString());
+    }
+
+    public String login (String userName, String passWord) {
+        User user = userRepository.authenticateUser(userName, passWord);
+        if (user == null) {
+            logger.info("login faild for Username = " + userName + " and Password = " + passWord);
+            return null;
+        }
+        return createToken(user.getUserName(), user.getRole());
+    }
+    public ArrayList<TicketBean> getTickets(String token) {
+        UserNameRole userNameRole = verifyToken(token);
+        if(userNameRole==null) {
+            if(token!=null)
+                logger.info("Invalid token for getTickets method, token = " + token);
+            else
+                logger.info("Null token!");
+            return null;
+        }
+        if(userNameRole.getRole().equals("admin"))
+            return reserveRepository.getAllTicketBeans();
+        return reserveRepository.getUserTicketBeans(userNameRole.getUserName());
+    }
+    public TicketBean getTicket(String token, String ticketNumber) {
+        UserNameRole userNameRole = verifyToken(token);
+        if(userNameRole==null) {
+            if(token!=null)
+                logger.info("Invalid token for getTicket method, token = " + token);
+            else
+                logger.info("Null token!");
+            return null;
+        }
+        if(userNameRole.getRole().equals("admin"))
+            return reserveRepository.getTicketBean(ticketNumber);
+        TicketBean ticketBean = reserveRepository.getUserTicketBean(userNameRole.getUserName(), ticketNumber);
+        if(ticketBean==null) {
+            logger.info("UnAuthorization access, UserName = " + userNameRole.getUserName() +
+                            " tried to access ticket with ticketID = " + ticketNumber);
+            return null;
+        }
+        return ticketBean;
+    }
+
+    public Reservation reserve (Reservation reservation, String authenticationToken) throws IOException {
+        UserNameRole userNameRole = verifyToken(authenticationToken);
+        if(userNameRole==null) {
+            if(authenticationToken!=null)
+                logger.info("Invalid token for reserve, token = " + authenticationToken);
+            else
+                logger.info("Null token!");
+            return null;
+        }
+        if (userNameRole.getRole().equals("admin")) {
+            logger.info("Admin with userName = " + userNameRole.getUserName() + " tried to reserve some tickets!");
+            return null;
+        }
+        reservation.setUserName(userNameRole.getUserName());
+        return reserve(reservation);
+    }
+    public String getRoleByAuthenticationToken (String authenticationToken) {
+        UserNameRole userNameRole = verifyToken(authenticationToken);
+        if(userNameRole==null) {
+            if(authenticationToken!=null)
+                logger.info("Invalid token for getRoleByAuthenticationToken method, token = " + authenticationToken);
+            else
+                logger.info("Null token!");
+            return null;
+        }
+        return userNameRole.getRole();
     }
 }

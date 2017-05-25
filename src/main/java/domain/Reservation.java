@@ -120,6 +120,9 @@ public class Reservation {
     public void setTotalPrice(Integer totalPrice){
         this.totalPrice = totalPrice;
     }
+    public void setUserName(String userName) {
+        UserName = userName;
+    }
 
     public Reservation(String srcCode, String destCode, String date, String airlineCode, String flightNumber, String seatClassName, String adultCount, String childCount, String infantCount) {
         this.srcCode = srcCode;
