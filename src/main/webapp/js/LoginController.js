@@ -3,15 +3,15 @@
  */
 app.controller('LoginController', function($scope, $rootScope, $http, $location){
     $scope.message = 'login!';
-    $rootScope.token ='';
 
     this.login = function(){
         $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/loginService/login',$rootScope.loginRequest).then(
             function (response) {
-                $rootScope.token = response.data;
+                $rootScope.loginResponse = response.data;
                 $location.path('/Home-Search');
             });
     };
+
     $rootScope.loginRequest = {
         username: 'AliIman',
         password: '1235813'

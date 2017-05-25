@@ -21,6 +21,8 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
     $scope.searchRequest = $rootScope.searchRequest;
 
     $scope.ticketRequest = {
+        // token: $rootScope.loginResponse.token,
+        token: $scope.loginResponse.token,
         searchRequest: $scope.searchRequest,
         seatClass : $scope.seatClass.name,
         airlineCode : $scope.flight.airlineCode,
@@ -56,66 +58,11 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
                 $rootScope.ticketList = response.data;
                 $location.path('/Tickets');
             });
-
-        //
-        // //just for testing
-        // $rootScope.ticketList = [{
-        //     "firstName": "mm",
-        //     "surname": "mm",
-        //     "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
-        //     "ticketNo": "192f34a9-b8bc-0320-f997-e09b03db1f60",
-        //     "originCode": "THR",
-        //     "destinationCode": "MHD",
-        //     "airlineCode": "IR",
-        //     "flightNo": "452",
-        //     "seatClassName": "Y",
-        //     "date": "05Feb",
-        //     "departureTime": "1740",
-        //     "arrivalTime": "1850",
-        //     "airplaneModel": "M80",
-        //     "type": "adult",
-        //     "gender": "Mrs."
-        // }, {
-        //     "firstName": "kk",
-        //     "surname": "kk",
-        //     "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
-        //     "ticketNo": "03ed98c9-397f-d2e9-40cf-d0ccbd91696b",
-        //     "originCode": "THR",
-        //     "destinationCode": "MHD",
-        //     "airlineCode": "IR",
-        //     "flightNo": "452",
-        //     "seatClassName": "Y",
-        //     "date": "05Feb",
-        //     "departureTime": "1740",
-        //     "arrivalTime": "1850",
-        //     "airplaneModel": "M80",
-        //     "type": "child",
-        //     "gender": "Mr."
-        // }, {
-        //     "firstName": "kk",
-        //     "surname": "pp",
-        //     "referenceCode": "f2230245-ff09-85ac-8d44-5a883c47217e",
-        //     "ticketNo": "84094528-3e63-6aa1-9bbf-04223fc9c203",
-        //     "originCode": "THR",
-        //     "destinationCode": "MHD",
-        //     "airlineCode": "IR",
-        //     "flightNo": "452",
-        //     "seatClassName": "Y",
-        //     "date": "05Feb",
-        //     "departureTime": "1740",
-        //     "arrivalTime": "1850",
-        //     "airplaneModel": "M80",
-        //     "type": "infant",
-        //     "gender": "Mrs."
-        // }];
-        //
-        // $location.path('/Tickets');
-
     };
 
 
 
-    for ( let index=0; index<$rootScope.searchRequest.adultCount; index++ ) {
+    for ( var index=0; index<$rootScope.searchRequest.adultCount; index++ ) {
         $scope.adultPassengerList.push(
             {
                 firstName: "",
@@ -125,7 +72,7 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
             });
     }
 
-    for ( let index=0; index<$rootScope.searchRequest.childCount; index++ ) {
+    for ( var index=0; index<$rootScope.searchRequest.childCount; index++ ) {
         $scope.childPassengerList.push(
             {
                 firstName: "",
@@ -135,7 +82,7 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
             });
     }
 
-    for ( let index=0; index<$rootScope.searchRequest.infantCount; index++ ) {
+    for ( var index=0; index<$rootScope.searchRequest.infantCount; index++ ) {
         $scope.infantPassengerList.push(
             {
                 firstName: "",
@@ -170,7 +117,6 @@ app.controller('ReserveController', function($scope, $http, $rootScope, $locatio
                 );
                 localRef.refreshAdultPassenger();
             })();
-
         }
     };
 

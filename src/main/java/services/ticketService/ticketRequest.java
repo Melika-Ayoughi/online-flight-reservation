@@ -9,6 +9,8 @@ import services.searchService.searchRequest;
  */
 public class ticketRequest {
 
+    private String token;
+
     private searchRequest searchRequest;
 
     private String seatClass;
@@ -20,6 +22,9 @@ public class ticketRequest {
     private ArrayList<PassengerVO> childPassengerList;
     private ArrayList<PassengerVO> infantPassengerList;
 
+    public void setToken(String token) {
+        this.token = token;
+    }
     public void setAirlineCode(String airlineCode) {
         this.airlineCode = airlineCode;
     }
@@ -48,6 +53,10 @@ public class ticketRequest {
         this.infantPassengerList = infantPassengerList;
     }
 
+
+    public String getToken() {
+        return token;
+    }
 
     public String getAirlineCode() {
         return airlineCode;

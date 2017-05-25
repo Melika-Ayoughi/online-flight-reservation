@@ -5,7 +5,9 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
     $scope.message = 'search!';
     $rootScope.flightList = [];
 
-    $scope.token = $rootScope.token;
+    $scope.token = $rootScope.loginResponse.token;
+
+    alert("token is:"+$scope.token);
 
     this.searchFlights = function(){
 

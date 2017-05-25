@@ -280,7 +280,7 @@ public class AkbarTicket {
     public String login (String userName, String passWord) {
         User user = userRepository.authenticateUser(userName, passWord);
         if (user == null) {
-            logger.info("login faild for Username = " + userName + " and Password = " + passWord);
+            logger.info("login failed for Username = " + userName + " and Password = " + passWord);
             return null;
         }
         return createToken(user.getUserName(), user.getRole());
@@ -288,10 +288,7 @@ public class AkbarTicket {
     public ArrayList<TicketBean> getTickets(String token) {
         UserNameRole userNameRole = verifyToken(token);
         if(userNameRole==null) {
-            if(token!=null)
-                logger.info("Invalid token for getTickets method, token = " + token);
-            else
-                logger.info("Null token!");
+            logger.info("Invalid token for getTickets method, token = " + token);
             return null;
         }
         if(userNameRole.getRole().equals("admin"))
@@ -301,10 +298,7 @@ public class AkbarTicket {
     public TicketBean getTicket(String token, String ticketNumber) {
         UserNameRole userNameRole = verifyToken(token);
         if(userNameRole==null) {
-            if(token!=null)
-                logger.info("Invalid token for getTicket method, token = " + token);
-            else
-                logger.info("Null token!");
+            logger.info("Invalid token for getTicket method, token = " + token);
             return null;
         }
         if(userNameRole.getRole().equals("admin"))
@@ -321,10 +315,7 @@ public class AkbarTicket {
     public Reservation reserve (Reservation reservation, String authenticationToken) throws IOException {
         UserNameRole userNameRole = verifyToken(authenticationToken);
         if(userNameRole==null) {
-            if(authenticationToken!=null)
-                logger.info("Invalid token for reserve, token = " + authenticationToken);
-            else
-                logger.info("Null token!");
+            logger.info("Invalid token for reserve, token = " + authenticationToken);
             return null;
         }
         if (userNameRole.getRole().equals("admin")) {
@@ -337,10 +328,7 @@ public class AkbarTicket {
     public String getRoleByAuthenticationToken (String authenticationToken) {
         UserNameRole userNameRole = verifyToken(authenticationToken);
         if(userNameRole==null) {
-            if(authenticationToken!=null)
-                logger.info("Invalid token for getRoleByAuthenticationToken method, token = " + authenticationToken);
-            else
-                logger.info("Null token!");
+            logger.info("Invalid token for getRoleByAuthenticationToken method, token = " + authenticationToken);
             return null;
         }
         return userNameRole.getRole();

@@ -1,6 +1,7 @@
 package services.ticketService;
 
 import domain.*;
+import org.apache.log4j.Logger;
 import services.searchService.searchRequest;
 
 import javax.ws.rs.*;
@@ -14,11 +15,15 @@ import java.util.ArrayList;
  */
 @Path("/ticketService")
 public class ticketService {
+
+    private final Logger logger = Logger.getLogger(ticketService.class);
     @POST
     @Path("/getTickets")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getTickets(ticketRequest ticketRequest) throws IOException {
+
+        logger.debug("token is: " + ticketRequest.getToken());
 
 //    public Response getTickets(searchRequest searchRequest/*, SeatClass seatClass, Flight flight*/, ArrayList<PassengerVO> adultPassengerList, ArrayList<PassengerVO> childPassengerList, ArrayList<PassengerVO> infantPassengerList) throws IOException {
 
@@ -57,7 +62,7 @@ public class ticketService {
 
 
 
-        Reservation finalReservation = AkbarTicket.getAkbarTicket().reserve(reservation);
+        Reservation finalReservation = AkbarTicket.getAkbarTicket().reserve(reservation, ticketRequest.getToken());
 
         ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().finalize(finalReservation.getToken());
 
