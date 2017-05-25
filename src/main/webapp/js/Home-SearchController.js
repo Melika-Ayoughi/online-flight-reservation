@@ -5,6 +5,8 @@ app.controller('Home-SearchController', function($scope, $rootScope, $http, $loc
     $scope.message = 'search!';
     $rootScope.flightList = [];
 
+    $scope.token = $rootScope.token;
+
     this.searchFlights = function(){
 
         $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/searchService/getFlights',$rootScope.searchRequest).then(

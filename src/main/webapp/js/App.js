@@ -42,6 +42,12 @@ app.config(function($routeProvider) {
             templateUrl : "index.html",
             controller  : "mainController"
         })
+        .when("/Login", {
+            templateUrl : "Login.html",
+            controller  : "LoginController",
+            controllerAs : "loginCtrl",
+            css: "Login.css"
+        })
         .when("/Home-Search", {
             templateUrl : "Home-Search.html",
             controller  : "Home-SearchController",
@@ -69,8 +75,9 @@ app.config(function($routeProvider) {
 });
 
 
-app.controller('mainController', function($scope, $http){
+app.controller('mainController', function($scope, $http, $location){
     $scope.message = 'main!';
+    $location.path('/Login');
 });
 
 
