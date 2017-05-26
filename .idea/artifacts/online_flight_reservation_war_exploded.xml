@@ -29,6 +29,8 @@
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.7.1" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-jaxrs:1.7.1" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-xc:1.7.1" />
+          <element id="library" level="project" name="Maven: com.sun.jersey:jersey-bundle:1.19.4" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.0" />
           <element id="library" level="project" name="Maven: org.hsqldb:hsqldb:2.4.0" />
           <element id="library" level="project" name="Maven: com.auth0:java-jwt:3.2.0" />

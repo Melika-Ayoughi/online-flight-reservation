@@ -7,6 +7,7 @@ import services.searchService.searchRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,9 +25,6 @@ public class ticketService {
     public Response getTickets(ticketRequest ticketRequest) throws IOException {
 
         logger.debug("token is: " + ticketRequest.getToken());
-
-//    public Response getTickets(searchRequest searchRequest/*, SeatClass seatClass, Flight flight*/, ArrayList<PassengerVO> adultPassengerList, ArrayList<PassengerVO> childPassengerList, ArrayList<PassengerVO> infantPassengerList) throws IOException {
-
 
         DBConnection dbConnection = new DBConnectionOffline();
         ReserveRepository reserveRep = new ReserveDAO(dbConnection);
@@ -68,4 +66,31 @@ public class ticketService {
 
         return Response.status(200).entity(ticketBeans).build();
     }
+
+    @POST
+    @Path("/tickets")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response viewTickets(String token) throws IOException {
+        logger.debug("before calling");
+        ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().getTickets(token);
+        logger.debug("after calling. tickets beans are: "+ ticketBeans.toString());
+        if(ticketBeans==null)
+            return Response.status(403).build();
+        return Response.status(200).entity(ticketBeans).build();
+    }
+
+    @POST
+    @Path("/ticketsById")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response viewTicketById(ViewTicketRequest viewTicketRequest) throws IOException {
+        logger.debug("before calling view ticket");
+        TicketBean ticketBean = AkbarTicket.getAkbarTicket().getTicket(viewTicketRequest.getUserToken(), viewTicketRequest.getTicketNumber());
+        logger.debug("after calling view ticket. ticket bean is: ");
+        if(ticketBean==null)
+            return Response.status(403).build();
+        return Response.status(200).entity(ticketBean).build();
+    }
+
 }

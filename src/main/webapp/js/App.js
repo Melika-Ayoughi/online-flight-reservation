@@ -42,6 +42,14 @@ app.config(function($routeProvider) {
             templateUrl : "index.html",
             controller  : "mainController"
         })
+        .when("/ViewTickets", {
+            templateUrl : "ViewTickets.html",
+            controller  : "ViewTicketsController"
+        })
+        .when("/ViewTickets/:ticket_id", {
+            templateUrl : "ViewTicketsById.html",
+            controller  : "ViewTicketsByIdController"
+        })
         .when("/Login", {
             templateUrl : "Login.html",
             controller  : "LoginController",

@@ -21,6 +21,9 @@ public class loginService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(loginRequest loginRequest) throws IOException {
         String token = AkbarTicket.getAkbarTicket().login(loginRequest.getUsername(), loginRequest.getPassword());
+        if(token==null)
+            return Response.status(403).build();
+
         loginResponse loginResponse = new loginResponse();
         loginResponse.setToken(token);
         return Response.status(200).entity(loginResponse).build();
