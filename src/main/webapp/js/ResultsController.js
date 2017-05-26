@@ -13,6 +13,7 @@ app.controller('ResultsController', function($scope, $rootScope, $http, $locatio
     this.loadReservePage = function(flight, seatClass){
 
         $scope.resultRequest = {
+            token: $scope.loginResponse.token,
             srcCode: flight.srcCode,
             destCode: flight.destCode,
             date: flight.date,
@@ -24,11 +25,22 @@ app.controller('ResultsController', function($scope, $rootScope, $http, $locatio
         $rootScope.chosenFlight = flight;
         $rootScope.chosenSeatClass = seatClass;
 
-        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/resultService/getImmediateFlightInfo',$scope.resultRequest).then(
-            function (response) {
+        $http.post('http://localhost:8080/online_flight_reservation/onlinereservation/resultService/getImmediateFlightInfo',$scope.resultRequest)
+            .then(function successCallback(response) {
                 $rootScope.newChosenFlight = response.data;
                 $location.path('/Reserve');
+
+            }, function errorCallback(response) {
+                console.log(response);
+                alert("You are either admin or have not logged in!");
+                $location.path('/Login');
             });
+            //
+            // .then(
+            // function (response) {
+            //     $rootScope.newChosenFlight = response.data;
+            //     $location.path('/Reserve');
+            // });
     };
 
     for(var i = 0; i < $rootScope.flightList.length; i++) {

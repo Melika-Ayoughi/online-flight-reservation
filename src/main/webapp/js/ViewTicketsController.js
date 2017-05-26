@@ -13,7 +13,7 @@ app.controller('ViewTicketsController', function($scope, $rootScope, $http, $loc
             document.body.innerHTML = JSON.stringify(response.data);
 
         }, function errorCallback(response) {
-            // console.log(response);
+            console.log(response);
             alert("Unauthorized access!");
             $location.path('/Home-Search');
         });

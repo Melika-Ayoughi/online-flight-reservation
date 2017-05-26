@@ -14,7 +14,6 @@ app.controller('LoginController', function($scope, $rootScope, $http, $location)
                 console.log(response);
                 alert("Username or Password Was Incorrect! Please Try Again");
                 $location.path('/Login');
-                // alert(response.data.message);
             });
     };
     $rootScope.loginRequest = {

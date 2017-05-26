@@ -29,6 +29,12 @@ public class resultService {
         UserRepository userRep = new UserDAO(dbConnection);
 
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
+
+        String role = akbarTicket.getRoleByAuthenticationToken(resultrequest.getToken());
+        if(role==null || role=="admin"){
+            return Response.status(403).build();
+        }
+
         Flight flight = akbarTicket.immediateLookUp(resultrequest.getSrcCode(),resultrequest.getDestCode(),
                 resultrequest.getDate(),resultrequest.getAirlineCode(),resultrequest.getFlightNumber(),
                 resultrequest.getSeatClassName());

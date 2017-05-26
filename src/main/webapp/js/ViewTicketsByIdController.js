@@ -2,7 +2,7 @@
  * Created by melikaayoughi on 5/26/17.
  */
 
-app.controller('ViewTicketsByIdController', function($scope, $rootScope, $http, $routeParams){
+app.controller('ViewTicketsByIdController', function($scope, $rootScope, $http, $routeParams,$location){
     $scope.message = 'ViewTicketsByIdController!';
     $scope.mytoken = $rootScope.loginResponse.token;
     $scope.ticketId = $routeParams.ticket_id;
@@ -21,13 +21,8 @@ app.controller('ViewTicketsByIdController', function($scope, $rootScope, $http, 
             document.body.innerHTML = JSON.stringify(response.data);
 
         }, function errorCallback(response) {
-            // console.log(response);
+            console.log(response);
             alert("Unauthorized access!");
             $location.path('/Home-Search');
         });
-        //
-        // .then(
-        // function (response) {
-        //     document.body.innerHTML = JSON.stringify(response.data);
-        // });
 });

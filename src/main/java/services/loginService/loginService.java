@@ -1,6 +1,6 @@
 package services.loginService;
 
-import domain.AkbarTicket;
+import domain.*;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,7 +20,15 @@ public class loginService {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(loginRequest loginRequest) throws IOException {
-        String token = AkbarTicket.getAkbarTicket().login(loginRequest.getUsername(), loginRequest.getPassword());
+        DBConnection dbConnection = new DBConnectionOffline();
+        ReserveRepository reserveRep = new ReserveDAO(dbConnection);
+        SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
+        FlightRepository flightRep = new FlightDAO(dbConnection);
+        SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+        UserRepository userRep = new UserDAO(dbConnection);
+
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
+        String token = akbarTicket.login(loginRequest.getUsername(), loginRequest.getPassword());
         if(token==null)
             return Response.status(403).build();
 

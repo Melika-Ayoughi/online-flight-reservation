@@ -7,12 +7,17 @@ import domain.SeatClass;
  * Created by melikaayoughi on 5/12/17.
  */
 public class resultRequest {
+    private String token="";
     private String srcCode = "";
     private String destCode = "";
     private String date = "";
     private String airlineCode="";
     private String flightNumber="";
     private Character seatClassName;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public void setSrcCode(String srcCode) {
         this.srcCode = srcCode;
@@ -36,6 +41,10 @@ public class resultRequest {
 
     public void setSeatClassName(Character seatClassName) {
         this.seatClassName = seatClassName;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public String getSrcCode() {

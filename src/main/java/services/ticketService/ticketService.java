@@ -73,10 +73,16 @@ public class ticketService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response viewTickets(String token) throws IOException {
         logger.debug("before calling");
-        ArrayList<TicketBean> ticketBeans = AkbarTicket.getAkbarTicket().getTickets(token);
+        DBConnection dbConnection = new DBConnectionOffline();
+        ReserveRepository reserveRep = new ReserveDAO(dbConnection);
+        SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
+        FlightRepository flightRep = new FlightDAO(dbConnection);
+        SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+        UserRepository userRep = new UserDAO(dbConnection);
+
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
+        ArrayList<TicketBean> ticketBeans = akbarTicket.getTickets(token);
         logger.debug("after calling. tickets beans are: "+ ticketBeans.toString());
-        if(ticketBeans==null)
-            return Response.status(403).build();
         return Response.status(200).entity(ticketBeans).build();
     }
 
@@ -86,7 +92,15 @@ public class ticketService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response viewTicketById(ViewTicketRequest viewTicketRequest) throws IOException {
         logger.debug("before calling view ticket");
-        TicketBean ticketBean = AkbarTicket.getAkbarTicket().getTicket(viewTicketRequest.getUserToken(), viewTicketRequest.getTicketNumber());
+        DBConnection dbConnection = new DBConnectionOffline();
+        ReserveRepository reserveRep = new ReserveDAO(dbConnection);
+        SearchLogRepository searchLogRep = new SearchLogDAO(dbConnection);
+        FlightRepository flightRep = new FlightDAO(dbConnection);
+        SeatClassRepository seatClassRep = new SeatClassDAO(dbConnection);
+        UserRepository userRep = new UserDAO(dbConnection);
+
+        AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
+        TicketBean ticketBean = akbarTicket.getTicket(viewTicketRequest.getUserToken(), viewTicketRequest.getTicketNumber());
         logger.debug("after calling view ticket. ticket bean is: ");
         if(ticketBean==null)
             return Response.status(403).build();
