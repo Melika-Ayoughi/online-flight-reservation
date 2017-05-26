@@ -31,7 +31,9 @@ public class resultService {
         AkbarTicket akbarTicket = AkbarTicket.getAkbarTicket(reserveRep, searchLogRep, flightRep, seatClassRep, userRep);
 
         String role = akbarTicket.getRoleByAuthenticationToken(resultrequest.getToken());
-        if(role==null || role=="admin"){
+        System.out.println("role is: "+role);
+        if(role==null || role.equals("admin")){
+            System.out.println("role is: "+role);
             return Response.status(403).build();
         }
 
