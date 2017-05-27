@@ -54,7 +54,7 @@ RUN set -x \
     && rm bin/*.bat \
     && rm tomcat.tar.gz*
 
-ADD ./target/*.war $CATALINA_HOME/webapps/
+RUN mv /myproject/target/online_flight_reservation.war $CATALINA_HOME/webapps/
 
 
 WORKDIR $CATALINA_HOME/bin
